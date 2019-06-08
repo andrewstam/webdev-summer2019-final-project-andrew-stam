@@ -39,12 +39,14 @@ export default class SearchComponent extends React.Component {
                                 onClick={() => this.submitQuery()}>Search</button>
                     </div>
                 </div>
-                <div>
-                    <h4>Results</h4>
-                    {this.state.results.map((r, key) =>
-                        <ResultItem key={key} title={r.Title}/>
-                    )}
-                </div>
+                {this.state.results.length > 0 &&
+                    <div>
+                        <h4>Results</h4>
+                        {this.state.results.map((r, key) =>
+                            <ResultItem key={key} title={r.Title} img={r.Poster}/>
+                        )}
+                    </div>
+                }
             </div>
         );
     }
