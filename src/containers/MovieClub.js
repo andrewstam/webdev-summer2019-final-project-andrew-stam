@@ -3,6 +3,7 @@ import React from 'react';
 import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
 import SearchComponent from '../components/SearchComponent';
+import DetailComponent from '../components/DetailComponent';
 
 export default class MovieClub extends React.Component {
     constructor(props) {
@@ -25,6 +26,8 @@ export default class MovieClub extends React.Component {
                     <Link to="/search">Search</Link>
                     <Route path="/(|search)"
                            component={SearchComponent}/>
+                    <Route path="/details/:did"
+                           component={DetailComponent}/>
                 </Router>
             </div>
         );

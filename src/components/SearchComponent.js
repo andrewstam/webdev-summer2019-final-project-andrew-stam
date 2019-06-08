@@ -43,7 +43,7 @@ export default class SearchComponent extends React.Component {
                     <div>
                         <h4>Results</h4>
                         {this.state.results.map((r, key) =>
-                            <ResultItem key={key} title={r.Title} img={r.Poster}/>
+                            <ResultItem key={key} title={r.Title} did={r.imdbID}/>
                         )}
                     </div>
                 }
