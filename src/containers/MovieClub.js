@@ -19,7 +19,7 @@ export default class MovieClub extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="container-fluid">
                 <h1>Movie Club</h1>
                 <Router>
                     <Link to="/search">Search</Link>
