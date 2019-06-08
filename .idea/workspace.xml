@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7313eeed-9cf6-463b-9588-c268b72091c6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/DetailComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ResultItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ResultItem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SearchComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SearchComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/MovieClub.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/MovieClub.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/DetailComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DetailComponent.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -32,8 +28,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/DetailComponent.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="19" column="21" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
+            <state relative-caret-position="263">
+              <caret line="42" column="21" selection-start-line="42" selection-start-column="21" selection-end-line="42" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -241,8 +237,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/DetailComponent.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="21" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
+        <state relative-caret-position="263">
+          <caret line="42" column="21" selection-start-line="42" selection-start-column="21" selection-end-line="42" selection-end-column="21" />
         </state>
       </provider>
     </entry>
