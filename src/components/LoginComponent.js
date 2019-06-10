@@ -13,7 +13,7 @@ export default class LoginComponent extends React.Component {
             username: '',
             password: '',
             role: 'GroupMember',
-            loggedIn: false,
+            loggedIn: this.props.user !== null,
             failed: false
         };
     }
@@ -25,8 +25,6 @@ export default class LoginComponent extends React.Component {
             this.setState({loggedIn: true});
             // Send user info to parent
             this.props.setUser(json);
-            // Load profile
-            window.location.pathname = '/profile';
         } else {
             // Tell user the info was wrong
             this.setState({failed: true});
@@ -41,6 +39,11 @@ export default class LoginComponent extends React.Component {
     }
 
     render() {
+        // Load user profile page once logged in
+        if (this.state.loggedIn) {
+            return <Redirect to='/profile'/>
+        }
+
         return (
             <div>
                 <h3>Login Page</h3>

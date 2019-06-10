@@ -16,10 +16,19 @@ export default class ProfileComponent extends React.Component {
         };
     }
 
+    componentWillReceiveProps(props) {
+        if (this.props !== props) {
+            this.props = props;
+        }
+    }
+
     render() {
         return (
             <div>
                 <h3>Profile {this.state.uid}</h3>
+                {this.props.user === null &&
+                    <span>Please login</span>
+                }
             </div>
         );
     }

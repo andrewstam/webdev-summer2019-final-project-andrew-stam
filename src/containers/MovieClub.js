@@ -34,9 +34,9 @@ export default class MovieClub extends React.Component {
                     <Route path="/details/:did"
                            component={DetailComponent}/>
                     <Route path="/profile"
-                           component={ProfileComponent}/>
+                           render={() => <ProfileComponent user={this.state.user}/>}/>
                     <Route path="/login"
-                           render={() => <LoginComponent setUser={this.setUser}/>}/>
+                           render={() => <LoginComponent user={this.state.user} setUser={this.setUser}/>}/>
                 </Router>
             </div>
         );
@@ -44,5 +44,9 @@ export default class MovieClub extends React.Component {
 
     // Set the current user
     setUser = user =>
-        this.setState({user: user});
+        this.setState({user: user})
+
+    // Set the current page
+    setPage = page =>
+        this.setState({page: page})
 }
