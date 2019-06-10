@@ -15,6 +15,14 @@ export default class LoginComponent extends React.Component {
         };
     }
 
+    // Check if valid login, if so then show profile on front-end
+    doValidate = () => {
+        // Send to backend to validate
+        // for new IDs, use (new Date()).getTime().toString()
+        const valid = service.validateLogin(this.state.username, this.state.password);
+        console.log(valid);
+    }
+
     render() {
         return (
             <div>
@@ -28,8 +36,7 @@ export default class LoginComponent extends React.Component {
                            placeholder="Password"/>
                     <div>
                         <button className="btn btn-success" type="submit"
-                                onClick={() => service.validateLogin((new Date()).getTime().toString(),
-                                    this.state.username, this.state.password, this.state.role)}>
+                                onClick={() => this.doValidate()}>
                             Login
                         </button>
                     </div>

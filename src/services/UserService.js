@@ -12,10 +12,10 @@ export default class UserService {
     }
 
     // Send login info to backend and see if valid
-    validateLogin = (id, user, pass, role) => {
-        fetch("http://localhost:8080/api/login", {
+    validateLogin = (user, pass) => {
+        fetch("http://localhost:8080/api/validate", {
             method: 'PUT',
-            body: [id, user, pass, role],
+            body: [user, pass],
             headers: {
                 'content-type': 'application/json'
             }
@@ -24,10 +24,10 @@ export default class UserService {
     }
 
     // Send new user data to backend to save as valid login
-    createUser = (user, pass) => {
+    createUser = (id, user, pass, role) => {
         fetch("http://localhost:8080/api/users", {
             method: 'POST',
-            body: [user, pass],
+            body: [id, user, pass, role],
             headers: {
                 'content-type': 'application/json'
             }
