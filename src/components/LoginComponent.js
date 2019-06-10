@@ -7,9 +7,11 @@ export default class LoginComponent extends React.Component {
     constructor(props) {
         super(props);
 
+        // Default role is GroupMember
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            role: 'GroupMember'
         };
     }
 
@@ -26,7 +28,8 @@ export default class LoginComponent extends React.Component {
                            placeholder="Password"/>
                     <div>
                         <button className="btn btn-success" type="submit"
-                                onClick={() => service.validateLogin(this.state.username, this.state.password)}>
+                                onClick={() => service.validateLogin((new Date()).getTime().toString(),
+                                    this.state.username, this.state.password, this.state.role)}>
                             Login
                         </button>
                     </div>

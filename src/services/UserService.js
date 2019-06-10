@@ -5,17 +5,17 @@ export default class UserService {
 
     // Singleton pattern
     static getInstance() {
-        if (instance === null) {
+        if (UserService.instance === null) {
             UserService.instance = new UserService();
         }
         return UserService.instance;
     }
 
     // Send login info to backend and see if valid
-    validateLogin = (user, pass) => {
+    validateLogin = (id, user, pass, role) => {
         fetch("http://localhost:8080/api/login", {
             method: 'PUT',
-            body: [user, pass],
+            body: [id, user, pass, role],
             headers: {
                 'content-type': 'application/json'
             }
