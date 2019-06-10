@@ -17,7 +17,7 @@ export default class SearchComponent extends React.Component {
     // Send the query to omdb API, load result into state
     // Function based on Jose Annunziato's lecture slides
     submitQuery = () => {
-        var url = 'http://www.omdbapi.com';
+        var url = 'https://www.omdbapi.com';
         // My personal API key, do not duplicate or reuse without permission
         url += '?apikey=abfe6d09';
         url += '&s=' + this.state.query;

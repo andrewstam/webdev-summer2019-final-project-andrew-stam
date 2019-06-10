@@ -16,7 +16,7 @@ export default class DetailComponent extends React.Component {
 
     // Load details about the item with the given ID
     componentDidMount = () => {
-        var url = 'http://www.omdbapi.com';
+        var url = 'https://www.omdbapi.com';
         // My personal API key, do not duplicate or reuse without permission
         url += '?apikey=abfe6d09';
         url += '&i=' + this.state.did;
