@@ -12,15 +12,18 @@ export default class UserService {
     }
 
     // Send login info to backend and see if valid
-    validateLogin = (user, pass) => {
+    validateLogin = (user, pass, fn) => {
         fetch("http://localhost:8080/api/validate", {
-            method: 'PUT',
+            method: 'POST',
             body: JSON.stringify([user, pass]),
             headers: {
                 'content-type': 'application/json'
             }
         })
         .then(response => response.json())
+        .then(json => {
+            fn(json);
+        })
     }
 
     // Send new user data to backend to save as valid login

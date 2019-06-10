@@ -16,7 +16,8 @@ export default class MovieClub extends React.Component {
 
         // Pages: /home, /login, /search, /details/{did}, /profile/{uid}
         this.state = {
-            page: pageName
+            page: pageName,
+            user: null
         };
     }
 
@@ -32,12 +33,16 @@ export default class MovieClub extends React.Component {
                            component={SearchComponent}/>
                     <Route path="/details/:did"
                            component={DetailComponent}/>
-                    <Route path="/profile/"
+                    <Route path="/profile"
                            component={ProfileComponent}/>
                     <Route path="/login"
-                           component={LoginComponent}/>
+                           render={() => <LoginComponent setUser={this.setUser}/>}/>
                 </Router>
             </div>
         );
     }
+
+    // Set the current user
+    setUser = user =>
+        this.setState({user: user});
 }

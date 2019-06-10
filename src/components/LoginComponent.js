@@ -1,5 +1,6 @@
 // Created by Andrew Stam
 import React from 'react';
+import {Redirect} from 'react-router-dom';
 import UserService from '../services/UserService';
 const service = UserService.getInstance();
 
@@ -11,16 +12,32 @@ export default class LoginComponent extends React.Component {
         this.state = {
             username: '',
             password: '',
-            role: 'GroupMember'
+            role: 'GroupMember',
+            loggedIn: false,
+            failed: false
         };
+    }
+
+    // After the server response, set state to loggedIn if valid
+    loginCallback = json => {
+        console.log('json: ' + JSON.stringify(json));
+        if (json.id !== null) {
+            this.setState({loggedIn: true});
+            // Send user info to parent
+            this.props.setUser(json);
+            // Load profile
+            window.location.pathname = '/profile';
+        } else {
+            // Tell user the info was wrong
+            this.setState({failed: true});
+        }
     }
 
     // Check if valid login, if so then show profile on front-end
     doValidate = () => {
         // Send to backend to validate
         // for new IDs, use (new Date()).getTime().toString()
-        const valid = service.validateLogin(this.state.username, this.state.password);
-        console.log(valid);
+        service.validateLogin(this.state.username, this.state.password, this.loginCallback);
     }
 
     render() {
@@ -41,6 +58,9 @@ export default class LoginComponent extends React.Component {
                         </button>
                     </div>
                 </div>
+                {this.state.failed &&
+                    <h6>Login failed. Try again.</h6>
+                }
             </div>
         );
     }
