@@ -32,7 +32,7 @@ export default class MovieClub extends React.Component {
                            component={SearchComponent}/>
                     <Route path="/details/:did"
                            component={DetailComponent}/>
-                    <Route path="/profile/:uid"
+                    <Route path="/profile/"
                            component={ProfileComponent}/>
                     <Route path="/login"
                            component={LoginComponent}/>
