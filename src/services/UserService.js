@@ -15,7 +15,7 @@ export default class UserService {
     validateLogin = (user, pass) => {
         fetch("http://localhost:8080/api/validate", {
             method: 'PUT',
-            body: [user, pass],
+            body: JSON.stringify([user, pass]),
             headers: {
                 'content-type': 'application/json'
             }
@@ -27,7 +27,7 @@ export default class UserService {
     createUser = (id, user, pass, role) => {
         fetch("http://localhost:8080/api/users", {
             method: 'POST',
-            body: [id, user, pass, role],
+            body: JSON.stringify([id, user, pass, role]),
             headers: {
                 'content-type': 'application/json'
             }
