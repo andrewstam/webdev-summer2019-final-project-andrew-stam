@@ -1,5 +1,7 @@
 // Created by Andrew Stam
 import React from 'react';
+import UserService from '../services/UserService';
+const service = UserService.getInstance();
 
 export default class LoginComponent extends React.Component {
     constructor(props) {
@@ -24,7 +26,9 @@ export default class LoginComponent extends React.Component {
                            placeholder="Password"/>
                     <div>
                         <button className="btn btn-success" type="submit"
-                                onClick={() => alert('click')}>Login</button>
+                                onClick={() => service.validateLogin(this.state.username, this.state.password)}>
+                            Login
+                        </button>
                     </div>
                 </div>
             </div>
