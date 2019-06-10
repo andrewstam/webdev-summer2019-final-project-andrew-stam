@@ -4,6 +4,8 @@ import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
 import SearchComponent from '../components/SearchComponent';
 import DetailComponent from '../components/DetailComponent';
+import LoginComponent from '../components/LoginComponent';
+import ProfileComponent from '../components/ProfileComponent';
 
 export default class MovieClub extends React.Component {
     constructor(props) {
@@ -24,10 +26,16 @@ export default class MovieClub extends React.Component {
                 <h1>Movie Club</h1>
                 <Router>
                     <Link to="/search">Search</Link>
-                    <Route path="/(|search)"
+                    | <Link to="/profile">Profile</Link>
+                    | <Link to="/login">Login</Link>
+                    <Route path="/(|home|search)"
                            component={SearchComponent}/>
                     <Route path="/details/:did"
                            component={DetailComponent}/>
+                    <Route path="/profile/:uid"
+                           component={ProfileComponent}/>
+                    <Route path="/login"
+                           component={LoginComponent}/>
                 </Router>
             </div>
         );
