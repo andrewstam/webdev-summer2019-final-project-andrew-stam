@@ -5,6 +5,7 @@ import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
 import SearchComponent from '../components/SearchComponent';
 import DetailComponent from '../components/DetailComponent';
 import LoginComponent from '../components/LoginComponent';
+import RegisterComponent from '../components/RegisterComponent';
 import ProfileComponent from '../components/ProfileComponent';
 
 export default class MovieClub extends React.Component {
@@ -14,7 +15,8 @@ export default class MovieClub extends React.Component {
         const paths = pathname.split('/');
         const pageName = paths[1];
 
-        // Pages: /home, /login, /search, /details/{did}, /profile/{uid}
+        // Pages: /home, /login, /search, /details/{did}, /profile/{uid},
+        //   /register
         this.state = {
             page: pageName,
             user: null
@@ -37,6 +39,8 @@ export default class MovieClub extends React.Component {
                            render={() => <ProfileComponent user={this.state.user}/>}/>
                     <Route path="/login"
                            render={() => <LoginComponent user={this.state.user} setUser={this.setUser}/>}/>
+                    <Route path="/register"
+                           render={() => <RegisterComponent user={this.state.user}/>}/>
                 </Router>
             </div>
         );

@@ -1,10 +1,10 @@
 // Created by Andrew Stam
 import React from 'react';
-import {Redirect, Link} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 import UserService from '../services/UserService';
 const service = UserService.getInstance();
 
-export default class LoginComponent extends React.Component {
+export default class RegisterComponent extends React.Component {
     constructor(props) {
         super(props);
 
@@ -12,14 +12,15 @@ export default class LoginComponent extends React.Component {
         this.state = {
             username: '',
             password: '',
+            cPassword: ' ',
             role: 'GroupMember',
             loggedIn: this.props.user !== null,
-            failed: false
+            mismatch: false
         };
     }
 
-    // After the server response, set state to loggedIn if valid
-    loginCallback = json => {
+    // Set as logged in
+    registerCallback = json => {
         console.log('json: ' + JSON.stringify(json));
         if (json.id !== null) {
             this.setState({loggedIn: true});
@@ -31,11 +32,18 @@ export default class LoginComponent extends React.Component {
         }
     }
 
-    // Check if valid login, if so then show profile on front-end
+    // Check if valid credentials, if so then show profile on front-end
     doValidate = () => {
+        // Check if passwords match
+        if (this.state.password !== this.state.cPassword) {
+            this.setState({mismatch: true});
+            return;
+        } else {
+            this.setState({mismatch: false});
+        }
         // Send to backend to validate
-        // for new IDs, use (new Date()).getTime().toString()
-        service.validateLogin(this.state.username, this.state.password, this.loginCallback);
+        var id = (new Date()).getTime().toString();
+        service.createUser(id, this.state.username, this.state.password, this.registerCallback);
     }
 
     render() {
@@ -46,7 +54,7 @@ export default class LoginComponent extends React.Component {
 
         return (
             <div>
-                <h3>Login Page</h3>
+                <h3>Register Page</h3>
                 <div>
                     <input type="text" className="form-control"
                            onChange={e => this.setState({username: e.target.value})}
@@ -54,16 +62,18 @@ export default class LoginComponent extends React.Component {
                     <input type="text" className="form-control"
                            onChange={e => this.setState({password: e.target.value})}
                            placeholder="Password"/>
+                    <input type="text" className="form-control"
+                           onChange={e => this.setState({cPassword: e.target.value})}
+                           placeholder="Confirm Password"/>
                     <div>
                         <button className="btn btn-success" type="submit"
                                 onClick={() => this.doValidate()}>
-                            Login
+                            Register
                         </button>
                     </div>
-                    <Link to="/register">New user? Register here</Link>
                 </div>
-                {this.state.failed &&
-                    <h6>Login failed. Try again.</h6>
+                {this.state.mismatch &&
+                    <h6>Passwords do not match. Try again.</h6>
                 }
             </div>
         );
