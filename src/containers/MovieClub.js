@@ -19,7 +19,6 @@ export default class MovieClub extends React.Component {
         var id = null;
         var curUser = localStorage.getItem('curUser');
         if (curUser !== null) {
-            console.log('CUR ' + curUser)
             id = curUser;
             service.findUserById(id, this.loadUser);
         }
@@ -28,8 +27,11 @@ export default class MovieClub extends React.Component {
         //   /register
         this.state = {
             userId: id,
-            userObj: null
+            userObj: null,
+            newestUser: null
         };
+
+        service.findNewestUser(this.loadNewestUser);
 
         // TODO load list of groups, each can be clicked on
         // If leader: edit view shown, can see movies to watch, date for each
@@ -57,6 +59,13 @@ export default class MovieClub extends React.Component {
                            render={() => <RegisterComponent user={this.state.userId} setUser={this.setUser}/>}/>
                     <Route path="/group/:groupId"
                            render={() => <MovieGroupComponent userObj={this.state.userObj}/>}/>
+                    {this.state.newestUser !== null &&
+                    <div>
+                        <h4>Welcome our newest user, <Link to={`/profile/${this.state.newestUser.id}`}>
+                                {this.state.newestUser.username}</Link>!
+                        </h4>
+                    </div>
+                    }
                 </Router>
             </div>
         );
@@ -72,7 +81,6 @@ export default class MovieClub extends React.Component {
     // Load any session attribute for current user
     loadUser = json => {
         this.setState({userObj: json});
-        console.log('loaded user: ' + JSON.stringify(json))
     }
 
     // Logout user, load login page
@@ -80,4 +88,8 @@ export default class MovieClub extends React.Component {
         localStorage.removeItem('curUser');
         this.setState({userId: null, page: 'login'});
     }
+
+    // Display the user who joined the most recently
+    loadNewestUser = json =>
+        this.setState({newestUser: json})
 }

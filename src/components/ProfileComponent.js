@@ -17,6 +17,7 @@ export default class ProfileComponent extends React.Component {
             // load own profile
             id = localStorage.getItem('curUser');
         }
+
         // profile to load
         if (id !== null) {
             service.findUserById(id, this.loadUserData);
@@ -53,15 +54,11 @@ export default class ProfileComponent extends React.Component {
         });
         // Private data (only can see if own profile)
         if (this.state.pageId === this.state.curUser) {
-            console.log('MY DATA');
             this.setState({
                 dob: json.dob,
                 email: json.email
             });
         }
-        console.log('DONE LOAD');
-        console.log('FNAME ' + json.firstname);
-        console.log('JSON ' + JSON.stringify(json));
     }
 
     // Update the user stored in the backend
@@ -201,6 +198,7 @@ export default class ProfileComponent extends React.Component {
 
     render() {
         var ownPage = this.state.curUser === this.state.pageId;
+        console.log(this.props.userId)
 
         return (
             <div>

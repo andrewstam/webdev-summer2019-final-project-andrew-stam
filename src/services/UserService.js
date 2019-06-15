@@ -60,6 +60,17 @@ export default class UserService {
         })
     }
 
+    // Find newest user, then run callback fn
+    findNewestUser = fn => {
+        fetch(`http://localhost:8080/api/users/new`, {
+            method: 'GET'
+        })
+        .then(response => response.json())
+        .then(json => {
+            fn(json);
+        })
+    }
+
     // Update the given user
     updateUser = (user, id) => {
         fetch(`http://localhost:8080/api/users/${id}`, {
