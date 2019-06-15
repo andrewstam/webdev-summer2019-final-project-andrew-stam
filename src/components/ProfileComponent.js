@@ -1,5 +1,6 @@
 // Created by Andrew Stam
 import React from 'react';
+import {Redirect} from 'react-router-dom';
 
 export default class ProfileComponent extends React.Component {
     constructor(props) {
@@ -25,8 +26,8 @@ export default class ProfileComponent extends React.Component {
     render() {
         return (
             <div>
-                <h3>Profile {this.state.uid}</h3>
-                {this.props.user === null &&
+                <h3>Profile {this.state.uid} {this.props.userId}</h3>
+                {this.props.userId === null &&
                     <span>Please login</span>
                 }
             </div>

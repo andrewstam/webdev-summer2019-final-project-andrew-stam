@@ -29,7 +29,7 @@ export default class UserService {
     // Send new user data to backend to save as valid login, then do the callback function
     createUser = (id, user, pass, role, fn) => {
         fetch("http://localhost:8080/api/users", {
-            method: 'POST',
+            method: 'PUT',
             body: JSON.stringify([id, user, pass, role]),
             headers: {
                 'content-type': 'application/json'
@@ -39,5 +39,13 @@ export default class UserService {
         .then(json => {
             fn(json);
         })
+    }
+
+    // Get the session attribute
+    getSessionAttr = (attr, fn) => {
+        fetch(`http://localhost:8080/api/session/get/${attr}`, {
+            method: 'GET'
+        })
+        .then(response => fn(response))
     }
 }

@@ -13,18 +13,23 @@ export default class LoginComponent extends React.Component {
             username: '',
             password: '',
             role: 'GroupMember',
-            loggedIn: this.props.user !== null,
+            loggedIn: localStorage.getItem('curUser') !== null,
             failed: false
         };
     }
 
+    componentWillReceiveProps(props) {
+        if (this.props !== props) {
+            this.props = props;
+        }
+    }
+
     // After the server response, set state to loggedIn if valid
     loginCallback = json => {
-        console.log('json: ' + JSON.stringify(json));
         if (json.id !== null) {
             this.setState({loggedIn: true});
             // Send user info to parent
-            this.props.setUser(json);
+            this.props.setUser(json.id);
         } else {
             // Tell user the info was wrong
             this.setState({failed: true});

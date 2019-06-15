@@ -8,6 +8,9 @@ import LoginComponent from '../components/LoginComponent';
 import RegisterComponent from '../components/RegisterComponent';
 import ProfileComponent from '../components/ProfileComponent';
 
+import UserService from '../services/UserService';
+const service = UserService.getInstance();
+
 export default class MovieClub extends React.Component {
     constructor(props) {
         super(props);
@@ -15,13 +18,20 @@ export default class MovieClub extends React.Component {
         const paths = pathname.split('/');
         const pageName = paths[1];
 
+        var id = 'null';
+        var curUser = localStorage.getItem('curUser');
+        if (curUser != "null") {
+            id = curUser;
+        }
+
         // Pages: /home, /login, /search, /details/{did}, /profile/{uid},
         //   /register
         this.state = {
             page: pageName,
-            user: null
+            userId: id
         };
     }
+
 
     render() {
         return (
@@ -36,21 +46,34 @@ export default class MovieClub extends React.Component {
                     <Route path="/details/:did"
                            component={DetailComponent}/>
                     <Route path="/profile"
-                           render={() => <ProfileComponent user={this.state.user}/>}/>
+                           render={() => <ProfileComponent userId={this.state.userId}/>}/>
                     <Route path="/login"
-                           render={() => <LoginComponent user={this.state.user} setUser={this.setUser}/>}/>
+                           render={() => <LoginComponent userId={this.state.userId} setUser={this.setUser}/>}/>
                     <Route path="/register"
-                           render={() => <RegisterComponent user={this.state.user}/>}/>
+                           render={() => <RegisterComponent user={this.state.userId} setUser={this.setUser}/>}/>
                 </Router>
             </div>
         );
     }
 
-    // Set the current user
-    setUser = user =>
-        this.setState({user: user})
+    // Set the current user by the given ID
+    setUser = id => {
+        this.setState({userId: id});
+        // save to local storage
+        localStorage.setItem('curUser', id);
+        console.log(localStorage.getItem('curUser'))
+    }
 
     // Set the current page
     setPage = page =>
         this.setState({page: page})
+
+    // Load any session attribute for current user
+    loadUser = response => {
+        console.log('load: ' + response.body);
+        var setTo = response > 0 ? response : null;
+        this.setState({userId: setTo});
+        // save to local storage
+        localStorage.setItem('curUser', setTo);
+    }
 }

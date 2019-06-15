@@ -13,22 +13,29 @@ export default class RegisterComponent extends React.Component {
             username: '',
             password: '',
             cPassword: ' ',
+            id: '',
             role: 'GroupMember',
-            loggedIn: this.props.user !== null,
-            mismatch: false
+            loggedIn: this.props.user != null,
+            mismatch: false,
+            badUser: false
         };
+    }
+
+    componentWillReceiveProps(props) {
+        if (this.props !== props) {
+            this.props = props;
+        }
     }
 
     // Set as logged in
     registerCallback = json => {
-        console.log('json: ' + JSON.stringify(json));
-        if (json.id !== null) {
+        if (json) {
             this.setState({loggedIn: true});
             // Send user info to parent
-            this.props.setUser(json);
+            this.props.setUser(this.state.id);
         } else {
-            // Tell user the info was wrong
-            this.setState({failed: true});
+            // Tell user the username was taken
+            this.setState({badUser: true});
         }
     }
 
@@ -43,7 +50,9 @@ export default class RegisterComponent extends React.Component {
         }
         // Send to backend to validate
         var id = (new Date()).getTime().toString();
-        service.createUser(id, this.state.username, this.state.password, this.registerCallback);
+        this.setState({id: id});
+
+        service.createUser(id, this.state.username, this.state.password, this.state.role, this.registerCallback);
     }
 
     render() {
@@ -74,6 +83,9 @@ export default class RegisterComponent extends React.Component {
                 </div>
                 {this.state.mismatch &&
                     <h6>Passwords do not match. Try again.</h6>
+                }
+                {this.state.badUser &&
+                    <h6>Username taken. Try again.</h6>
                 }
             </div>
         );
