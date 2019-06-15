@@ -16,10 +16,12 @@ export default class MovieClub extends React.Component {
     constructor(props) {
         super(props);
 
-        var id = 'null';
+        var id = null;
         var curUser = localStorage.getItem('curUser');
-        if (curUser != "null") {
+        if (curUser !== null) {
+            console.log('CUR ' + curUser)
             id = curUser;
+            service.findUserById(id, this.loadUser);
         }
 
         // Pages: /home, /login, /search, /details/{did}, /profile/{uid},
@@ -29,7 +31,6 @@ export default class MovieClub extends React.Component {
             userObj: null
         };
 
-        service.findUserById(id, this.loadUser);
         // TODO load list of groups, each can be clicked on
         // If leader: edit view shown, can see movies to watch, date for each
         //   can add/edit items, can add/edit members (search by username or id)
@@ -61,11 +62,11 @@ export default class MovieClub extends React.Component {
         );
     }
 
-    // Set the current user by the given ID
-    setUser = id => {
-        this.setState({userId: id});
+    // Set the current user by the given object and ID
+    setUser = obj => {
+        this.setState({userObj: obj, userId: obj.id});
         // save to local storage
-        localStorage.setItem('curUser', id);
+        localStorage.setItem('curUser', obj.id);
     }
 
     // Load any session attribute for current user

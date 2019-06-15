@@ -31,13 +31,22 @@ export default class RegisterComponent extends React.Component {
     registerCallback = json => {
         if (json) {
             this.setState({loggedIn: true});
+            var obj = {
+                username: this.state.username,
+                id: this.state.id,
+                role: this.state.role,
+            };
             // Send user info to parent
-            this.props.setUser(this.state.id);
+            this.props.setUser(obj);
         } else {
             // Tell user the username was taken
             this.setState({badUser: true});
         }
     }
+
+    // User chooses their role upon registration
+    pickRole = role =>
+        this.setState({role: role})
 
     // Check if valid credentials, if so then show profile on front-end
     doValidate = () => {
@@ -74,6 +83,13 @@ export default class RegisterComponent extends React.Component {
                     <input type="text" className="form-control"
                            onChange={e => this.setState({cPassword: e.target.value})}
                            placeholder="Confirm Password"/>
+                    <label htmlFor="rolef">Role</label>
+                    <select className="form-control" id="rolef"
+                           onChange={e => this.pickRole(e.target.value)}
+                           defaultValue="GroupMember">
+                        <option value="GroupMember">Group Member</option>
+                        <option value="GroupLeader">Group Leader</option>
+                    </select>
                     <div>
                         <button className="btn btn-success" type="submit"
                                 onClick={() => this.doValidate()}>
