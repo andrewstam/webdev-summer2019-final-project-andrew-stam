@@ -18,7 +18,9 @@ export default class ProfileComponent extends React.Component {
             id = localStorage.getItem('curUser');
         }
         // profile to load
-        service.findUserById(id, this.loadUserData);
+        if (id !== null) {
+            service.findUserById(id, this.loadUserData);
+        }
 
         this.state = {
             pageId: id,
@@ -203,16 +205,19 @@ export default class ProfileComponent extends React.Component {
             return <Redirect to='/login'/>
         }
 
+        var ownPage = this.state.curUser === this.state.pageId;
+
         return (
             <div>
-                <h3>Profile {this.state.pageId} {this.props.userId}</h3>
+                {ownPage && <h3>Your Profile</h3>}
+                {!ownPage && <h3>{this.state.username}'s Profile</h3>}
                 {this.props.userId === null &&
                     <span>Please login</span>
                 }
                 {this.props.userId !== null &&
                     <div>
-                        {this.state.curUser === this.state.pageId && this.renderMyPage()}
-                        {this.state.curUser !== this.state.pageId && this.renderOtherPage()}
+                        {ownPage && this.renderMyPage()}
+                        {!ownPage && this.renderOtherPage()}
                         <button className="btn btn-danger"
                                 onClick={() => this.props.logout()}>
                             Logout
