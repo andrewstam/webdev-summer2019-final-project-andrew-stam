@@ -187,10 +187,6 @@ export default class ProfileComponent extends React.Component {
             <input type="text" className="form-control" id="lname" disabled
                    onChange={e => this.changeLastName(e.target.value)}
                    defaultValue={this.state.lastname}/>
-            <label htmlFor="emailf">Email</label>
-            <input type="email" className="form-control" id="emailf" disabled
-                   onChange={e => this.changeEmail(e.target.value)}
-                   defaultValue={this.state.email}/>
             <label htmlFor="rolef">Role</label>
             <select className="form-control" id="rolef" disabled
                    onChange={e => this.changeRole(e.target.value)}
@@ -198,10 +194,6 @@ export default class ProfileComponent extends React.Component {
                 <option value="GroupMember">Group Member</option>
                 <option value="GroupLeader">Group Leader</option>
             </select>
-            <label htmlFor="dobf">Date of Birth</label>
-            <input type="date" className="form-control" id="dobf" disabled
-                   onChange={e => this.changeDob(e.target.value)}
-                   defaultValue={this.state.dob}/>
         </div>)
     }
 
