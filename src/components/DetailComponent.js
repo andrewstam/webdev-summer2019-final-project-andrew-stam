@@ -12,7 +12,6 @@ export default class DetailComponent extends React.Component {
         this.state = {
             did: detailId
         };
-        // TODO add to favorites
     }
 
     // Load details about the item with the given ID

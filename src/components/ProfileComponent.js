@@ -200,22 +200,17 @@ export default class ProfileComponent extends React.Component {
     }
 
     render() {
-        // If logged out, load login page
-        if (this.props.userId === null) {
-            return <Redirect to='/login'/>
-        }
-
         var ownPage = this.state.curUser === this.state.pageId;
 
         return (
             <div>
-                {ownPage && <h3>Your Profile</h3>}
-                {!ownPage && <h3>{this.state.username}'s Profile</h3>}
                 {this.props.userId === null &&
-                    <span>Please login</span>
+                    <span>Please login before viewing profiles.</span>
                 }
                 {this.props.userId !== null &&
                     <div>
+                        {ownPage && <h3>Your Profile</h3>}
+                        {!ownPage && <h3>{this.state.username}'s Profile</h3>}
                         {ownPage && this.renderMyPage()}
                         {!ownPage && this.renderOtherPage()}
                         <button className="btn btn-danger"

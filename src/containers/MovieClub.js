@@ -30,6 +30,9 @@ export default class MovieClub extends React.Component {
         };
 
         service.findUserById(id, this.loadUser);
+        // TODO load list of groups, each can be clicked on
+        // If leader: edit view shown, can see movies to watch, date for each
+        //   can add/edit items, can add/edit members (search by username or id)
     }
 
     render() {
