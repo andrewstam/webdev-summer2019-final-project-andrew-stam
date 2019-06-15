@@ -1,6 +1,5 @@
 // Created by Andrew Stam
 import React from 'react';
-import {Redirect} from 'react-router-dom';
 import UserService from '../services/UserService';
 const service = UserService.getInstance();
 
@@ -22,6 +21,8 @@ export default class ProfileComponent extends React.Component {
         if (id !== null) {
             service.findUserById(id, this.loadUserData);
         }
+
+        this.props.setPage('profile');
 
         this.state = {
             pageId: id,
@@ -198,7 +199,6 @@ export default class ProfileComponent extends React.Component {
 
     render() {
         var ownPage = this.state.curUser === this.state.pageId;
-        console.log(this.props.userId)
 
         return (
             <div>

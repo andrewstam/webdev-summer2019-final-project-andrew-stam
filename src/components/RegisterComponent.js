@@ -19,6 +19,8 @@ export default class RegisterComponent extends React.Component {
             mismatch: false,
             badUser: false
         };
+
+        this.props.setPage('register');
     }
 
     componentWillReceiveProps(props) {

@@ -16,6 +16,8 @@ export default class MovieGroupComponent extends React.Component {
             gid: groupId,
             leaderView: leader
         };
+
+        this.props.setPage('group');
     }
 
     componentWillReceiveProps(props) {

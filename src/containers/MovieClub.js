@@ -28,7 +28,8 @@ export default class MovieClub extends React.Component {
         this.state = {
             userId: id,
             userObj: null,
-            newestUser: null
+            newestUser: null,
+            page: 'home'
         };
 
         service.findNewestUser(this.loadNewestUser);
@@ -43,6 +44,13 @@ export default class MovieClub extends React.Component {
             <div className="container-fluid">
                 <h1>Movie Club</h1>
                 <Router>
+                    {this.state.newestUser !== null && this.state.page === 'home' &&
+                    <div>
+                        <h4>Welcome our newest user, <Link to={`/profile/${this.state.newestUser.id}`}>
+                                {this.state.newestUser.username}</Link>!
+                        </h4>
+                    </div>
+                    }
                     <Link to="/search">Search</Link>
                     | <Link to="/profile">Profile</Link>
                     | <Link to="/login">Login</Link>
@@ -52,20 +60,13 @@ export default class MovieClub extends React.Component {
                     <Route path="/details/:did"
                            component={DetailComponent}/>
                     <Route path="/profile"
-                           render={() => <ProfileComponent userId={this.state.userId} logout={this.logout}/>}/>
+                           render={() => <ProfileComponent userId={this.state.userId} logout={this.logout} setPage={this.setPage}/>}/>
                     <Route path="/login"
-                           render={() => <LoginComponent userId={this.state.userId} setUser={this.setUser}/>}/>
+                           render={() => <LoginComponent userId={this.state.userId} setUser={this.setUser} setPage={this.setPage}/>}/>
                     <Route path="/register"
-                           render={() => <RegisterComponent user={this.state.userId} setUser={this.setUser}/>}/>
+                           render={() => <RegisterComponent user={this.state.userId} setUser={this.setUser} setPage={this.setPage}/>}/>
                     <Route path="/group/:groupId"
-                           render={() => <MovieGroupComponent userObj={this.state.userObj}/>}/>
-                    {this.state.newestUser !== null &&
-                    <div>
-                        <h4>Welcome our newest user, <Link to={`/profile/${this.state.newestUser.id}`}>
-                                {this.state.newestUser.username}</Link>!
-                        </h4>
-                    </div>
-                    }
+                           render={() => <MovieGroupComponent userObj={this.state.userObj} setPage={this.setPage}/>}/>
                 </Router>
             </div>
         );
@@ -92,4 +93,8 @@ export default class MovieClub extends React.Component {
     // Display the user who joined the most recently
     loadNewestUser = json =>
         this.setState({newestUser: json})
+
+    // Set the current page, used to determine when to show welcome message
+    setPage = page =>
+        this.setState({page: page})
 }

@@ -16,6 +16,8 @@ export default class LoginComponent extends React.Component {
             loggedIn: localStorage.getItem('curUser') !== null,
             failed: false
         };
+
+        this.props.setPage('login');
     }
 
     componentWillReceiveProps(props) {
