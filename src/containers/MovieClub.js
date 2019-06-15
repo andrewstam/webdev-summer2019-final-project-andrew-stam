@@ -7,6 +7,7 @@ import DetailComponent from '../components/DetailComponent';
 import LoginComponent from '../components/LoginComponent';
 import RegisterComponent from '../components/RegisterComponent';
 import ProfileComponent from '../components/ProfileComponent';
+import MovieGroupComponent from '../components/MovieGroupComponent';
 
 import UserService from '../services/UserService';
 const service = UserService.getInstance();
@@ -24,10 +25,12 @@ export default class MovieClub extends React.Component {
         // Pages: /home, /login, /search, /details/{did}, /profile/{uid},
         //   /register
         this.state = {
-            userId: id
+            userId: id,
+            userObj: null
         };
-    }
 
+        service.findUserById(id, this.loadUser);
+    }
 
     render() {
         return (
@@ -37,6 +40,7 @@ export default class MovieClub extends React.Component {
                     <Link to="/search">Search</Link>
                     | <Link to="/profile">Profile</Link>
                     | <Link to="/login">Login</Link>
+                    | <Link to="/group">Group</Link>
                     <Route path="/(|home|search)"
                            component={SearchComponent}/>
                     <Route path="/details/:did"
@@ -47,6 +51,8 @@ export default class MovieClub extends React.Component {
                            render={() => <LoginComponent userId={this.state.userId} setUser={this.setUser}/>}/>
                     <Route path="/register"
                            render={() => <RegisterComponent user={this.state.userId} setUser={this.setUser}/>}/>
+                    <Route path="/group/:groupId"
+                           render={() => <MovieGroupComponent userObj={this.state.userObj}/>}/>
                 </Router>
             </div>
         );
@@ -60,11 +66,9 @@ export default class MovieClub extends React.Component {
     }
 
     // Load any session attribute for current user
-    loadUser = response => {
-        var setTo = response > 0 ? response : null;
-        this.setState({userId: setTo});
-        // save to local storage
-        localStorage.setItem('curUser', setTo);
+    loadUser = json => {
+        this.setState({userObj: json});
+        console.log('loaded user: ' + JSON.stringify(json))
     }
 
     // Logout user, load login page

@@ -39,7 +39,6 @@ export default class LoginComponent extends React.Component {
     // Check if valid login, if so then show profile on front-end
     doValidate = () => {
         // Send to backend to validate
-        // for new IDs, use (new Date()).getTime().toString()
         service.validateLogin(this.state.username, this.state.password, this.loginCallback);
     }
 
