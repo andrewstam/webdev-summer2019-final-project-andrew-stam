@@ -48,4 +48,27 @@ export default class UserService {
         })
         .then(response => fn(response))
     }
+
+    // Find user by id, then call the callback
+    findUserById = (id, fn) => {
+        fetch(`http://localhost:8080/api/users/${id}`, {
+            method: 'GET'
+        })
+        .then(response => response.json())
+        .then(json => {
+            fn(json);
+        })
+    }
+
+    // Update the given user
+    updateUser = (user, id) => {
+        fetch(`http://localhost:8080/api/users/${id}`, {
+            method: 'POST',
+            body: JSON.stringify(user),
+            headers: {
+                'content-type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+    }
 }
