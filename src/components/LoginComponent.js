@@ -27,12 +27,12 @@ export default class LoginComponent extends React.Component {
     // After the server response, set state to loggedIn if valid
     loginCallback = json => {
         if (json.id !== null) {
-            this.setState({loggedIn: true});
             // Send user info to parent
             this.props.setUser(json.id);
+            this.setState({loggedIn: true});
         } else {
             // Tell user the info was wrong
-            this.setState({failed: true});
+            this.setState({loggedIn: false, failed: true});
         }
     }
 

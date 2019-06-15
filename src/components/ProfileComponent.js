@@ -25,7 +25,7 @@ export default class ProfileComponent extends React.Component {
 
     render() {
         // If logged out, load login
-        if (this.props.userId == 'null') {
+        if (this.props.userId === null) {
             return <Redirect to='/login'/>
         }
 

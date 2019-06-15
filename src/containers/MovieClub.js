@@ -14,9 +14,6 @@ const service = UserService.getInstance();
 export default class MovieClub extends React.Component {
     constructor(props) {
         super(props);
-        const pathname = window.location.pathname;
-        const paths = pathname.split('/');
-        const pageName = paths[1];
 
         var id = 'null';
         var curUser = localStorage.getItem('curUser');
@@ -27,7 +24,6 @@ export default class MovieClub extends React.Component {
         // Pages: /home, /login, /search, /details/{did}, /profile/{uid},
         //   /register
         this.state = {
-            page: pageName,
             userId: id
         };
     }
@@ -63,10 +59,6 @@ export default class MovieClub extends React.Component {
         localStorage.setItem('curUser', id);
     }
 
-    // Set the current page
-    setPage = page =>
-        this.setState({page: page})
-
     // Load any session attribute for current user
     loadUser = response => {
         var setTo = response > 0 ? response : null;
@@ -75,9 +67,9 @@ export default class MovieClub extends React.Component {
         localStorage.setItem('curUser', setTo);
     }
 
-    // Logout user
+    // Logout user, load login page
     logout = () => {
         localStorage.removeItem('curUser');
-        this.setState({userId: 'null', page: 'home'});
+        this.setState({userId: null, page: 'login'});
     }
 }
