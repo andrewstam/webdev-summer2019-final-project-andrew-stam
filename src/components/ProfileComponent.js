@@ -32,7 +32,6 @@ export default class ProfileComponent extends React.Component {
             role: '',
             email: ''
         };
-        // TODO: forms for email/DOB/role/firstname/lastname
     }
 
     componentWillReceiveProps(props) {
@@ -179,7 +178,31 @@ export default class ProfileComponent extends React.Component {
 
     // Disable input fields, hide private info
     renderOtherPage = () => {
-
+        return (<div>
+            <label htmlFor="fname">First name</label>
+            <input type="text" className="form-control" id="fname" disabled
+                   onChange={e => this.changeFirstName(e.target.value)}
+                   defaultValue={this.state.firstname}/>
+            <label htmlFor="lname">Last name</label>
+            <input type="text" className="form-control" id="lname" disabled
+                   onChange={e => this.changeLastName(e.target.value)}
+                   defaultValue={this.state.lastname}/>
+            <label htmlFor="emailf">Email</label>
+            <input type="email" className="form-control" id="emailf" disabled
+                   onChange={e => this.changeEmail(e.target.value)}
+                   defaultValue={this.state.email}/>
+            <label htmlFor="rolef">Role</label>
+            <select className="form-control" id="rolef" disabled
+                   onChange={e => this.changeRole(e.target.value)}
+                   value={this.state.role}>
+                <option value="GroupMember">Group Member</option>
+                <option value="GroupLeader">Group Leader</option>
+            </select>
+            <label htmlFor="dobf">Date of Birth</label>
+            <input type="date" className="form-control" id="dobf" disabled
+                   onChange={e => this.changeDob(e.target.value)}
+                   defaultValue={this.state.dob}/>
+        </div>)
     }
 
     render() {
@@ -196,7 +219,8 @@ export default class ProfileComponent extends React.Component {
                 }
                 {this.props.userId !== null &&
                     <div>
-                        {this.renderMyPage()}
+                        {this.state.curUser === this.state.pageId && this.renderMyPage()}
+                        {this.state.curUser !== this.state.pageId && this.renderOtherPage()}
                         <button className="btn btn-danger"
                                 onClick={() => this.props.logout()}>
                             Logout
