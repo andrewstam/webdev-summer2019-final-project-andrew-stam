@@ -24,11 +24,22 @@ export default class ProfileComponent extends React.Component {
     }
 
     render() {
+        // If logged out, load login
+        if (this.props.userId == 'null') {
+            return <Redirect to='/login'/>
+        }
+
         return (
             <div>
                 <h3>Profile {this.state.uid} {this.props.userId}</h3>
                 {this.props.userId === null &&
                     <span>Please login</span>
+                }
+                {this.props.userId !== null &&
+                    <button className="btn btn-danger"
+                            onClick={() => this.props.logout()}>
+                        Logout
+                    </button>
                 }
             </div>
         );

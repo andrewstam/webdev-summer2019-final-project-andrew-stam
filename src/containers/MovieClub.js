@@ -46,7 +46,7 @@ export default class MovieClub extends React.Component {
                     <Route path="/details/:did"
                            component={DetailComponent}/>
                     <Route path="/profile"
-                           render={() => <ProfileComponent userId={this.state.userId}/>}/>
+                           render={() => <ProfileComponent userId={this.state.userId} logout={this.logout}/>}/>
                     <Route path="/login"
                            render={() => <LoginComponent userId={this.state.userId} setUser={this.setUser}/>}/>
                     <Route path="/register"
@@ -61,7 +61,6 @@ export default class MovieClub extends React.Component {
         this.setState({userId: id});
         // save to local storage
         localStorage.setItem('curUser', id);
-        console.log(localStorage.getItem('curUser'))
     }
 
     // Set the current page
@@ -70,10 +69,15 @@ export default class MovieClub extends React.Component {
 
     // Load any session attribute for current user
     loadUser = response => {
-        console.log('load: ' + response.body);
         var setTo = response > 0 ? response : null;
         this.setState({userId: setTo});
         // save to local storage
         localStorage.setItem('curUser', setTo);
+    }
+
+    // Logout user
+    logout = () => {
+        localStorage.removeItem('curUser');
+        this.setState({userId: 'null', page: 'home'});
     }
 }
