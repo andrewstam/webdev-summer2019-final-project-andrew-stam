@@ -215,20 +215,18 @@ export default class ProfileComponent extends React.Component {
             <div>
                 <h6>Following:</h6>
                 <ul>
-                    {this.state.following.forEach(m =>
-                        <li>{m.username}</li>
-                    )}
+                    {this.state.following.map((m, key) => <li key={key}>{m.username}</li>)}
                 </ul>
                 <h6>Followers:</h6>
                 <ul>
-                    {this.state.followers.forEach(m =>
-                        <li>{m.username}</li>
+                    {this.state.followers.map((m, key) =>
+                        <li key={key}>{m.username}</li>
                     )}
                 </ul>
                 <h6>Favorites:</h6>
                 <ul>
-                    {this.state.favorites.forEach(f =>
-                        <li>{f}</li>
+                    {this.state.favorites.map((f, key) =>
+                        <li key={key}>{f}</li>
                     )}
                 </ul>
             </div>
@@ -245,6 +243,8 @@ export default class ProfileComponent extends React.Component {
         // If not already following (backend handles duplicates)
         service.addFollow(this.state.pageId, localStorage.getItem('curUser'));
         service.addFollower(localStorage.getItem('curUser'), this.state.pageId);
+        var newFollowing = [...this.state.following, this.state.pageId];
+        this.setState({following: newFollowing});
     }
 
     render() {
