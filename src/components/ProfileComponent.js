@@ -20,6 +20,9 @@ export default class ProfileComponent extends React.Component {
         // profile to load
         if (id !== null) {
             service.findUserById(id, this.loadUserData);
+            service.findFollowers(id, this.followersCallback);
+            service.findFollowing(id, this.followingCallback);
+            service.findFavorites(id, this.favoritesCallback);
         }
 
         this.state = {
@@ -53,12 +56,8 @@ export default class ProfileComponent extends React.Component {
             username: json.username,
             firstname: json.firstname,
             lastname: json.lastname,
-            role: json.role,
-            followers: json.followers,
-            following: json.following,
-            favorites: json.favoriteIds
+            role: json.role
         });
-        console.log(json)
         // Private data (only can see if own profile)
         if (this.state.pageId === this.state.curUser) {
             this.setState({
@@ -66,6 +65,21 @@ export default class ProfileComponent extends React.Component {
                 email: json.email
             });
         }
+    }
+
+    // Set state to given followers after backend load
+    followersCallback = json => {
+        this.setState({followers: json});
+    }
+
+    // Set state to given following after backend load
+    followingCallback = json => {
+        this.setState({following: json});
+    }
+
+    // Set state to given favorites after backend load
+    favoritesCallback = json => {
+        this.setState({favorites: json});
     }
 
     // Update the user stored in the backend -> only the current user can update

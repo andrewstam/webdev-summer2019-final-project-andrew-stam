@@ -84,10 +84,10 @@ export default class UserService {
     }
 
     // Add given user id to following list of user with ID in path
-    addFollow = (user, id) => {
+    addFollow = (userId, id) => {
         fetch(`http://localhost:8080/api/users/${id}/following`, {
             method: 'POST',
-            body: JSON.stringify(user),
+            body: JSON.stringify(userId),
             headers: {
                 'content-type': 'application/json'
             }
@@ -96,14 +96,47 @@ export default class UserService {
     }
 
     // Add given user id to follower list of user with ID in path
-    addFollower = (user, id) => {
-        fetch(`http://localhost:8080/api/users/${id}/following`, {
+    addFollower = (userId, id) => {
+        fetch(`http://localhost:8080/api/users/${id}/followers`, {
             method: 'POST',
-            body: JSON.stringify(user),
+            body: JSON.stringify(userId),
             headers: {
                 'content-type': 'application/json'
             }
         })
         .then(response => response.json())
+    }
+
+    // Find a user's following based on their id
+    findFollowing = (id, fn) => {
+        fetch(`http://localhost:8080/api/users/${id}/following`, {
+            method: 'GET'
+        })
+        .then(response => response.json())
+        .then(json => {
+            fn(json);
+        })
+    }
+
+    // Find a user's followers based on their id
+    findFollowers = (id, fn) => {
+        fetch(`http://localhost:8080/api/users/${id}/followers`, {
+            method: 'GET'
+        })
+        .then(response => response.json())
+        .then(json => {
+            fn(json);
+        })
+    }
+
+    // Find a user's favorites based on their id
+    findFavorites = (id, fn) => {
+        fetch(`http://localhost:8080/api/users/${id}/favorites`, {
+            method: 'GET'
+        })
+        .then(response => response.json())
+        .then(json => {
+            fn(json);
+        })
     }
 }
