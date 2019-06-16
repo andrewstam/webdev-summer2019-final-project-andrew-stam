@@ -25,7 +25,6 @@ export default class ProfileComponent extends React.Component {
         this.state = {
             pageId: id,
             curUser: localStorage.getItem('curUser'),
-            id: '',
             username: '',
             password: '',
             firstname: '',
@@ -206,10 +205,10 @@ export default class ProfileComponent extends React.Component {
 
         return (
             <div>
-                {this.props.userId === null &&
-                    <span>Please login before viewing profiles.</span>
+                {this.state.curUser === null && this.state.pageId === null &&
+                    <span>Please login to view your profile.</span>
                 }
-                {this.props.userId !== null &&
+                {this.state.pageId !== null &&
                     <div>
                         {ownPage && <h3>Your Profile</h3>}
                         {!ownPage && <h3>{this.state.username}'s Profile</h3>}
