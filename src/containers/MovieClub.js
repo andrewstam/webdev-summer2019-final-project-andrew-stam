@@ -40,20 +40,21 @@ export default class MovieClub extends React.Component {
     }
 
     render() {
-        // If not logged in, say user. If firstname is set, use that, otherwise user username
+        // If not logged in, unused. If firstname is set, use that, otherwise user username
         var nameText = this.state.userObj ?
             (this.state.userObj.firstname !== '' ? this.state.userObj.firstname : this.state.userObj.username) : 'user';
 
         return (
             <div className="container-fluid">
                 <h1>Movie Club</h1>
+                <h2>Decide what movies to watch and when, with friends!</h2>
                 {this.state.userObj !== null && this.state.page === 'home' &&
                     <h3>Welcome {nameText}.</h3>
                 }
                 <Router>
                     {this.state.newestUser !== null && this.state.page === 'home' &&
                         <div>
-                            <h5>Welcome our newest user, <Link to={`/profile/${this.state.newestUser.id}`}>
+                            <h5>Check out our newest user, <Link to={`/profile/${this.state.newestUser.id}`}>
                                     {this.state.newestUser.username}</Link>!
                             </h5>
                         </div>
