@@ -30,13 +30,13 @@ export default class RegisterComponent extends React.Component {
     }
 
     // Set as logged in
-    registerCallback = json => {
-        if (json) {
+    registerCallback = success => {
+        if (success) {
             this.setState({loggedIn: true});
             var obj = {
                 username: this.state.username,
                 id: this.state.id,
-                role: this.state.role,
+                role: this.state.role
             };
             // Send user info to parent
             this.props.setUser(obj);
@@ -67,9 +67,9 @@ export default class RegisterComponent extends React.Component {
     }
 
     render() {
-        // Load user profile page once logged in
+        // Load home page once logged in
         if (this.state.loggedIn) {
-            return <Redirect to='/profile'/>
+            return <Redirect to='/home'/>
         }
 
         return (

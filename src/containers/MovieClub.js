@@ -40,18 +40,25 @@ export default class MovieClub extends React.Component {
     }
 
     render() {
+        // If not logged in, say user. If firstname is set, use that, otherwise user username
+        var nameText = this.state.userObj ?
+            (this.state.userObj.firstname !== '' ? this.state.userObj.firstname : this.state.userObj.username) : 'user';
+
         return (
             <div className="container-fluid">
                 <h1>Movie Club</h1>
+                {this.state.userObj !== null && this.state.page === 'home' &&
+                    <h3>Welcome {nameText}.</h3>
+                }
                 <Router>
                     {this.state.newestUser !== null && this.state.page === 'home' &&
-                    <div>
-                        <h4>Welcome our newest user, <Link to={`/profile/${this.state.newestUser.id}`}>
-                                {this.state.newestUser.username}</Link>!
-                        </h4>
-                    </div>
+                        <div>
+                            <h5>Welcome our newest user, <Link to={`/profile/${this.state.newestUser.id}`}>
+                                    {this.state.newestUser.username}</Link>!
+                            </h5>
+                        </div>
                     }
-                    <Link to="/search">Search</Link>
+                    <Link to="/search" onClick={() => this.setState({page: 'home'})}>Search</Link>
                     | <Link to="/profile">Profile</Link>
                     | <Link to="/login">Login</Link>
                     | <Link to="/group">Group</Link>
@@ -74,9 +81,9 @@ export default class MovieClub extends React.Component {
 
     // Set the current user by the given object and ID
     setUser = obj => {
-        this.setState({userObj: obj, userId: obj.id});
         // save to local storage
         localStorage.setItem('curUser', obj.id);
+        this.setState({userObj: obj, userId: obj.id});
     }
 
     // Load any session attribute for current user

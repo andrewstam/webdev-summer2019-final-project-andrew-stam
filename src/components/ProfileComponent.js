@@ -22,8 +22,6 @@ export default class ProfileComponent extends React.Component {
             service.findUserById(id, this.loadUserData);
         }
 
-        this.props.setPage('profile');
-
         this.state = {
             pageId: id,
             curUser: localStorage.getItem('curUser'),
@@ -36,6 +34,8 @@ export default class ProfileComponent extends React.Component {
             role: '',
             email: ''
         };
+
+        this.props.setPage('profile');
     }
 
     componentWillReceiveProps(props) {
@@ -62,9 +62,10 @@ export default class ProfileComponent extends React.Component {
         }
     }
 
-    // Update the user stored in the backend
+    // Update the user stored in the backend -> only the current user can update
     updateBackend = user => {
-        service.updateUser(user, this.state.pageId);
+        user.id = localStorage.getItem('curUser');
+        service.updateUser(user, user.id);
     }
 
     // Change this user's first name
@@ -149,6 +150,9 @@ export default class ProfileComponent extends React.Component {
 
     // Enable input fields, show private info
     renderMyPage = () => {
+        if (this.props.newUser) {
+            service.findUserById(this.props.newUser, this.loadUserData);
+        }
         return (<div>
             <label htmlFor="fname">First name</label>
             <input type="text" className="form-control" id="fname"
