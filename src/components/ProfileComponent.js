@@ -26,12 +26,15 @@ export default class ProfileComponent extends React.Component {
             pageId: id,
             curUser: localStorage.getItem('curUser'),
             username: '',
-            password: '',
+            password: 'HIDDEN',
             firstname: '',
             lastname: '',
             dob: '',
             role: '',
-            email: ''
+            email: '',
+            followers: [],
+            following: [],
+            favorites: []
         };
 
         this.props.setPage('profile');
@@ -50,8 +53,12 @@ export default class ProfileComponent extends React.Component {
             username: json.username,
             firstname: json.firstname,
             lastname: json.lastname,
-            role: json.role
+            role: json.role,
+            followers: json.followers,
+            following: json.following,
+            favorites: json.favoriteIds
         });
+        console.log(json)
         // Private data (only can see if own profile)
         if (this.state.pageId === this.state.curUser) {
             this.setState({
@@ -176,6 +183,7 @@ export default class ProfileComponent extends React.Component {
             <input type="date" className="form-control" id="dobf"
                    onChange={e => this.changeDob(e.target.value)}
                    defaultValue={this.state.dob}/>
+            {this.renderLinks()}
         </div>)
     }
 
@@ -197,7 +205,34 @@ export default class ProfileComponent extends React.Component {
                 <option value="GroupMember">Group Member</option>
                 <option value="GroupLeader">Group Leader</option>
             </select>
+            {this.renderLinks()}
         </div>)
+    }
+
+    // Renders following list, followers list, and favorites list
+    renderLinks = () => {
+        return (
+            <div>
+                <h6>Following:</h6>
+                <ul>
+                    {this.state.following.forEach(m =>
+                        <li>{m.username}</li>
+                    )}
+                </ul>
+                <h6>Followers:</h6>
+                <ul>
+                    {this.state.followers.forEach(m =>
+                        <li>{m.username}</li>
+                    )}
+                </ul>
+                <h6>Favorites:</h6>
+                <ul>
+                    {this.state.favorites.forEach(f =>
+                        <li>{f}</li>
+                    )}
+                </ul>
+            </div>
+        )
     }
 
     render() {
