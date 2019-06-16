@@ -235,6 +235,18 @@ export default class ProfileComponent extends React.Component {
         )
     }
 
+    // If logged in, allow follow and add to list. Otherwise, prevent follow
+    doFollow = () => {
+        // Block follow if not logged in
+        if (this.state.curUser === null) {
+            alert('Please login before trying to follow users.');
+            return;
+        }
+        // If not already following (backend handles duplicates)
+        service.addFollow(this.state.pageId, localStorage.getItem('curUser'));
+        service.addFollower(localStorage.getItem('curUser'), this.state.pageId);
+    }
+
     render() {
         var ownPage = this.state.curUser === this.state.pageId;
 
@@ -253,6 +265,12 @@ export default class ProfileComponent extends React.Component {
                                 onClick={() => this.props.logout()}>
                             Logout
                         </button>
+                        {!ownPage &&
+                            <button className="btn btn-warning"
+                                    onClick={() => this.doFollow()}>
+                                Follow
+                            </button>
+                        }
                     </div>
                 }
             </div>

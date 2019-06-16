@@ -82,4 +82,28 @@ export default class UserService {
         })
         .then(response => response.json())
     }
+
+    // Add given user id to following list of user with ID in path
+    addFollow = (user, id) => {
+        fetch(`http://localhost:8080/api/users/${id}/following`, {
+            method: 'POST',
+            body: JSON.stringify(user),
+            headers: {
+                'content-type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+    }
+
+    // Add given user id to follower list of user with ID in path
+    addFollower = (user, id) => {
+        fetch(`http://localhost:8080/api/users/${id}/following`, {
+            method: 'POST',
+            body: JSON.stringify(user),
+            headers: {
+                'content-type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+    }
 }
