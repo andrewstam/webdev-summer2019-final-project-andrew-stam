@@ -107,6 +107,18 @@ export default class UserService {
         .then(response => response.json())
     }
 
+    // Add given user id to follower list of user with ID in path
+    addFavorite = (userId, movieId) => {
+        fetch(`http://localhost:8080/api/users/${userId}/favorites`, {
+            method: 'POST',
+            body: JSON.stringify(movieId),
+            headers: {
+                'content-type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+    }
+
     // Find a user's following based on their id
     findFollowing = (id, fn) => {
         fetch(`http://localhost:8080/api/users/${id}/following`, {

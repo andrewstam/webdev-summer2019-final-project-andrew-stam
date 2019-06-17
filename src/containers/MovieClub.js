@@ -66,7 +66,7 @@ export default class MovieClub extends React.Component {
                     <Route path="/(|home|search)"
                            component={SearchComponent}/>
                     <Route path="/details/:did"
-                           component={DetailComponent}/>
+                           render={() => <DetailComponent addFavorite={this.addFavorite}/>}/>
                     <Route path="/profile"
                            render={() => <ProfileComponent userId={this.state.userId} logout={this.logout} setPage={this.setPage}/>}/>
                     <Route path="/login"
@@ -105,4 +105,9 @@ export default class MovieClub extends React.Component {
     // Set the current page, used to determine when to show welcome message
     setPage = page =>
         this.setState({page: page})
+
+    // Add a movie to a user's favorites list
+    addFavorite = movieId => {
+        service.addFavorite(this.state.userId, movieId);
+    }
 }

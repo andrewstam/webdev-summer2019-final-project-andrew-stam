@@ -1,5 +1,6 @@
 // Created by Andrew Stam
 import React from 'react';
+import {Redirect} from 'react-router-dom';
 import UserService from '../services/UserService';
 const service = UserService.getInstance();
 
@@ -28,6 +29,7 @@ export default class ProfileComponent extends React.Component {
         this.state = {
             pageId: id,
             curUser: localStorage.getItem('curUser'),
+            logoutClick: false,
             username: '',
             password: 'HIDDEN',
             firstname: '',
@@ -288,6 +290,10 @@ export default class ProfileComponent extends React.Component {
 
     render() {
         var ownPage = this.state.curUser === this.state.pageId;
+        if (this.state.logoutClick) {
+            this.setState({logoutClick: false});
+            return <Redirect to='/home'/>
+        }
 
         return (
             <div>
@@ -301,7 +307,9 @@ export default class ProfileComponent extends React.Component {
                         {ownPage && this.renderMyPage()}
                         {!ownPage && this.renderOtherPage()}
                         <button className="btn btn-danger"
-                                onClick={() => this.props.logout()}>
+                                onClick={() => {
+                                    this.setState({logoutClick: true})
+                                    this.props.logout()}}>
                             Logout
                         </button>
                         {!ownPage &&

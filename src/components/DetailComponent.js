@@ -54,6 +54,8 @@ export default class DetailComponent extends React.Component {
                         <li key={key}>{r.Source} gave this movie {r.Value}</li>
                     )}
                 </ul>
+                <button className="btn btn-success"
+                        onClick={() => this.props.addFavorite(this.state.did)}>Add Favorite</button>
             </div>
         );
     }
