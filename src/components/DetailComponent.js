@@ -10,7 +10,8 @@ export default class DetailComponent extends React.Component {
         const detailId = paths[2];
 
         this.state = {
-            did: detailId
+            did: detailId,
+            loggedIn: localStorage.getItem('curUser') !== null
         };
     }
 
@@ -54,8 +55,10 @@ export default class DetailComponent extends React.Component {
                         <li key={key}>{r.Source} gave this movie {r.Value}</li>
                     )}
                 </ul>
-                <button className="btn btn-success"
-                        onClick={() => this.props.addFavorite(this.state.did)}>Add Favorite</button>
+                {this.state.loggedIn &&
+                    <button className="btn btn-success"
+                            onClick={() => this.props.addFavorite(this.state.did)}>Add Favorite</button>
+                }
             </div>
         );
     }
