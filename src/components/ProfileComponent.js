@@ -1,6 +1,7 @@
 // Created by Andrew Stam
 import React from 'react';
 import {Redirect, BrowserRouter as Router, Link} from 'react-router-dom';
+import './ProfileComponent.css';
 import UserService from '../services/UserService';
 const service = UserService.getInstance();
 
@@ -257,6 +258,8 @@ export default class ProfileComponent extends React.Component {
                         {this.state.favorites.map((title, key) =>
                             <div key={key} className="form-control">
                                 <Link to={`/details/${this.state.favIdMap[title]}`}>{title}</Link>
+                                <i className="fa fa-times float-right wbdv-delete-fav"
+                                   onClick={() => this.props.removeFavorite(this.state.favIdMap[title])}></i>
                             </div>)}
                     </div>
                 }

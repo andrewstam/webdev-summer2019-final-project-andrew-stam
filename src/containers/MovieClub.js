@@ -8,6 +8,7 @@ import LoginComponent from '../components/LoginComponent';
 import RegisterComponent from '../components/RegisterComponent';
 import ProfileComponent from '../components/ProfileComponent';
 import MovieGroupComponent from '../components/MovieGroupComponent';
+import '../../node_modules/font-awesome/css/font-awesome.min.css';
 
 import UserService from '../services/UserService';
 const service = UserService.getInstance();
@@ -68,7 +69,8 @@ export default class MovieClub extends React.Component {
                     <Route path="/details/:did"
                            render={() => <DetailComponent addFavorite={this.addFavorite} removeFavorite={this.removeFavorite}/>}/>
                     <Route path="/profile"
-                           render={() => <ProfileComponent userId={this.state.userId} logout={this.logout} setPage={this.setPage}/>}/>
+                           render={() => <ProfileComponent userId={this.state.userId} logout={this.logout}
+                                                           setPage={this.setPage} removeFavorite={this.removeFavorite}/>}/>
                     <Route path="/login"
                            render={() => <LoginComponent userId={this.state.userId} setUser={this.setUser} setPage={this.setPage}/>}/>
                     <Route path="/register"
