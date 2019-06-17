@@ -277,7 +277,7 @@ export default class ProfileComponent extends React.Component {
             var newMap = this.state.favIdMap;
             newMap[json.Title] = id;
             this.setState({
-                favorites: [...this.state.favorites, json.Title],
+                favorites: [...this.state.favorites, json.Title].sort(),
                 favIdMap: newMap
             });
         });
