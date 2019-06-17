@@ -259,13 +259,31 @@ export default class ProfileComponent extends React.Component {
                             <div key={key} className="form-control">
                                 <Link to={`/details/${this.state.favIdMap[title]}`}>{title}</Link>
                                 <i className="fa fa-times float-right wbdv-delete-fav"
-                                   onClick={() => this.props.removeFavorite(this.state.favIdMap[title])}></i>
+                                   onClick={() => this.doDeleteFavorite(title, this.state.favIdMap[title])}></i>
                             </div>)}
                     </div>
                 }
             </div>
         )
     }
+
+    // Remove favorite from database, also rerender page
+    doDeleteFavorite = (title, id) => {
+        var mapCopy = this.state.favIdMap;
+        var favCopy = this.state.favorites;
+        delete mapCopy[title];
+        // Remove from favorites array
+        for (let idx in favCopy) {
+            if (favCopy[idx] === title) {
+                favCopy.splice(idx);
+                break;
+            }
+        }
+        this.props.removeFavorite(id);
+        // Remove from map to rerender page
+        this.setState({favIdMap: mapCopy, favorites: favCopy});
+    }
+
 
     // Send the query to omdb API, load into list of favorites
     // Function based on Jose Annunziato's lecture slides
