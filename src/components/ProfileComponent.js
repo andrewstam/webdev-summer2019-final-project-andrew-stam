@@ -79,7 +79,14 @@ export default class ProfileComponent extends React.Component {
 
     // Set state to given favorites after backend load
     favoritesCallback = json => {
-        this.setState({favorites: json});
+        // Build new array: data looks like ['1,0,tt0335266', '1,1,tt1856191']
+        var arr = json;
+        for (var i = 0; i < json.length; i++) {
+            var tempArr = json[i].split(',');
+            arr[i] = tempArr[2];
+            // arr[i] now contains the IDs, so fetch title from API
+            this.loadTitleFromAPI(arr[i])
+        }
     }
 
     // Update the user stored in the backend -> only the current user can update
@@ -228,23 +235,41 @@ export default class ProfileComponent extends React.Component {
         return (
             <div>
                 <h6>Following:</h6>
-                <ul>
-                    {this.state.following.map((m, key) => <li key={key}>{m.username}</li>)}
-                </ul>
+                {this.state.following.length > 0 &&
+                    <ul>
+                        {this.state.following.map((m, key) => <li key={key}>{m.username}</li>)}
+                    </ul>
+                }
                 <h6>Followers:</h6>
-                <ul>
-                    {this.state.followers.map((m, key) =>
-                        <li key={key}>{m.username}</li>
-                    )}
-                </ul>
+                {this.state.followers.length > 0 &&
+                    <ul>
+                        {this.state.followers.map((m, key) =>
+                            <li key={key}>{m.username}</li>
+                        )}
+                    </ul>
+                }
                 <h6>Favorites:</h6>
-                <ul>
-                    {this.state.favorites.map((f, key) =>
-                        <li key={key}>{f}</li>
-                    )}
-                </ul>
+                {this.state.favorites.length > 0 &&
+                    <ul>
+                        {this.state.favorites.map((f, key) => <li key={key}>{f}</li>)}
+                    </ul>
+                }
             </div>
         )
+    }
+
+    // Send the query to omdb API, load into list of favorites
+    // Function based on Jose Annunziato's lecture slides
+    loadTitleFromAPI = (id, key) => {
+        var url = 'https://www.omdbapi.com';
+        // My personal API key, do not duplicate or reuse without permission
+        url += '?apikey=abfe6d09';
+        url += '&i=' + id;
+        fetch(url)
+        .then(res => res.json())
+        .then(json => {
+            this.setState({favorites: [...this.state.favorites, json.Title]});
+        });
     }
 
     // If logged in, allow follow and add to list. Otherwise, prevent follow
