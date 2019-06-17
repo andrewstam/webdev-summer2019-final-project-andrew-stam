@@ -1,5 +1,7 @@
 // Created by Andrew Stam
 import React from 'react';
+import UserService from '../services/UserService';
+const service = UserService.getInstance();
 
 export default class DetailComponent extends React.Component {
     constructor(props) {
@@ -11,7 +13,8 @@ export default class DetailComponent extends React.Component {
 
         this.state = {
             did: detailId,
-            loggedIn: localStorage.getItem('curUser') !== null
+            loggedIn: localStorage.getItem('curUser') !== null,
+            inFavorites: false
         };
     }
 
@@ -35,6 +38,26 @@ export default class DetailComponent extends React.Component {
             director: json.Director,
             reviews: json.Ratings
         })});
+        if (this.state.loggedIn) {
+            service.findFavorites(localStorage.getItem('curUser'), this.checkIfFavorite);
+        }
+    }
+
+    // See if this movie is already in the current user's favorites list
+    checkIfFavorite = json => {
+        // Build new array: data looks like ['1,0,tt0335266', '1,1,tt1856191']
+        var arr = json;
+        for (var i = 0; i < json.length; i++) {
+            var tempArr = json[i].split(',');
+            arr[i] = tempArr[2];
+            // arr[i] now contains the ID
+            if (json[i] === this.state.did) {
+                this.setState({inFavorites: true});
+                return;
+            }
+        }
+        // Not in favorites list already
+        this.setState({inFavorites: false});
     }
 
     render() {
@@ -55,9 +78,13 @@ export default class DetailComponent extends React.Component {
                         <li key={key}>{r.Source} gave this movie {r.Value}</li>
                     )}
                 </ul>
-                {this.state.loggedIn &&
+                {this.state.loggedIn && !this.state.inFavorites &&
                     <button className="btn btn-success"
                             onClick={() => this.props.addFavorite(this.state.did)}>Add Favorite</button>
+                }
+                {this.state.loggedIn && this.state.inFavorites &&
+                    <button className="btn btn-danger"
+                            onClick={() => this.props.addFavorite(this.state.did)}>Remove Favorite</button>
                 }
             </div>
         );
