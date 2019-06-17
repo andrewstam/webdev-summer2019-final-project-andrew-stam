@@ -49,7 +49,7 @@ export default class DetailComponent extends React.Component {
         var arr = json;
         for (var i = 0; i < json.length; i++) {
             var tempArr = json[i].split(',');
-            arr[i] = tempArr[2];
+            arr[i] = tempArr[1];
             // arr[i] now contains the ID
             if (json[i] === this.state.did) {
                 this.setState({inFavorites: true});
@@ -58,6 +58,18 @@ export default class DetailComponent extends React.Component {
         }
         // Not in favorites list already
         this.setState({inFavorites: false});
+    }
+
+    // Change state to inFavorites true, send to backend
+    doAddFavorite = id => {
+        this.setState({inFavorites: true});
+        this.props.addFavorite(id);
+    }
+
+    // Change state to inFavorites false, send to backend
+    doRemoveFavorite = id => {
+        this.setState({inFavorites: false});
+        this.props.removeFavorite(id);
     }
 
     render() {
@@ -80,11 +92,11 @@ export default class DetailComponent extends React.Component {
                 </ul>
                 {this.state.loggedIn && !this.state.inFavorites &&
                     <button className="btn btn-success"
-                            onClick={() => this.props.addFavorite(this.state.did)}>Add Favorite</button>
+                            onClick={() => this.doAddFavorite(this.state.did)}>Add Favorite</button>
                 }
                 {this.state.loggedIn && this.state.inFavorites &&
                     <button className="btn btn-danger"
-                            onClick={() => this.props.removeFavorite(this.state.did)}>Remove Favorite</button>
+                            onClick={() => this.doRemoveFavorite(this.state.did)}>Remove Favorite</button>
                 }
             </div>
         );

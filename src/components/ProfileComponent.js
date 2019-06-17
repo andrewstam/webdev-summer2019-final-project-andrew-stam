@@ -85,7 +85,7 @@ export default class ProfileComponent extends React.Component {
         var arr = json;
         for (var i = 0; i < json.length; i++) {
             var tempArr = json[i].split(',');
-            arr[i] = tempArr[2];
+            arr[i] = tempArr[1];
             // arr[i] now contains the IDs, so fetch title from API
             this.loadTitleFromAPI(arr[i])
         }

@@ -66,7 +66,7 @@ export default class MovieClub extends React.Component {
                     <Route path="/(|home|search)"
                            component={SearchComponent}/>
                     <Route path="/details/:did"
-                           render={() => <DetailComponent addFavorite={this.addFavorite}/>}/>
+                           render={() => <DetailComponent addFavorite={this.addFavorite} removeFavorite={this.removeFavorite}/>}/>
                     <Route path="/profile"
                            render={() => <ProfileComponent userId={this.state.userId} logout={this.logout} setPage={this.setPage}/>}/>
                     <Route path="/login"
@@ -109,12 +109,10 @@ export default class MovieClub extends React.Component {
     // Add a movie to a user's favorites list
     addFavorite = movieId => {
         service.addFavorite(this.state.userId, movieId);
-        alert('Added to favorites!');
     }
 
     // Add a movie to a user's favorites list
     removeFavorite = movieId => {
         service.removeFavorite(this.state.userId, movieId);
-        alert('Removed from favorites');
     }
 }
