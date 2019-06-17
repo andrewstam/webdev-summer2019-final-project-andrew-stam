@@ -84,7 +84,7 @@ export default class DetailComponent extends React.Component {
                 }
                 {this.state.loggedIn && this.state.inFavorites &&
                     <button className="btn btn-danger"
-                            onClick={() => this.props.addFavorite(this.state.did)}>Remove Favorite</button>
+                            onClick={() => this.props.removeFavorite(this.state.did)}>Remove Favorite</button>
                 }
             </div>
         );

@@ -107,10 +107,21 @@ export default class UserService {
         .then(response => response.json())
     }
 
-    // Add given user id to follower list of user with ID in path
+    // Add given move id to favorites list of user with ID in path
     addFavorite = (userId, movieId) => {
         fetch(`http://localhost:8080/api/users/${userId}/favorites`, {
             method: 'POST',
+            body: JSON.stringify(movieId),
+            headers: {
+                'content-type': 'application/json'
+            }
+        })
+    }
+
+    // Remove given movie id from favorites list of user with ID in path
+    removeFavorite = (userId, movieId) => {
+        fetch(`http://localhost:8080/api/users/${userId}/favorites`, {
+            method: 'DELETE',
             body: JSON.stringify(movieId),
             headers: {
                 'content-type': 'application/json'

@@ -111,4 +111,10 @@ export default class MovieClub extends React.Component {
         service.addFavorite(this.state.userId, movieId);
         alert('Added to favorites!');
     }
+
+    // Add a movie to a user's favorites list
+    removeFavorite = movieId => {
+        service.removeFavorite(this.state.userId, movieId);
+        alert('Removed from favorites');
+    }
 }
