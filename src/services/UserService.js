@@ -116,7 +116,6 @@ export default class UserService {
                 'content-type': 'application/json'
             }
         })
-        .then(response => response.json())
     }
 
     // Find a user's following based on their id
