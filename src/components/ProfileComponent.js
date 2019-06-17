@@ -1,6 +1,6 @@
 // Created by Andrew Stam
 import React from 'react';
-import {Redirect} from 'react-router-dom';
+import {Redirect, BrowserRouter as Router, Link} from 'react-router-dom';
 import UserService from '../services/UserService';
 const service = UserService.getInstance();
 
@@ -39,7 +39,8 @@ export default class ProfileComponent extends React.Component {
             email: '',
             followers: [],
             following: [],
-            favorites: []
+            favorites: [],
+            favIdMap: {}
         };
 
         this.props.setPage('profile');
@@ -87,7 +88,7 @@ export default class ProfileComponent extends React.Component {
             var tempArr = json[i].split(',');
             arr[i] = tempArr[1];
             // arr[i] now contains the IDs, so fetch title from API
-            this.loadTitleFromAPI(arr[i])
+            this.loadTitleFromAPI(arr[i]);
         }
     }
 
@@ -252,9 +253,12 @@ export default class ProfileComponent extends React.Component {
                 }
                 <h6>Favorites:</h6>
                 {this.state.favorites.length > 0 &&
-                    <ul>
-                        {this.state.favorites.map((f, key) => <li key={key}>{f}</li>)}
-                    </ul>
+                    <div>
+                        {this.state.favorites.map((title, key) =>
+                            <div key={key} className="form-control">
+                                <Link to={`/details/${this.state.favIdMap[title]}`}>{title}</Link>
+                            </div>)}
+                    </div>
                 }
             </div>
         )
@@ -270,7 +274,12 @@ export default class ProfileComponent extends React.Component {
         fetch(url)
         .then(res => res.json())
         .then(json => {
-            this.setState({favorites: [...this.state.favorites, json.Title]});
+            var newMap = this.state.favIdMap;
+            newMap[json.Title] = id;
+            this.setState({
+                favorites: [...this.state.favorites, json.Title],
+                favIdMap: newMap
+            });
         });
     }
 
