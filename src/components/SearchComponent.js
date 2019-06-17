@@ -26,6 +26,14 @@ export default class SearchComponent extends React.Component {
         .then(json => {this.setState({results: json.Search})});
     }
 
+    // User can press enter to submit form too
+    checkForEnter = event => {
+        if (event.charCode === 13) {
+            // User pressed enter, submit form
+            this.submitQuery();
+        }
+    }
+
     render() {
         return (
             <div>
@@ -33,7 +41,8 @@ export default class SearchComponent extends React.Component {
                 <div className="input-group wbdv-search-bar">
                     <input type="text" className="form-control" value={this.state.query}
                            onChange={e => this.setState({query: e.target.value})}
-                           placeholder="Search for a movie"/>
+                           placeholder="Search for a movie"
+                           onKeyPress={this.checkForEnter}/>
                     <div className="input-group-append">
                         <button className="btn btn-success" type="submit"
                                 onClick={() => this.submitQuery()}>Search</button>
