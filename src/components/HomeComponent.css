@@ -3,14 +3,30 @@
     color: #70CDEA;
     margin-top: 5rem;
     text-shadow: 1px 1px 2px black;
+    width: fit-content;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
 }
 
 .wbdv-desc-text {
     text-align: center;
     color: #365438;
+    margin-top: 1.5rem;
     text-shadow: 1px 1px 2px black;
 }
 
 .wbdv-search-link:hover {
     text-shadow: 0px 0px 2px black;
+}
+
+.wbdv-new-user-text {
+    text-align: center;
+    color: #3A545C;
+    margin-top: 1rem;
+    text-shadow: 1px 1px 2px black;
+    width: fit-content;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
 }

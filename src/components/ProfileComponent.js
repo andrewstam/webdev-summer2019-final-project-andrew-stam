@@ -1,6 +1,6 @@
 // Created by Andrew Stam
 import React from 'react';
-import {Redirect, BrowserRouter as Router, Link} from 'react-router-dom';
+import {Redirect, Link} from 'react-router-dom';
 import './ProfileComponent.css';
 import UserService from '../services/UserService';
 const service = UserService.getInstance();

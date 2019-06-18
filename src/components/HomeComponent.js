@@ -14,8 +14,8 @@ const HomeComponent = ({userObj, nameText, renderRoleText, newestUser}) =>
         }
         {newestUser !== null &&
             <div>
-                <h5>Check out our newest user, <Link to={`/profile/${newestUser.id}`}>
-                        {newestUser.username}</Link>!
+                <h5 className="wbdv-new-user-text"><i>Check out our newest user, <Link to={`/profile/${newestUser.id}`}>
+                        {newestUser.username}</Link>!</i>
                 </h5>
             </div>
         }

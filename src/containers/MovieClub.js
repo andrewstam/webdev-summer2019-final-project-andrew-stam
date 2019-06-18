@@ -52,11 +52,21 @@ export default class MovieClub extends React.Component {
                 <div className="wbdv-background-img"/>
                 <div className="container-fluid">
                     <Router>
-                        <Link to="/" className="wbdv-link"><h1 className="wbdv-page-title">Stam Movie Club</h1></Link>
-                        <button className="btn btn-secondary float-right">
-                            <Link to="/profile" className="wbdv-profile-btn">Profile</Link>
-                        </button>
-                        | <Link to="/login">Login</Link>
+                        <Link to="/" className="wbdv-link" onClick={() => this.setState({page: 'home'})}>
+                            <h1 className="wbdv-page-title">Stam Movie Club</h1>
+                        </Link>
+                        {this.state.userId !== null &&
+                            <button className="btn btn-secondary float-right">
+                                <Link to="/profile" className="wbdv-profile-btn"
+                                      onClick={() => this.setState({page: 'profile'})}>Profile</Link>
+                            </button>
+                        }
+                        {this.state.userId === null && this.state.page !== 'login' && this.state.page !== 'register' &&
+                            <button className="btn btn-info float-right">
+                                <Link to="/login" className="wbdv-profile-btn"
+                                      onClick={() => this.setState({page: 'login'})}>Login</Link>
+                            </button>
+                        }
                         <Route path="/(|home)"
                                render={() => <HomeComponent userObj={this.state.userObj} nameText={nameText}
                                                             renderRoleText={this.renderRoleText} newestUser={this.state.newestUser}/>}/>
