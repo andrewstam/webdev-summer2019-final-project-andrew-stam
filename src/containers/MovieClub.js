@@ -46,7 +46,6 @@ export default class MovieClub extends React.Component {
         // If not logged in, unused. If firstname is set, use that, otherwise user username
         var nameText = this.state.userObj ?
             (this.state.userObj.firstname !== '' ? this.state.userObj.firstname : this.state.userObj.username) : 'user';
-        console.log(JSON.stringify(this.state.userObj))
 
         return (
             <div>
@@ -56,6 +55,9 @@ export default class MovieClub extends React.Component {
                         <Link to="/" className="wbdv-link" onClick={() => this.setState({page: 'home'})}>
                             <h1 className="wbdv-page-title">Stam Movie Club</h1>
                         </Link>
+                        {this.state.userObj &&
+                            <h6 className="float-right wbdv-current-user">Logged in as {this.state.userObj.username}</h6>
+                        }
                         {this.state.userId !== null &&
                             <button className="btn btn-secondary float-right">
                                 <Link to="/profile" className="wbdv-profile-btn"
@@ -119,7 +121,7 @@ export default class MovieClub extends React.Component {
     // Logout user, load login page
     logout = () => {
         localStorage.removeItem('curUser');
-        this.setState({userId: null, page: 'login'});
+        this.setState({userId: null, page: 'login', userObj: null});
     }
 
     // Display the user who joined the most recently

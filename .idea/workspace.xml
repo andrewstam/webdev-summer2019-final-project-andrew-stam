@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7313eeed-9cf6-463b-9588-c268b72091c6" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/components/HomeComponent.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/HomeComponent.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/HomeComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/HomeComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SearchComponent.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SearchComponent.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SearchComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SearchComponent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/containers/MovieClub.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/MovieClub.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/containers/MovieClub.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/MovieClub.js" afterDir="false" />
     </list>
@@ -18,11 +18,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/containers/MovieClub.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1190">
-              <caret line="98" column="66" selection-start-line="98" selection-start-column="66" selection-end-line="98" selection-end-column="66" />
+            <state relative-caret-position="595">
+              <caret line="123" column="65" selection-start-line="123" selection-start-column="65" selection-end-line="123" selection-end-column="65" />
             </state>
           </provider>
         </entry>
@@ -30,17 +30,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/containers/MovieClub.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="782">
-              <caret line="54" column="34" selection-start-line="54" selection-start-column="34" selection-end-line="54" selection-end-column="34" />
+            <state relative-caret-position="647">
+              <caret line="62" column="16" selection-start-line="62" selection-start-column="16" selection-end-line="62" selection-end-column="16" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/components/HomeComponent.js">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/SearchComponent.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="26" column="100" selection-start-line="26" selection-start-column="100" selection-end-line="26" selection-end-column="100" />
+            <state relative-caret-position="34">
+              <caret line="2" column="21" lean-forward="true" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -57,8 +57,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/SearchComponent.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-425">
-              <caret line="11" column="87" selection-start-line="11" selection-start-column="87" selection-end-line="11" selection-end-column="87" />
+            <state relative-caret-position="289">
+              <caret line="53" column="48" selection-start-line="53" selection-start-column="48" selection-end-line="53" selection-end-column="48" />
             </state>
           </provider>
         </entry>
@@ -142,7 +142,6 @@
       <list>
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/src/index.js" />
-        <option value="$PROJECT_DIR$/src/components/SearchComponent.css" />
         <option value="$PROJECT_DIR$/src/components/ResultItem.js" />
         <option value="$PROJECT_DIR$/src/components/OwnProfileComponent.js" />
         <option value="$PROJECT_DIR$/src/components/MovieGroupComponent.js" />
@@ -151,12 +150,13 @@
         <option value="$PROJECT_DIR$/src/components/ProfileComponent.css" />
         <option value="$PROJECT_DIR$/src/services/UserService.js" />
         <option value="$PROJECT_DIR$/src/components/RegisterComponent.js" />
-        <option value="$PROJECT_DIR$/src/components/SearchComponent.js" />
         <option value="$PROJECT_DIR$/src/components/ProfileComponent.js" />
-        <option value="$PROJECT_DIR$/src/containers/MovieClub.js" />
-        <option value="$PROJECT_DIR$/src/containers/MovieClub.css" />
         <option value="$PROJECT_DIR$/src/components/HomeComponent.css" />
         <option value="$PROJECT_DIR$/src/components/HomeComponent.js" />
+        <option value="$PROJECT_DIR$/src/components/SearchComponent.js" />
+        <option value="$PROJECT_DIR$/src/components/SearchComponent.css" />
+        <option value="$PROJECT_DIR$/src/containers/MovieClub.css" />
+        <option value="$PROJECT_DIR$/src/containers/MovieClub.js" />
       </list>
     </option>
   </component>
@@ -289,13 +289,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/OwnProfileComponent.js" />
-    <entry file="file://$PROJECT_DIR$/src/components/SearchComponent.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="1" selection-start-column="1" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/MovieGroupComponent.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -345,13 +338,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/SearchComponent.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-425">
-          <caret line="11" column="87" selection-start-line="11" selection-start-column="87" selection-end-line="11" selection-end-column="87" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
@@ -387,24 +373,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/MovieClub.js">
+    <entry file="file://$PROJECT_DIR$/src/components/HomeComponent.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1190">
-          <caret line="98" column="66" selection-start-line="98" selection-start-column="66" selection-end-line="98" selection-end-column="66" />
+        <state relative-caret-position="442">
+          <caret line="26" column="100" selection-start-line="26" selection-start-column="100" selection-end-line="26" selection-end-column="100" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/SearchComponent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="53" column="48" selection-start-line="53" selection-start-column="48" selection-end-line="53" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/SearchComponent.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="21" lean-forward="true" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/containers/MovieClub.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="782">
-          <caret line="54" column="34" selection-start-line="54" selection-start-column="34" selection-end-line="54" selection-end-column="34" />
+        <state relative-caret-position="647">
+          <caret line="62" column="16" selection-start-line="62" selection-start-column="16" selection-end-line="62" selection-end-column="16" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/HomeComponent.js">
+    <entry file="file://$PROJECT_DIR$/src/containers/MovieClub.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="26" column="100" selection-start-line="26" selection-start-column="100" selection-end-line="26" selection-end-column="100" />
+        <state relative-caret-position="595">
+          <caret line="123" column="65" selection-start-line="123" selection-start-column="65" selection-end-line="123" selection-end-column="65" />
         </state>
       </provider>
     </entry>

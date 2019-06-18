@@ -51,7 +51,7 @@ export default class SearchComponent extends React.Component {
     render() {
         return (
             <div>
-                <h3>Search Page</h3>
+                <h3 className="wbdv-search-label">Search Page</h3>
                 <div className="input-group wbdv-search-bar">
                     <input type="text" className="form-control" defaultValue={this.state.query}
                            onChange={e => this.setState({query: e.target.value})}
