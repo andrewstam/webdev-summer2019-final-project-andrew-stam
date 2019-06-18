@@ -148,6 +148,8 @@ export default class ProfileComponent extends React.Component {
             email: this.state.email
         };
         this.updateBackend(user);
+        // Update home page
+        this.props.setUser(user);
     }
 
     // Change this user's email
@@ -237,7 +239,7 @@ export default class ProfileComponent extends React.Component {
         </div>)
     }
 
-    // Renders following list, followers list, and favorites list
+    // Renders following list, followers list, and favorites list, all as links
     renderLinks = () => {
         return (
             <div>
