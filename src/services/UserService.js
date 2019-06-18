@@ -92,7 +92,6 @@ export default class UserService {
                 'content-type': 'application/json'
             }
         })
-        .then(response => response.json())
     }
 
     // Add given user id to follower list of user with ID in path
@@ -104,7 +103,6 @@ export default class UserService {
                 'content-type': 'application/json'
             }
         })
-        .then(response => response.json())
     }
 
     // Add given move id to favorites list of user with ID in path
