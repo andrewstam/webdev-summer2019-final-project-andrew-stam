@@ -318,6 +318,29 @@ export default class ProfileComponent extends React.Component {
         this.setState({followers: newFollowers});
     }
 
+    // If logged in, allow unfollow and remove from list. Otherwise, prevent unfollow
+    doUnfollow = () => {
+        // Block follow if not logged in
+        if (this.state.curUser === null) {
+            alert('Please login before trying to unfollow users.');
+            return;
+        }
+        // Remove data pair in database
+        service.removeFollow(this.state.pageId, this.state.curUser);
+        service.removeFollower(this.state.curUser, this.state.pageId);
+        // Logged in user clicked to unfollow the other user, so update other user's followers
+        var followersCopy = this.state.followers;
+        // Remove from logged in user from followers array
+        for (let idx in followersCopy) {
+            if (followersCopy[idx] === this.state.curUser) {
+                followersCopy.splice(idx);
+                break;
+            }
+        }
+        // Rerender
+        this.setState({followers: followersCopy});
+    }
+
     // Check if the user's profile's followers list contains the logged in user
     isFollower = () => {
         var is = false;
@@ -335,8 +358,6 @@ export default class ProfileComponent extends React.Component {
             this.setState({logoutClick: false});
             return <Redirect to='/home'/>
         }
-
-        console.log(this.state.followers)
 
         return (
             <div>
@@ -365,7 +386,7 @@ export default class ProfileComponent extends React.Component {
                         }
                         {!ownPage && this.isFollower() &&
                             <button className="btn btn-secondary"
-                                    onClick={() => this.doFollow()}>
+                                    onClick={() => this.doUnfollow()}>
                                 Unfollow
                             </button>
                         }

@@ -94,10 +94,32 @@ export default class UserService {
         })
     }
 
+    // Remove given user id from following list of user with ID in path
+    removeFollow = (userId, id) => {
+        fetch(`http://localhost:8080/api/users/${id}/following`, {
+            method: 'DELETE',
+            body: JSON.stringify(userId),
+            headers: {
+                'content-type': 'application/json'
+            }
+        })
+    }
+
     // Add given user id to follower list of user with ID in path
     addFollower = (userId, id) => {
         fetch(`http://localhost:8080/api/users/${id}/followers`, {
             method: 'POST',
+            body: JSON.stringify(userId),
+            headers: {
+                'content-type': 'application/json'
+            }
+        })
+    }
+
+    // Remove given user id from follower list of user with ID in path
+    removeFollower = (userId, id) => {
+        fetch(`http://localhost:8080/api/users/${id}/followers`, {
+            method: 'DELETE',
             body: JSON.stringify(userId),
             headers: {
                 'content-type': 'application/json'
