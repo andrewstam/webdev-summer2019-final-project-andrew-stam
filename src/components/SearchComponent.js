@@ -8,10 +8,23 @@ export default class SearchComponent extends React.Component {
     constructor(props) {
         super(props);
 
+        const pathname = window.location.pathname;
+        const paths = pathname.split('/');
+
+        // Get query from URL if there is one
+        var q = this.props.match ? this.props.match.params.criteria : '';
+
         this.state = {
-            query: '',
+            query: q,
             results: []
         };
+    }
+
+    componentDidMount() {
+        // If query is in URL, run query
+        if (this.state.query !== '') {
+            this.submitQuery();
+        }
     }
 
     // Send the query to omdb API, load result into state
@@ -21,6 +34,7 @@ export default class SearchComponent extends React.Component {
         // My personal API key, do not duplicate or reuse without permission
         url += '?apikey=abfe6d09';
         url += '&s=' + this.state.query;
+        this.props.history.push(this.state.query);
         fetch(url)
         .then(res => res.json())
         .then(json => {this.setState({results: json.Search})});
@@ -48,7 +62,7 @@ export default class SearchComponent extends React.Component {
                                 onClick={() => this.submitQuery()}>Search</button>
                     </div>
                 </div>
-                {this.state.results.length > 0 &&
+                {this.state.results && this.state.results.length > 0 &&
                     <div>
                         <h4>Results</h4>
                         {this.state.results.map((r, key) =>

@@ -3,6 +3,7 @@ import React from 'react';
 import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
 import SearchComponent from '../components/SearchComponent';
+import HomeComponent from '../components/HomeComponent';
 import DetailComponent from '../components/DetailComponent';
 import LoginComponent from '../components/LoginComponent';
 import RegisterComponent from '../components/RegisterComponent';
@@ -24,7 +25,7 @@ export default class MovieClub extends React.Component {
             service.findUserById(id, this.loadUser);
         }
 
-        // Pages: /home, /login, /search, /details/{did}, /profile/{uid},
+        // Pages: /home, /login, /search, /search/{criteria}, /details/{did}, /profile/{uid},
         //   /register
         this.state = {
             userId: id,
@@ -66,8 +67,9 @@ export default class MovieClub extends React.Component {
                     <Link to="/search" onClick={() => this.setState({page: 'home'})}>Search</Link>
                     | <Link to="/profile">Profile</Link>
                     | <Link to="/login">Login</Link>
-                    | <Link to="/group">Group</Link>
-                    <Route path="/(|home|search)"
+                    <Route path="/(|home)"
+                           component={HomeComponent}/>
+                    <Route path="/search/:criteria"
                            component={SearchComponent}/>
                     <Route path="/details/:did"
                            render={() => <DetailComponent addFavorite={this.addFavorite} removeFavorite={this.removeFavorite}/>}/>
@@ -77,7 +79,8 @@ export default class MovieClub extends React.Component {
                     <Route path="/login"
                            render={() => <LoginComponent userId={this.state.userId} setUser={this.setUser} setPage={this.setPage}/>}/>
                     <Route path="/register"
-                           render={() => <RegisterComponent user={this.state.userId} setUser={this.setUser} setPage={this.setPage}/>}/>
+                           render={() => <RegisterComponent user={this.state.userId} setUser={this.setUser} setPage={this.setPage}
+                                                            loadNewestUser={this.loadNewestUser}/>}/>
                     <Route path="/group/:groupId"
                            render={() => <MovieGroupComponent userObj={this.state.userObj} setPage={this.setPage}/>}/>
                 </Router>
@@ -109,10 +112,10 @@ export default class MovieClub extends React.Component {
         this.setState({userObj: json});
     }
 
-    // Logout user, load login page
+    // Logout user, load home page
     logout = () => {
         localStorage.removeItem('curUser');
-        this.setState({userId: null, page: 'login'});
+        this.setState({userId: null, page: 'home'});
     }
 
     // Display the user who joined the most recently

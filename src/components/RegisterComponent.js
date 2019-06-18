@@ -38,8 +38,9 @@ export default class RegisterComponent extends React.Component {
                 id: this.state.id,
                 role: this.state.role
             };
-            // Send user info to parent
+            // Send user info to parent, newest user is now registered user
             this.props.setUser(obj);
+            this.props.loadNewestUser(obj);
         } else {
             // Tell user the username was taken
             this.setState({badUser: true});

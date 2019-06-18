@@ -360,7 +360,6 @@ export default class ProfileComponent extends React.Component {
     render() {
         var ownPage = this.state.curUser === this.state.pageId;
         if (this.state.logoutClick) {
-            this.setState({logoutClick: false});
             return <Redirect to='/home'/>
         }
 
@@ -378,8 +377,8 @@ export default class ProfileComponent extends React.Component {
                         {ownPage &&
                             <button className="btn btn-danger"
                                     onClick={() => {
-                                        this.setState({logoutClick: true})
-                                        this.props.logout()}}>
+                                        this.props.logout();
+                                        this.setState({logoutClick: true})}}>
                                 Logout
                             </button>
                         }
