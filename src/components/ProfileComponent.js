@@ -41,7 +41,8 @@ export default class ProfileComponent extends React.Component {
             followers: [],
             following: [],
             favorites: [],
-            favIdMap: {}
+            favIdMap: {},
+            showFollowBtn: true
         };
 
         this.props.setPage('profile');
@@ -74,6 +75,8 @@ export default class ProfileComponent extends React.Component {
     // Set state to given followers after backend load
     followersCallback = json => {
         this.setState({followers: json});
+        // Now know if a follower, so update button rendering
+        this.setState({showFollowBtn: !this.isFollower(json)});
     }
 
     // Set state to given following after backend load
@@ -315,12 +318,12 @@ export default class ProfileComponent extends React.Component {
         service.addFollower(this.state.curUser, this.state.pageId);
         // Logged in user clicked to follow the other user, so update other user's followers
         var newFollowers = [...this.state.followers, this.state.pageId];
-        this.setState({followers: newFollowers});
+        this.setState({followers: newFollowers, showFollowBtn: false});
     }
 
     // If logged in, allow unfollow and remove from list. Otherwise, prevent unfollow
     doUnfollow = () => {
-        // Block follow if not logged in
+        // Block follow if not logged in (should never reach here, but here just in case)
         if (this.state.curUser === null) {
             alert('Please login before trying to unfollow users.');
             return;
@@ -338,13 +341,13 @@ export default class ProfileComponent extends React.Component {
             }
         }
         // Rerender
-        this.setState({followers: followersCopy});
+        this.setState({followers: followersCopy, showFollowBtn: true});
     }
 
     // Check if the user's profile's followers list contains the logged in user
-    isFollower = () => {
+    isFollower = list => {
         var is = false;
-        this.state.followers.forEach(f => {
+        list.forEach(f => {
             if (f.id === parseInt(this.state.curUser)) {
                 is = true;
             }
@@ -378,13 +381,13 @@ export default class ProfileComponent extends React.Component {
                                 Logout
                             </button>
                         }
-                        {!ownPage && !this.isFollower() &&
+                        {!ownPage && this.state.showFollowBtn &&
                             <button className="btn btn-warning"
                                     onClick={() => this.doFollow()}>
                                 Follow
                             </button>
                         }
-                        {!ownPage && this.isFollower() &&
+                        {!ownPage && !this.state.showFollowBtn &&
                             <button className="btn btn-secondary"
                                     onClick={() => this.doUnfollow()}>
                                 Unfollow
