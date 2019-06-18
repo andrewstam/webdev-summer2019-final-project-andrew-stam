@@ -332,7 +332,7 @@ export default class ProfileComponent extends React.Component {
         var followersCopy = this.state.followers;
         // Remove from logged in user from followers array
         for (let idx in followersCopy) {
-            if (followersCopy[idx] === this.state.curUser) {
+            if (followersCopy[idx].id === parseInt(this.state.curUser)) {
                 followersCopy.splice(idx);
                 break;
             }
