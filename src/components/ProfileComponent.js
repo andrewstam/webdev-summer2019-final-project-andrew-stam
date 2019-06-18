@@ -284,7 +284,6 @@ export default class ProfileComponent extends React.Component {
         this.setState({favIdMap: mapCopy, favorites: favCopy});
     }
 
-
     // Send the query to omdb API, load into list of favorites
     // Function based on Jose Annunziato's lecture slides
     loadTitleFromAPI = (id, key) => {
@@ -312,11 +311,22 @@ export default class ProfileComponent extends React.Component {
             return;
         }
         // If not already following (backend handles duplicates)
-        service.addFollow(this.state.pageId, localStorage.getItem('curUser'));
-        service.addFollower(localStorage.getItem('curUser'), this.state.pageId);
+        service.addFollow(this.state.pageId, this.state.curUser);
+        service.addFollower(this.state.curUser, this.state.pageId);
         // Logged in user clicked to follow the other user, so update other user's followers
         var newFollowers = [...this.state.followers, this.state.pageId];
         this.setState({followers: newFollowers});
+    }
+
+    // Check if the user's profile's followers list contains the logged in user
+    isFollower = () => {
+        var is = false;
+        this.state.followers.forEach(f => {
+            if (f.id === parseInt(this.state.curUser)) {
+                is = true;
+            }
+        });
+        return is;
     }
 
     render() {
@@ -325,6 +335,8 @@ export default class ProfileComponent extends React.Component {
             this.setState({logoutClick: false});
             return <Redirect to='/home'/>
         }
+
+        console.log(this.state.followers)
 
         return (
             <div>
@@ -337,16 +349,24 @@ export default class ProfileComponent extends React.Component {
                         {!ownPage && <h3>{this.state.username}'s Profile</h3>}
                         {ownPage && this.renderMyPage()}
                         {!ownPage && this.renderOtherPage()}
-                        <button className="btn btn-danger"
-                                onClick={() => {
-                                    this.setState({logoutClick: true})
-                                    this.props.logout()}}>
-                            Logout
-                        </button>
-                        {!ownPage &&
+                        {ownPage &&
+                            <button className="btn btn-danger"
+                                    onClick={() => {
+                                        this.setState({logoutClick: true})
+                                        this.props.logout()}}>
+                                Logout
+                            </button>
+                        }
+                        {!ownPage && !this.isFollower() &&
                             <button className="btn btn-warning"
                                     onClick={() => this.doFollow()}>
                                 Follow
+                            </button>
+                        }
+                        {!ownPage && this.isFollower() &&
+                            <button className="btn btn-secondary"
+                                    onClick={() => this.doFollow()}>
+                                Unfollow
                             </button>
                         }
                     </div>
