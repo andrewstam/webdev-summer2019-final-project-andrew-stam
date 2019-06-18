@@ -10,6 +10,7 @@ import RegisterComponent from '../components/RegisterComponent';
 import ProfileComponent from '../components/ProfileComponent';
 import MovieGroupComponent from '../components/MovieGroupComponent';
 import '../../node_modules/font-awesome/css/font-awesome.min.css';
+import './MovieClub.css';
 
 import UserService from '../services/UserService';
 const service = UserService.getInstance();
@@ -48,8 +49,8 @@ export default class MovieClub extends React.Component {
 
         return (
             <div className="container-fluid">
-                <h1>Movie Club</h1>
                 <Router>
+                    <Link to="/" className="wbdv-link"><h1 className="wbdv-page-title">Stam Movie Club</h1></Link>
                     <Link to="/search" onClick={() => this.setState({page: 'search'})}>Search</Link>
                     | <Link to="/profile">Profile</Link>
                     | <Link to="/login">Login</Link>
