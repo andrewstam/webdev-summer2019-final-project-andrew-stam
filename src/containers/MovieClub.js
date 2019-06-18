@@ -50,7 +50,10 @@ export default class MovieClub extends React.Component {
                 <h1>Movie Club</h1>
                 <h2>Decide what movies to watch and when, with friends!</h2>
                 {this.state.userObj !== null && this.state.page === 'home' &&
-                    <h3>Welcome {nameText}.</h3>
+                    <div>
+                        <h3>Welcome {nameText}.</h3>
+                        {this.renderRoleText()}
+                    </div>
                 }
                 <Router>
                     {this.state.newestUser !== null && this.state.page === 'home' &&
@@ -80,6 +83,18 @@ export default class MovieClub extends React.Component {
                 </Router>
             </div>
         );
+    }
+
+    // Tell user what role they're in
+    renderRoleText = () => {
+        if (this.state.userObj.role === 'GroupLeader') {
+            return (
+                <h4>You are browsing as a Group Leader</h4>
+            )
+        }
+        return (
+            <h4>You are browsing as a Group Member</h4>
+        )
     }
 
     // Set the current user by the given object and ID
