@@ -46,6 +46,7 @@ export default class MovieClub extends React.Component {
         // If not logged in, unused. If firstname is set, use that, otherwise user username
         var nameText = this.state.userObj ?
             (this.state.userObj.firstname !== '' ? this.state.userObj.firstname : this.state.userObj.username) : 'user';
+        console.log(JSON.stringify(this.state.userObj))
 
         return (
             <div>
@@ -95,11 +96,11 @@ export default class MovieClub extends React.Component {
     renderRoleText = () => {
         if (this.state.userObj.role === 'GroupLeader') {
             return (
-                <h4>You are browsing as a Group Leader</h4>
+                <h5 className="wbdv-role-text"><i>Group Leader</i></h5>
             )
         }
         return (
-            <h4>You are browsing as a Group Member</h4>
+            <h5 className="wbdv-role-text">Group Member</h5>
         )
     }
 

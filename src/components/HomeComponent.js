@@ -8,7 +8,7 @@ const HomeComponent = ({userObj, nameText, renderRoleText, newestUser}) =>
         <h3 className="wbdv-desc-text">Decide what movies to watch and when, with friends!</h3>
         {userObj !== null &&
             <div>
-                <h3>Welcome {nameText}.</h3>
+                <h2 className="wbdv-name-text">Welcome {nameText}</h2>
                 {renderRoleText()}
             </div>
         }
@@ -19,7 +19,13 @@ const HomeComponent = ({userObj, nameText, renderRoleText, newestUser}) =>
                 </h5>
             </div>
         }
-        <Link to="/search" className="wbdv-link"><h2 className="wbdv-search-link">Start today by searching for a movie</h2></Link>
+        {userObj === null &&
+            <Link to="/search" className="wbdv-link"><h2 className="wbdv-search-link">Start today by searching for a movie</h2></Link>
+        }
+        {userObj !== null &&
+            <Link to="/search" className="wbdv-link"><h2 className="wbdv-search-link">
+                <i className="fa fa-long-arrow-right"/> Search for a movie <i className="fa fa-long-arrow-left"/></h2></Link>
+        }
     </div>
 
 export default HomeComponent;

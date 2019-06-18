@@ -24,9 +24,14 @@
     text-align: center;
     color: #3A545C;
     margin-top: 1rem;
-    text-shadow: 1px 1px 2px black;
+    text-shadow: 1px 1px 3px white;
     width: fit-content;
     left: 50%;
     transform: translate(-50%, -50%);
     position: absolute;
+}
+
+.wbdv-name-text {
+    color: #4DB14A;
+    text-shadow: 1px 1px 5px black;
 }

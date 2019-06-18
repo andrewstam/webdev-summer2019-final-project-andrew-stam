@@ -49,3 +49,8 @@
     position: absolute;
     right: 0;
 }
+
+.wbdv-role-text {
+    color: #26B1DC;
+    text-shadow: 1px 1px 5px black;
+}
