@@ -76,6 +76,7 @@ export default class MovieClub extends React.Component {
                                render={() => <MovieGroupComponent userObj={this.state.userObj} setPage={this.setPage}/>}/>
                     </Router>
                 </div>
+                <div className="wbdv-creator-text">Created by Andrew Stam, June 2019</div>
             </div>
         );
     }
