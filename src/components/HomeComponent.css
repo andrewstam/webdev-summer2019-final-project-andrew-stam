@@ -1,3 +1,16 @@
 .wbdv-search-link {
     text-align: center;
+    color: #70CDEA;
+    margin-top: 5rem;
+    text-shadow: 1px 1px 2px black;
+}
+
+.wbdv-desc-text {
+    text-align: center;
+    color: #365438;
+    text-shadow: 1px 1px 2px black;
+}
+
+.wbdv-search-link:hover {
+    text-shadow: 0px 0px 2px black;
 }

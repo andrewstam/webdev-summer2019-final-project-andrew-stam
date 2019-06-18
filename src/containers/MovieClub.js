@@ -53,8 +53,9 @@ export default class MovieClub extends React.Component {
                 <div className="container-fluid">
                     <Router>
                         <Link to="/" className="wbdv-link"><h1 className="wbdv-page-title">Stam Movie Club</h1></Link>
-                        <Link to="/search" onClick={() => this.setState({page: 'search'})}>Search</Link>
-                        | <Link to="/profile">Profile</Link>
+                        <button className="btn btn-secondary float-right">
+                            <Link to="/profile" className="wbdv-profile-btn">Profile</Link>
+                        </button>
                         | <Link to="/login">Login</Link>
                         <Route path="/(|home)"
                                render={() => <HomeComponent userObj={this.state.userObj} nameText={nameText}
