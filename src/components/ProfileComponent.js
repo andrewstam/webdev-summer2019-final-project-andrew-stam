@@ -317,7 +317,7 @@ export default class ProfileComponent extends React.Component {
         service.addFollow(this.state.pageId, this.state.curUser);
         service.addFollower(this.state.curUser, this.state.pageId);
         // Logged in user clicked to follow the other user, so update other user's followers
-        var newFollowers = [...this.state.followers, this.state.pageId];
+        var newFollowers = [...this.state.followers, this.props.userObj];
         this.setState({followers: newFollowers, showFollowBtn: false});
     }
 
