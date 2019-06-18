@@ -99,10 +99,10 @@ export default class MovieClub extends React.Component {
         this.setState({userObj: json});
     }
 
-    // Logout user, load home page
+    // Logout user, load login page
     logout = () => {
         localStorage.removeItem('curUser');
-        this.setState({userId: null, page: 'home'});
+        this.setState({userId: null, page: 'login'});
     }
 
     // Display the user who joined the most recently

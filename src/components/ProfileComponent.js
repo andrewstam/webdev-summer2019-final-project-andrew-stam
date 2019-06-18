@@ -360,7 +360,7 @@ export default class ProfileComponent extends React.Component {
     render() {
         var ownPage = this.state.curUser === this.state.pageId;
         if (this.state.logoutClick) {
-            return <Redirect to='/home'/>
+            return <Redirect to='/login'/>
         }
 
         return (
