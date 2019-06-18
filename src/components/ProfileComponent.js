@@ -278,7 +278,7 @@ export default class ProfileComponent extends React.Component {
         // Remove from favorites array
         for (let idx in favCopy) {
             if (favCopy[idx] === title) {
-                favCopy.splice(idx);
+                favCopy.splice(idx, 1);
                 break;
             }
         }
@@ -336,7 +336,7 @@ export default class ProfileComponent extends React.Component {
         // Remove from logged in user from followers array
         for (let idx in followersCopy) {
             if (followersCopy[idx].id === parseInt(this.state.curUser)) {
-                followersCopy.splice(idx);
+                followersCopy.splice(idx, 1);
                 break;
             }
         }
