@@ -49,27 +49,14 @@ export default class MovieClub extends React.Component {
         return (
             <div className="container-fluid">
                 <h1>Movie Club</h1>
-                <h2>Decide what movies to watch and when, with friends!</h2>
-                {this.state.userObj !== null && this.state.page === 'home' &&
-                    <div>
-                        <h3>Welcome {nameText}.</h3>
-                        {this.renderRoleText()}
-                    </div>
-                }
                 <Router>
-                    {this.state.newestUser !== null && this.state.page === 'home' &&
-                        <div>
-                            <h5>Check out our newest user, <Link to={`/profile/${this.state.newestUser.id}`}>
-                                    {this.state.newestUser.username}</Link>!
-                            </h5>
-                        </div>
-                    }
-                    <Link to="/search" onClick={() => this.setState({page: 'home'})}>Search</Link>
+                    <Link to="/search" onClick={() => this.setState({page: 'search'})}>Search</Link>
                     | <Link to="/profile">Profile</Link>
                     | <Link to="/login">Login</Link>
                     <Route path="/(|home)"
-                           component={HomeComponent}/>
-                    <Route path="/search/:criteria"
+                           render={() => <HomeComponent userObj={this.state.userObj} nameText={nameText}
+                                                        renderRoleText={this.renderRoleText} newestUser={this.state.newestUser}/>}/>
+                    <Route path="/search/:criteria?"
                            component={SearchComponent}/>
                     <Route path="/details/:did"
                            render={() => <DetailComponent addFavorite={this.addFavorite} removeFavorite={this.removeFavorite}/>}/>

@@ -8,11 +8,8 @@ export default class SearchComponent extends React.Component {
     constructor(props) {
         super(props);
 
-        const pathname = window.location.pathname;
-        const paths = pathname.split('/');
-
         // Get query from URL if there is one
-        var q = this.props.match ? this.props.match.params.criteria : '';
+        var q = this.props.match.params ? this.props.match.params.criteria : undefined;
 
         this.state = {
             query: q,
@@ -22,8 +19,11 @@ export default class SearchComponent extends React.Component {
 
     componentDidMount() {
         // If query is in URL, run query
-        if (this.state.query !== '') {
+        if (this.state.query !== undefined) {
             this.submitQuery();
+        } else {
+            // Empty query if no URL
+            this.setState({results: []});
         }
     }
 
@@ -34,7 +34,7 @@ export default class SearchComponent extends React.Component {
         // My personal API key, do not duplicate or reuse without permission
         url += '?apikey=abfe6d09';
         url += '&s=' + this.state.query;
-        this.props.history.push(this.state.query);
+        this.props.history.push('/search/' + this.state.query);
         fetch(url)
         .then(res => res.json())
         .then(json => {this.setState({results: json.Search})});
@@ -53,7 +53,7 @@ export default class SearchComponent extends React.Component {
             <div>
                 <h3>Search Page</h3>
                 <div className="input-group wbdv-search-bar">
-                    <input type="text" className="form-control" value={this.state.query}
+                    <input type="text" className="form-control" defaultValue={this.state.query}
                            onChange={e => this.setState({query: e.target.value})}
                            placeholder="Search for a movie"
                            onKeyPress={this.checkForEnter}/>
