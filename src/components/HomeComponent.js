@@ -1,6 +1,7 @@
 // Created by Andrew Stam
 import React from 'react';
 import {Link} from 'react-router-dom';
+import './HomeComponent.css';
 
 const HomeComponent = ({userObj, nameText, renderRoleText, newestUser}) =>
     <div>
@@ -18,6 +19,7 @@ const HomeComponent = ({userObj, nameText, renderRoleText, newestUser}) =>
                 </h5>
             </div>
         }
+        <Link to="/search" className="wbdv-link"><h2 className="wbdv-search-link">Start by searching for a movie</h2></Link>
     </div>
 
 export default HomeComponent;

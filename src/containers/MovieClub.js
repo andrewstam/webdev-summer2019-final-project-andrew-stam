@@ -48,30 +48,33 @@ export default class MovieClub extends React.Component {
             (this.state.userObj.firstname !== '' ? this.state.userObj.firstname : this.state.userObj.username) : 'user';
 
         return (
-            <div className="container-fluid">
-                <Router>
-                    <Link to="/" className="wbdv-link"><h1 className="wbdv-page-title">Stam Movie Club</h1></Link>
-                    <Link to="/search" onClick={() => this.setState({page: 'search'})}>Search</Link>
-                    | <Link to="/profile">Profile</Link>
-                    | <Link to="/login">Login</Link>
-                    <Route path="/(|home)"
-                           render={() => <HomeComponent userObj={this.state.userObj} nameText={nameText}
-                                                        renderRoleText={this.renderRoleText} newestUser={this.state.newestUser}/>}/>
-                    <Route path="/search/:criteria?"
-                           component={SearchComponent}/>
-                    <Route path="/details/:did"
-                           render={() => <DetailComponent addFavorite={this.addFavorite} removeFavorite={this.removeFavorite}/>}/>
-                    <Route path="/profile"
-                           render={() => <ProfileComponent userId={this.state.userId} logout={this.logout} userObj={this.state.userObj}
-                                                           setPage={this.setPage} removeFavorite={this.removeFavorite} setUser={this.setUser}/>}/>
-                    <Route path="/login"
-                           render={() => <LoginComponent userId={this.state.userId} setUser={this.setUser} setPage={this.setPage}/>}/>
-                    <Route path="/register"
-                           render={() => <RegisterComponent user={this.state.userId} setUser={this.setUser} setPage={this.setPage}
-                                                            loadNewestUser={this.loadNewestUser}/>}/>
-                    <Route path="/group/:groupId"
-                           render={() => <MovieGroupComponent userObj={this.state.userObj} setPage={this.setPage}/>}/>
-                </Router>
+            <div>
+                <div className="wbdv-background-img"/>
+                <div className="container-fluid">
+                    <Router>
+                        <Link to="/" className="wbdv-link"><h1 className="wbdv-page-title">Stam Movie Club</h1></Link>
+                        <Link to="/search" onClick={() => this.setState({page: 'search'})}>Search</Link>
+                        | <Link to="/profile">Profile</Link>
+                        | <Link to="/login">Login</Link>
+                        <Route path="/(|home)"
+                               render={() => <HomeComponent userObj={this.state.userObj} nameText={nameText}
+                                                            renderRoleText={this.renderRoleText} newestUser={this.state.newestUser}/>}/>
+                        <Route path="/search/:criteria?"
+                               component={SearchComponent}/>
+                        <Route path="/details/:did"
+                               render={() => <DetailComponent addFavorite={this.addFavorite} removeFavorite={this.removeFavorite}/>}/>
+                        <Route path="/profile"
+                               render={() => <ProfileComponent userId={this.state.userId} logout={this.logout} userObj={this.state.userObj}
+                                                               setPage={this.setPage} removeFavorite={this.removeFavorite} setUser={this.setUser}/>}/>
+                        <Route path="/login"
+                               render={() => <LoginComponent userId={this.state.userId} setUser={this.setUser} setPage={this.setPage}/>}/>
+                        <Route path="/register"
+                               render={() => <RegisterComponent user={this.state.userId} setUser={this.setUser} setPage={this.setPage}
+                                                                loadNewestUser={this.loadNewestUser}/>}/>
+                        <Route path="/group/:groupId"
+                               render={() => <MovieGroupComponent userObj={this.state.userObj} setPage={this.setPage}/>}/>
+                    </Router>
+                </div>
             </div>
         );
     }
