@@ -214,4 +214,26 @@ export default class UserService {
             fn(json);
         })
     }
+
+    // Edit the review text for the given movie ID by the user with the given ID
+    editReviewForMovie = (uid, mid, text) => {
+        fetch(`http://localhost:8080/api/reviews/${mid}/${uid}/text`, {
+            method: 'PUT',
+            body: JSON.stringify(text),
+            headers: {
+                'content-type': 'application/json'
+            }
+        })
+    }
+
+    // Edit the review stars for the given movie ID by the user with the given ID
+    editStarsForMovie = (uid, mid, stars) => {
+        fetch(`http://localhost:8080/api/reviews/${mid}/${uid}/stars`, {
+            method: 'PUT',
+            body: JSON.stringify(stars),
+            headers: {
+                'content-type': 'application/json'
+            }
+        })
+    }
 }

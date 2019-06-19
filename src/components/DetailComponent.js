@@ -88,6 +88,18 @@ export default class DetailComponent extends React.Component {
         this.props.removeFavorite(id);
     }
 
+    // Update state and send to backend
+    doTextChange = text => {
+        this.setState({reviewText: text});
+        service.editReviewForMovie(localStorage.getItem('curUser'), this.state.did, text);
+    }
+
+    // Update state and send to backend
+    doStarChange = star => {
+        this.setState({stars: star});
+        service.editStarsForMovie(localStorage.getItem('curUser'), this.state.did, parseInt(star));
+    }
+
     render() {
         var btnText = this.state.reviewText !== '' ? 'Edit Review' : 'Add Review';
         return (
@@ -128,7 +140,7 @@ export default class DetailComponent extends React.Component {
                         <div className="col-sm-8">
                             <label htmlFor="starf">Your Rating</label>
                             <select className="form-control" id="starf"
-                                   onChange={e => this.setState({stars: e.target.value})}
+                                   onChange={e => this.doStarChange(e.target.value)}
                                    value={this.state.stars}>
                                 <option value="1">1 star</option>
                                 <option value="2">2 stars</option>
@@ -138,7 +150,7 @@ export default class DetailComponent extends React.Component {
                             </select>
                             <label htmlFor="rtext">Review</label>
                             <textarea type="text" className="form-control" id="rtext"
-                                   onChange={e => this.setState({reviewText: e.target.value})}
+                                   onChange={e => this.doTextChange(e.target.value)}
                                    value={this.state.reviewText}/>
                         </div>
                     </div>
