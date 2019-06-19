@@ -102,18 +102,18 @@ export default class ReviewComponent extends React.Component {
         var fullStar = <i className="fa fa-star"/>;
         var emptyStar = <i className="fa fa-star-o"/>;
         switch (num) {
-            case 0:
+            default:
                 return <span>none</span>
             case 1:
-                return <div>{fullStar} {emptyStar} {emptyStar} {emptyStar} {emptyStar}</div>
+                return <div className="wbdv-star">{fullStar} {emptyStar} {emptyStar} {emptyStar} {emptyStar}</div>
             case 2:
-                return <div>{fullStar} {fullStar} {emptyStar} {emptyStar} {emptyStar}</div>
+                return <div className="wbdv-star">{fullStar} {fullStar} {emptyStar} {emptyStar} {emptyStar}</div>
             case 3:
-                return <div>{fullStar} {fullStar} {fullStar} {emptyStar} {emptyStar}</div>
+                return <div className="wbdv-star">{fullStar} {fullStar} {fullStar} {emptyStar} {emptyStar}</div>
             case 4:
-                return <div>{fullStar} {fullStar} {fullStar} {fullStar} {emptyStar}</div>
+                return <div className="wbdv-star">{fullStar} {fullStar} {fullStar} {fullStar} {emptyStar}</div>
             case 5:
-                return <div>{fullStar} {fullStar} {fullStar} {fullStar} {fullStar}</div>
+                return <div className="wbdv-star">{fullStar} {fullStar} {fullStar} {fullStar} {fullStar}</div>
         }
     }
 
@@ -125,7 +125,7 @@ export default class ReviewComponent extends React.Component {
                     <Link to={`/details/${this.state.revIdMap[title]}`} onClick={() => this.props.setPage('details')}
                           className="wbdv-related-link">{title}</Link>
                     <div>
-                        <span className="wbdv-star">Rating: {this.renderAsStars(this.state.idToStarMap[this.state.revIdMap[title]])}</span>
+                        <span className="wbdv-rating-label">Rating: {this.renderAsStars(this.state.idToStarMap[this.state.revIdMap[title]])}</span>
                         <p className="wbdv-review-text"><i>{this.state.idToTextMap[this.state.revIdMap[title]]}</i></p>
                     </div>
                 </div>)}
@@ -136,6 +136,7 @@ export default class ReviewComponent extends React.Component {
         return (
             <div>
                 <h3 className="wbdv-profile-detail">{this.state.username}'s Reviews</h3>
+                <h5 className="wbdv-avg-text">{this.state.stars} star average rating</h5>
                 <div>
                     {this.renderReviews()}
                 </div>

@@ -29,7 +29,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    position: absolute;
+    position: fixed;
     height: 100%;
     width: 100%;
     z-index: -10;
@@ -50,8 +50,9 @@
     bottom: 0;
     margin-right: 1rem;
     margin-bottom: 0.25rem;
-    position: absolute;
+    position: fixed;
     right: 0;
+    z-index: -5;
 }
 
 .wbdv-role-text {

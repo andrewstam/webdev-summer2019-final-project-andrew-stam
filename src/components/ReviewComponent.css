@@ -2,13 +2,24 @@
     height: fit-content;
     opacity: 0.8;
     margin-bottom: 5px;
+    width: 80%;
 }
 
 .wbdv-star {
-    color: yellow;
+    color: gold;
     text-shadow: 1px 1px 2px #707013;
+}
+
+.wbdv-rating-label {
+    color: #70CDEA;
+    text-shadow: 1px 1px 1px #135470;
 }
 
 .wbdv-review-text {
     color: #155613;
+}
+
+.wbdv-avg-text {
+    color: #70CDEA;
+    text-shadow: 1px 1px 2px black;
 }
