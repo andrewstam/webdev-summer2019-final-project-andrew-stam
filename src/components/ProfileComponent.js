@@ -189,52 +189,56 @@ export default class ProfileComponent extends React.Component {
         if (this.props.newUser) {
             service.findUserById(this.props.newUser, this.loadUserData);
         }
-        return (<div>
-            <label htmlFor="fname">First name</label>
-            <input type="text" className="form-control" id="fname"
-                   onChange={e => this.changeFirstName(e.target.value)}
-                   defaultValue={this.state.firstname}/>
-            <label htmlFor="lname">Last name</label>
-            <input type="text" className="form-control" id="lname"
-                   onChange={e => this.changeLastName(e.target.value)}
-                   defaultValue={this.state.lastname}/>
-            <label htmlFor="emailf">Email</label>
-            <input type="email" className="form-control" id="emailf"
-                   onChange={e => this.changeEmail(e.target.value)}
-                   defaultValue={this.state.email}/>
-            <label htmlFor="rolef">Role</label>
-            <select className="form-control" id="rolef"
-                   onChange={e => this.changeRole(e.target.value)}
-                   value={this.state.role}>
-                <option value="GroupMember">Group Member</option>
-                <option value="GroupLeader">Group Leader</option>
-            </select>
-            <label htmlFor="dobf">Date of Birth</label>
-            <input type="date" className="form-control" id="dobf"
-                   onChange={e => this.changeDob(e.target.value)}
-                   defaultValue={this.state.dob}/>
+        return (<div className="row">
+            <div className="wbdv-profile-detail col-sm-8">
+                <label htmlFor="fname">First name</label>
+                <input type="text" className="form-control" id="fname"
+                       onChange={e => this.changeFirstName(e.target.value)}
+                       defaultValue={this.state.firstname}/>
+                <label htmlFor="lname">Last name</label>
+                <input type="text" className="form-control" id="lname"
+                       onChange={e => this.changeLastName(e.target.value)}
+                       defaultValue={this.state.lastname}/>
+                <label htmlFor="emailf">Email</label>
+                <input type="email" className="form-control" id="emailf"
+                       onChange={e => this.changeEmail(e.target.value)}
+                       defaultValue={this.state.email}/>
+                <label htmlFor="rolef">Role</label>
+                <select className="form-control" id="rolef"
+                       onChange={e => this.changeRole(e.target.value)}
+                       value={this.state.role}>
+                    <option value="GroupMember">Group Member</option>
+                    <option value="GroupLeader">Group Leader</option>
+                </select>
+                <label htmlFor="dobf">Date of Birth</label>
+                <input type="date" className="form-control" id="dobf"
+                       onChange={e => this.changeDob(e.target.value)}
+                       defaultValue={this.state.dob}/>
+            </div>
             {this.renderLinks()}
         </div>)
     }
 
     // Disable input fields, hide private info
     renderOtherPage = () => {
-        return (<div>
-            <label htmlFor="fname">First name</label>
-            <input type="text" className="form-control" id="fname" disabled
-                   onChange={e => this.changeFirstName(e.target.value)}
-                   defaultValue={this.state.firstname}/>
-            <label htmlFor="lname">Last name</label>
-            <input type="text" className="form-control" id="lname" disabled
-                   onChange={e => this.changeLastName(e.target.value)}
-                   defaultValue={this.state.lastname}/>
-            <label htmlFor="rolef">Role</label>
-            <select className="form-control" id="rolef" disabled
-                   onChange={e => this.changeRole(e.target.value)}
-                   value={this.state.role}>
-                <option value="GroupMember">Group Member</option>
-                <option value="GroupLeader">Group Leader</option>
-            </select>
+        return (<div className="row">
+            <div className="wbdv-profile-detail col-sm-8">
+                <label htmlFor="fname">First name</label>
+                <input type="text" className="form-control wbdv-disabled" id="fname" disabled
+                       onChange={e => this.changeFirstName(e.target.value)}
+                       defaultValue={this.state.firstname}/>
+                <label htmlFor="lname">Last name</label>
+                <input type="text" className="form-control wbdv-disabled" id="lname" disabled
+                       onChange={e => this.changeLastName(e.target.value)}
+                       defaultValue={this.state.lastname}/>
+                <label htmlFor="rolef">Role</label>
+                <select className="form-control wbdv-disabled" id="rolef" disabled
+                       onChange={e => this.changeRole(e.target.value)}
+                       value={this.state.role}>
+                    <option value="GroupMember">Group Member</option>
+                    <option value="GroupLeader">Group Leader</option>
+                </select>
+            </div>
             {this.renderLinks()}
         </div>)
     }
@@ -242,18 +246,22 @@ export default class ProfileComponent extends React.Component {
     // Renders following list, followers list, and favorites list, all as links
     renderLinks = () => {
         return (
-            <div>
+            <div className="col-sm wbdv-profile-detail">
                 <h6>Following:</h6>
                 {this.state.following.length > 0 &&
                     <ul>
-                        {this.state.following.map((m, key) => <li key={key}>{m.username}</li>)}
+                        {this.state.following.map((m, key) => <li key={key} className="wbdv-profile-list-item wbdv-related-user">
+                            <Link to={`/profile/${m.id}`}>{m.username}</Link>
+                        </li>)}
                     </ul>
                 }
                 <h6>Followers:</h6>
                 {this.state.followers.length > 0 &&
                     <ul>
                         {this.state.followers.map((m, key) =>
-                            <li key={key}>{m.username}</li>
+                            <li key={key} className="wbdv-profile-list-item wbdv-related-user">
+                                <Link to={`/profile/${m.id}`}>{m.username}</Link>
+                            </li>
                         )}
                     </ul>
                 }
@@ -261,7 +269,7 @@ export default class ProfileComponent extends React.Component {
                 {this.state.favorites.length > 0 &&
                     <div>
                         {this.state.favorites.map((title, key) =>
-                            <div key={key} className="form-control">
+                            <div key={key} className="form-control wbdv-favorite">
                                 <Link to={`/details/${this.state.favIdMap[title]}`}>{title}</Link>
                                 <i className="fa fa-times float-right wbdv-delete-fav"
                                    onClick={() => this.doDeleteFavorite(title, this.state.favIdMap[title])}></i>
@@ -366,14 +374,16 @@ export default class ProfileComponent extends React.Component {
         return (
             <div>
                 {this.state.curUser === null && this.state.pageId === null &&
-                    <span>Please login to view your profile.</span>
+                    <span className="wbdv-profile-detail">Please login to view your profile.</span>
                 }
                 {this.state.pageId !== null &&
                     <div>
-                        {ownPage && <h3>Your Profile</h3>}
-                        {!ownPage && <h3>{this.state.username}'s Profile</h3>}
-                        {ownPage && this.renderMyPage()}
-                        {!ownPage && this.renderOtherPage()}
+                        {ownPage && <h3 className="wbdv-profile-detail">Your Profile</h3>}
+                        {!ownPage && <h3 className="wbdv-profile-detail">{this.state.username}'s Profile</h3>}
+                        <div className="container">
+                            {ownPage && this.renderMyPage()}
+                            {!ownPage && this.renderOtherPage()}
+                        </div>
                         {ownPage &&
                             <button className="btn btn-danger"
                                     onClick={() => {
