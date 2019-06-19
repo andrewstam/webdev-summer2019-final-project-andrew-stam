@@ -318,18 +318,19 @@ export default class ProfileComponent extends React.Component {
                         </ul>
                     </div>
                 }
+                <hr className="wbdv-separator"/>
                 {this.state.stars > 0 &&
-                    <h6 className="wbdv-star-text">Average Star Rating: {this.state.stars}</h6>
+                    <h6 className="wbdv-stat-text">Average Star Rating: {this.state.stars}</h6>
                 }
                 {this.state.stars <= 0 &&
-                    <h6 className="wbdv-star-text"><i>No movie ratings yet.</i></h6>
+                    <h6 className="wbdv-stat-text"><i>No movie ratings yet.</i></h6>
                 }
                 {this.state.favorites.length === 0 &&
-                    <h6><i>No favorite movies yet</i></h6>
+                    <h6 className="wbdv-stat-text"><i>No favorite movies yet</i></h6>
                 }
                 {this.state.favorites.length > 0 &&
                     <div>
-                        <h6>Favorites:</h6>
+                        <h6 className="wbdv-stat-text">Favorites:</h6>
                         {this.state.favorites.map((title, key) =>
                             <div key={key} className="form-control wbdv-favorite">
                                 <Link to={`/details/${this.state.favIdMap[title]}`} onClick={() => this.props.setPage('details')}
@@ -341,12 +342,12 @@ export default class ProfileComponent extends React.Component {
                 }
                 {this.state.reviews.length > 0 &&
                     <div>
-                        <h6>Reviews:</h6>
+                        <h6 className="wbdv-stat-text">Reviews:</h6>
                         {this.renderReviews()}
                     </div>
                 }
                 {this.state.reviews.length === 0 &&
-                    <h6><i>No reviews yet</i></h6>
+                    <h6 className="wbdv-stat-text"><i>No reviews yet</i></h6>
                 }
             </div>
         )

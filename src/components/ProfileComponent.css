@@ -25,8 +25,8 @@
     font-size: 18px;
 }
 
-.wbdv-star-text {
-    color: yellow;
+.wbdv-stat-text {
+    color: gold;
 }
 
 .wbdv-related-link {
@@ -37,4 +37,11 @@
 
 .wbdv-disabled {
     background-color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.wbdv-separator {
+    width: 95%;
+    border: 2px solid green;
+    opacity: 0.4;
+    border-radius: 15px;
 }
