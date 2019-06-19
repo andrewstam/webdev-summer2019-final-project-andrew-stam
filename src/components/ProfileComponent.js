@@ -288,25 +288,35 @@ export default class ProfileComponent extends React.Component {
     renderLinks = () => {
         return (
             <div className="col-sm wbdv-profile-detail">
-                <h6>Following:</h6>
-                {this.state.following.length > 0 &&
-                    <ul>
-                        {this.state.following.map((m, key) => <li key={key} className="wbdv-profile-list-item wbdv-related-user">
-                            <Link to={`/profile/${m.id}`} className="wbdv-related-link"
-                                  onClick={() => this.changePage(m.id)}>{m.username}</Link>
-                        </li>)}
-                    </ul>
+                {this.state.following.length === 0 &&
+                    <h6><i>Not following users yet</i></h6>
                 }
-                <h6>Followers:</h6>
-                {this.state.followers.length > 0 &&
-                    <ul>
-                        {this.state.followers.map((m, key) =>
-                            <li key={key} className="wbdv-profile-list-item wbdv-related-user">
+                {this.state.following.length > 0 &&
+                    <div>
+                        <h6>Following:</h6>
+                        <ul>
+                            {this.state.following.map((m, key) => <li key={key} className="wbdv-profile-list-item wbdv-related-user">
                                 <Link to={`/profile/${m.id}`} className="wbdv-related-link"
                                       onClick={() => this.changePage(m.id)}>{m.username}</Link>
-                            </li>
-                        )}
-                    </ul>
+                            </li>)}
+                        </ul>
+                    </div>
+                }
+                {this.state.followers.length === 0 &&
+                    <h6><i>No followers yet</i></h6>
+                }
+                {this.state.followers.length > 0 &&
+                    <div>
+                        <h6>Followers:</h6>
+                        <ul>
+                            {this.state.followers.map((m, key) =>
+                                <li key={key} className="wbdv-profile-list-item wbdv-related-user">
+                                    <Link to={`/profile/${m.id}`} className="wbdv-related-link"
+                                          onClick={() => this.changePage(m.id)}>{m.username}</Link>
+                                </li>
+                            )}
+                        </ul>
+                    </div>
                 }
                 {this.state.stars > 0 &&
                     <h6 className="wbdv-star-text">Average Star Rating: {this.state.stars}</h6>
@@ -314,9 +324,12 @@ export default class ProfileComponent extends React.Component {
                 {this.state.stars <= 0 &&
                     <h6 className="wbdv-star-text"><i>No movie ratings yet.</i></h6>
                 }
-                <h6>Favorites:</h6>
+                {this.state.favorites.length === 0 &&
+                    <h6><i>No favorite movies yet</i></h6>
+                }
                 {this.state.favorites.length > 0 &&
                     <div>
+                        <h6>Favorites:</h6>
                         {this.state.favorites.map((title, key) =>
                             <div key={key} className="form-control wbdv-favorite">
                                 <Link to={`/details/${this.state.favIdMap[title]}`} onClick={() => this.props.setPage('details')}
@@ -326,8 +339,15 @@ export default class ProfileComponent extends React.Component {
                             </div>)}
                     </div>
                 }
-                <h6>Reviews:</h6>
-                {this.renderReviews()}
+                {this.state.reviews.length > 0 &&
+                    <div>
+                        <h6>Reviews:</h6>
+                        {this.renderReviews()}
+                    </div>
+                }
+                {this.state.reviews.length === 0 &&
+                    <h6><i>No reviews yet</i></h6>
+                }
             </div>
         )
     }
