@@ -54,6 +54,8 @@ export default class RegisterComponent extends React.Component {
 
     // Check if valid credentials, if so then show profile on front-end
     doValidate = () => {
+        // Reset state
+        this.setState({mismatch: false, badUser: false});
         // Check if passwords match
         if (this.state.password !== this.state.cPassword) {
             this.setState({mismatch: true});
@@ -105,10 +107,10 @@ export default class RegisterComponent extends React.Component {
                     </div>
                 </div>
                 {this.state.mismatch &&
-                    <h6>Passwords do not match. Try again.</h6>
+                    <h6 className="wbdv-error-text">Passwords do not match. Try again.</h6>
                 }
                 {this.state.badUser &&
-                    <h6>Username taken. Try again.</h6>
+                    <h6 className="wbdv-error-text">Username taken. Try again.</h6>
                 }
             </div>
         );
