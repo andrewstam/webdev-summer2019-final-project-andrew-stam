@@ -200,7 +200,7 @@ export default class UserService {
         })
         .then(response => response.text())
         .then(json => {
-            fn(json);
+            fn(json, mid);
         })
     }
 
@@ -211,7 +211,7 @@ export default class UserService {
         })
         .then(response => response.json())
         .then(json => {
-            fn(json);
+            fn(json, mid);
         })
     }
 

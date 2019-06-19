@@ -1,0 +1,14 @@
+.wbdv-review {
+    height: fit-content;
+    opacity: 0.8;
+    margin-bottom: 5px;
+}
+
+.wbdv-star {
+    color: yellow;
+    text-shadow: 1px 1px 2px #707013;
+}
+
+.wbdv-review-text {
+    color: #155613;
+}

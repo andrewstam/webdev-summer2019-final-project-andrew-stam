@@ -1,7 +1,7 @@
 // Created by Andrew Stam
 import React from 'react';
 import {Redirect, Link} from 'react-router-dom';
-import './ProfileComponent.css';
+import './ReviewComponent.css';
 import UserService from '../services/UserService';
 const service = UserService.getInstance();
 
@@ -22,7 +22,7 @@ export default class ReviewComponent extends React.Component {
         // reviews to load
         if (id !== null) {
             service.findUserById(id, this.loadUserData);
-            service.findStarAverage(id, this.loadStars);
+            service.findStarAverage(id, this.loadStarsAvg);
             service.findReviewedMovies(id, this.loadReviews);
         }
 
@@ -33,6 +33,8 @@ export default class ReviewComponent extends React.Component {
             stars: 0.0,
             reviews: [],
             revIdMap: {},
+            idToStarMap: {},
+            idToTextMap: {},
             ownPage: parseInt(id) === parseInt(localStorage.getItem('curUser'))
         };
 
@@ -49,14 +51,30 @@ export default class ReviewComponent extends React.Component {
     }
 
     // Load user's average rating, one decimal place
-    loadStars = json =>
+    loadStarsAvg = json =>
         this.setState({stars: json.toFixed(1)})
 
     // Display reviews
     loadReviews = json => {
         for (let idx in json) {
             this.loadTitleFromAPI(json[idx], false);
+            service.findStarsForMovie(this.state.curUser, json[idx], this.loadStars);
+            service.findReviewForMovie(this.state.curUser, json[idx], this.loadText);
         }
+    }
+
+    // Load star rating for a movie
+    loadStars = (val, mid) => {
+        var map = this.state.idToStarMap;
+        map[mid] = val;
+        this.setState({idToStarMap: map});
+    }
+
+    // Load text review for a movie
+    loadText = (val, mid) => {
+        var map = this.state.idToTextMap;
+        map[mid] = val;
+        this.setState({idToTextMap: map});
     }
 
     // Send the query to omdb API, load into list of favorites
@@ -83,9 +101,13 @@ export default class ReviewComponent extends React.Component {
     renderReviews = () => {
         return (<div>
             {this.state.reviews.sort().map((title, key) =>
-                <div key={key} className="form-control wbdv-favorite">
+                <div key={key} className="form-control wbdv-review">
                     <Link to={`/details/${this.state.revIdMap[title]}`} onClick={() => this.props.setPage('details')}
                           className="wbdv-related-link">{title}</Link>
+                    <div>
+                        <span className="wbdv-star">{this.state.idToStarMap[this.state.revIdMap[title]]} star(s)</span>
+                        <p className="wbdv-review-text"><i>{this.state.idToTextMap[this.state.revIdMap[title]]}</i></p>
+                    </div>
                 </div>)}
         </div>)
     }
@@ -93,8 +115,10 @@ export default class ReviewComponent extends React.Component {
     render() {
         return (
             <div>
-                <h1>{this.state.username}'s Reviews</h1>
-                {this.renderReviews()}
+                <h3 className="wbdv-profile-detail">{this.state.username}'s Reviews</h3>
+                <div>
+                    {this.renderReviews()}
+                </div>
             </div>
         )
     }
