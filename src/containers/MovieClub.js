@@ -32,7 +32,8 @@ export default class MovieClub extends React.Component {
             userId: id,
             userObj: null,
             newestUser: null,
-            page: 'home'
+            page: 'home',
+            profileId: id
         };
 
         service.findNewestUser(this.loadNewestUser);
@@ -58,7 +59,7 @@ export default class MovieClub extends React.Component {
                         {this.state.userObj &&
                             <h6 className="float-right wbdv-current-user">Logged in as {this.state.userObj.username}</h6>
                         }
-                        {this.state.userId !== null &&
+                        {this.state.userId !== null && this.state.page !== 'profile' &&
                             <button className="btn btn-secondary float-right">
                                 <Link to="/profile" className="wbdv-profile-btn wbdv-btn-shadow"
                                       onClick={() => this.setState({page: 'profile'})}>Profile</Link>
@@ -79,7 +80,8 @@ export default class MovieClub extends React.Component {
                                render={() => <DetailComponent addFavorite={this.addFavorite} removeFavorite={this.removeFavorite}/>}/>
                         <Route path="/profile"
                                render={() => <ProfileComponent userId={this.state.userId} logout={this.logout} userObj={this.state.userObj}
-                                                               setPage={this.setPage} removeFavorite={this.removeFavorite} setUser={this.setUser}/>}/>
+                                                               setPage={this.setPage} removeFavorite={this.removeFavorite}
+                                                               setUser={this.setUser}/>}/>
                         <Route path="/login"
                                render={() => <LoginComponent userId={this.state.userId} setUser={this.setUser} setPage={this.setPage}/>}/>
                         <Route path="/register"

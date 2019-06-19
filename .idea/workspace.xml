@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7313eeed-9cf6-463b-9588-c268b72091c6" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/ProfileComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProfileComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/MovieClub.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/MovieClub.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,8 +20,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/containers/MovieClub.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="62" column="95" selection-start-line="62" selection-start-column="95" selection-end-line="62" selection-end-column="95" />
+            <state relative-caret-position="-187">
+              <caret line="61" column="72" selection-start-line="61" selection-start-column="72" selection-end-line="61" selection-end-column="72" />
             </state>
           </provider>
         </entry>
@@ -27,8 +29,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/ProfileComponent.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="532">
-              <caret line="236" column="31" selection-start-line="236" selection-start-column="31" selection-end-line="236" selection-end-column="31" />
+            <state relative-caret-position="395">
+              <caret line="295" column="126" selection-start-line="295" selection-start-column="126" selection-end-line="295" selection-end-column="126" />
               <folding>
                 <element signature="e#0#10524#0" />
                 <element signature="e#0#7786#0" />
@@ -357,15 +359,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/containers/MovieClub.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="62" column="95" selection-start-line="62" selection-start-column="95" selection-end-line="62" selection-end-column="95" />
+        <state relative-caret-position="-187">
+          <caret line="61" column="72" selection-start-line="61" selection-start-column="72" selection-end-line="61" selection-end-column="72" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/ProfileComponent.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="532">
-          <caret line="236" column="31" selection-start-line="236" selection-start-column="31" selection-end-line="236" selection-end-column="31" />
+        <state relative-caret-position="395">
+          <caret line="295" column="126" selection-start-line="295" selection-start-column="126" selection-end-line="295" selection-end-column="126" />
           <folding>
             <element signature="e#0#10524#0" />
             <element signature="e#0#7786#0" />
