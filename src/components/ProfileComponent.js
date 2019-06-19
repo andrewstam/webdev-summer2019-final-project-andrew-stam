@@ -54,6 +54,24 @@ export default class ProfileComponent extends React.Component {
         }
     }
 
+    // Change which user profile page is shown
+    changePage = id => {
+        this.setState({
+            pageId: id,
+            followers: [],
+            following: [],
+            favorites: [],
+            favIdMap: {}
+        });
+        // profile to load
+        if (id !== null) {
+            service.findUserById(id, this.loadUserData);
+            service.findFollowers(id, this.followersCallback);
+            service.findFollowing(id, this.followingCallback);
+            service.findFavorites(id, this.favoritesCallback);
+        }
+    }
+
     // Once found user from backend, update page
     loadUserData = json => {
         // Public data
@@ -251,7 +269,7 @@ export default class ProfileComponent extends React.Component {
                 {this.state.following.length > 0 &&
                     <ul>
                         {this.state.following.map((m, key) => <li key={key} className="wbdv-profile-list-item wbdv-related-user">
-                            <Link to={`/profile/${m.id}`}>{m.username}</Link>
+                            <Link to={`/profile/${m.id}`} onClick={() => this.changePage(m.id)}>{m.username}</Link>
                         </li>)}
                     </ul>
                 }
@@ -260,7 +278,7 @@ export default class ProfileComponent extends React.Component {
                     <ul>
                         {this.state.followers.map((m, key) =>
                             <li key={key} className="wbdv-profile-list-item wbdv-related-user">
-                                <Link to={`/profile/${m.id}`}>{m.username}</Link>
+                                <Link to={`/profile/${m.id}`} onClick={() => this.changePage(m.id)}>{m.username}</Link>
                             </li>
                         )}
                     </ul>
