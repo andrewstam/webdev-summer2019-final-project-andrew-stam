@@ -8,6 +8,7 @@ import DetailComponent from '../components/DetailComponent';
 import LoginComponent from '../components/LoginComponent';
 import RegisterComponent from '../components/RegisterComponent';
 import ProfileComponent from '../components/ProfileComponent';
+import ReviewComponent from '../components/ReviewComponent';
 import MovieGroupComponent from '../components/MovieGroupComponent';
 import '../../node_modules/font-awesome/css/font-awesome.min.css';
 import './MovieClub.css';
@@ -89,6 +90,8 @@ export default class MovieClub extends React.Component {
                                                                 loadNewestUser={this.loadNewestUser}/>}/>
                         <Route path="/group/:groupId"
                                render={() => <MovieGroupComponent userObj={this.state.userObj} setPage={this.setPage}/>}/>
+                        <Route path="/reviews"
+                               render={() => <ReviewComponent setPage={this.setPage}/>}/>
                     </Router>
                 </div>
                 <div className="wbdv-creator-text">Created by Andrew Stam, June 2019</div>
