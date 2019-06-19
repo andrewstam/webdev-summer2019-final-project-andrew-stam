@@ -1,6 +1,7 @@
 // Created by Andrew Stam
 import React from 'react';
 import {Redirect, Link} from 'react-router-dom';
+import './LoginComponent.css';
 import UserService from '../services/UserService';
 const service = UserService.getInstance();
 
@@ -51,22 +52,24 @@ export default class LoginComponent extends React.Component {
         }
 
         return (
-            <div>
+            <div className="wbdv-login-container">
                 <h3>Login Page</h3>
                 <div>
-                    <input type="text" className="form-control"
+                    <label htmlFor="user">Username</label>
+                    <input type="text" className="form-control wbdv-login-item" id="user"
                            onChange={e => this.setState({username: e.target.value})}
                            placeholder="Username"/>
-                    <input type="text" className="form-control"
+                    <label htmlFor="pass">Password</label>
+                    <input type="text" className="form-control wbdv-login-item" id="pass"
                            onChange={e => this.setState({password: e.target.value})}
                            placeholder="Password"/>
                     <div>
-                        <button className="btn btn-success" type="submit"
+                        <button className="btn btn-success btn-block wbdv-login-btn" type="submit"
                                 onClick={() => this.doValidate()}>
                             Login
                         </button>
                     </div>
-                    <Link to="/register">New user? Register here</Link>
+                    <Link to="/register" className="wbdv-register-link">New user? Register here</Link>
                 </div>
                 {this.state.failed &&
                     <h6>Login failed. Try again.</h6>
