@@ -1,9 +1,20 @@
 .wbdv-search-bar {
     width: 80%;
     margin-left: 10%;
+    margin-top: 10%;
 }
 
 .wbdv-search-label {
     color: green;
-    text-shadow: 1px 1px 1px darkgreen;
+    text-shadow: 1px 1px 2px black;
+}
+
+.wbdv-results-label {
+    color: green;
+    text-shadow: 1px 1px 2px black;
+}
+
+.wbdv-results-container {
+    overflow-y: auto;
+    height: 200px;
 }

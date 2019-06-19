@@ -51,7 +51,7 @@ export default class SearchComponent extends React.Component {
     render() {
         return (
             <div>
-                <h3 className="wbdv-search-label">Search Page</h3>
+                <h2 className="wbdv-search-label">Search Page</h2>
                 <div className="input-group wbdv-search-bar">
                     <input type="text" className="form-control" defaultValue={this.state.query}
                            onChange={e => this.setState({query: e.target.value})}
@@ -64,10 +64,12 @@ export default class SearchComponent extends React.Component {
                 </div>
                 {this.state.results && this.state.results.length > 0 &&
                     <div>
-                        <h4>Results</h4>
-                        {this.state.results.map((r, key) =>
-                            <ResultItem key={key} title={r.Title} did={r.imdbID}/>
-                        )}
+                        <h4 className="wbdv-results-label">Results</h4>
+                        <div className="wbdv-results-container">
+                            {this.state.results.map((r, key) =>
+                                <ResultItem key={key} title={r.Title} did={r.imdbID}/>
+                            )}
+                        </div>
                     </div>
                 }
             </div>
