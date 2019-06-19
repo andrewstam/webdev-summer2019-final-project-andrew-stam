@@ -236,4 +236,15 @@ export default class UserService {
             }
         })
     }
+
+    // Returns the movie ids with reviews for the user with the given ID
+    findReviewedMovies = (uid, fn) => {
+        fetch(`http://localhost:8080/api/reviews/${uid}/movies`, {
+            method: 'GET'
+        })
+        .then(response => response.json())
+        .then(json => {
+            fn(json);
+        })
+    }
 }

@@ -26,6 +26,7 @@ export default class ProfileComponent extends React.Component {
             service.findFollowing(id, this.followingCallback);
             service.findFavorites(id, this.favoritesCallback);
             service.findStarAverage(id, this.loadStars);
+            service.findReviewedMovies(id, this.loadReviews);
         }
 
         this.state = {
@@ -45,6 +46,8 @@ export default class ProfileComponent extends React.Component {
             favIdMap: {},
             stars: 0.0,
             showFollowBtn: true,
+            reviews: [],
+            revIdMap: {},
             ownPage: parseInt(id) === parseInt(localStorage.getItem('curUser'))
         };
 
@@ -74,6 +77,14 @@ export default class ProfileComponent extends React.Component {
             service.findFollowing(id, this.followingCallback);
             service.findFavorites(id, this.favoritesCallback);
             service.findStarAverage(id, this.loadStars);
+            service.findReviewedMovies(id, this.loadReviews);
+        }
+    }
+
+    // Display reviews
+    loadReviews = json => {
+        for (let idx in json) {
+            this.loadTitleFromAPI(json[idx], false);
         }
     }
 
@@ -116,7 +127,7 @@ export default class ProfileComponent extends React.Component {
             var tempArr = json[i].split(',');
             arr[i] = tempArr[1];
             // arr[i] now contains the IDs, so fetch title from API
-            this.loadTitleFromAPI(arr[i]);
+            this.loadTitleFromAPI(arr[i], true);
         }
     }
 
@@ -313,6 +324,8 @@ export default class ProfileComponent extends React.Component {
                             </div>)}
                     </div>
                 }
+                <h6>Reviews:</h6>
+                {this.renderReviews()}
             </div>
         )
     }
@@ -336,7 +349,7 @@ export default class ProfileComponent extends React.Component {
 
     // Send the query to omdb API, load into list of favorites
     // Function based on Jose Annunziato's lecture slides
-    loadTitleFromAPI = (id, key) => {
+    loadTitleFromAPI = (id, forFavs) => {
         var url = 'https://www.omdbapi.com';
         // My personal API key, do not duplicate or reuse without permission
         url += '?apikey=abfe6d09';
@@ -344,13 +357,37 @@ export default class ProfileComponent extends React.Component {
         fetch(url)
         .then(res => res.json())
         .then(json => {
-            var newMap = this.state.favIdMap;
-            newMap[json.Title] = id;
-            this.setState({
-                favorites: [...this.state.favorites, json.Title].sort(),
-                favIdMap: newMap
-            });
+            if (forFavs) {
+                // For favorites
+                var newMap = this.state.favIdMap;
+                newMap[json.Title] = id;
+                this.setState({
+                    favorites: [...this.state.favorites, json.Title].sort(),
+                    favIdMap: newMap
+                });
+            } else {
+                // For reviews
+                var revMap = this.state.revIdMap;
+                revMap[json.Title] = id;
+                this.setState({
+                    reviews: [...this.state.reviews, json.Title].sort(),
+                    revIdMap: revMap
+                });
+            }
         });
+    }
+
+    // Show up to 3 reviews, if more, link to reviews page
+    renderReviews = () => {
+        for (let i = 0; i < 3 && i < this.state.reviews.length; i++) {
+            return (<div>
+                {this.state.reviews.map((title, key) =>
+                    <div key={key} className="form-control wbdv-favorite">
+                        <Link to={`/details/${this.state.revIdMap[title]}`} onClick={() => this.props.setPage('details')}
+                              className="wbdv-related-link">{title}</Link>
+                    </div>)}
+            </div>)
+        }
     }
 
     // If logged in, allow follow and add to list. Otherwise, prevent follow
