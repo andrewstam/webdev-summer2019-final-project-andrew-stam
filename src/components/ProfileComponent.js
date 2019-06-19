@@ -42,7 +42,8 @@ export default class ProfileComponent extends React.Component {
             following: [],
             favorites: [],
             favIdMap: {},
-            showFollowBtn: true
+            showFollowBtn: true,
+            ownPage: parseInt(id) === parseInt(localStorage.getItem('curUser'))
         };
 
         this.props.setPage('profile');
@@ -61,7 +62,8 @@ export default class ProfileComponent extends React.Component {
             followers: [],
             following: [],
             favorites: [],
-            favIdMap: {}
+            favIdMap: {},
+            ownPage: parseInt(id) === parseInt(localStorage.getItem('curUser'))
         });
         // profile to load
         if (id !== null) {
@@ -79,7 +81,8 @@ export default class ProfileComponent extends React.Component {
             username: json.username,
             firstname: json.firstname,
             lastname: json.lastname,
-            role: json.role
+            role: json.role,
+            ownPage: parseInt(this.state.pageId) === parseInt(this.state.curUser)
         });
         // Private data (only can see if own profile)
         if (this.state.pageId === this.state.curUser) {
@@ -384,7 +387,6 @@ export default class ProfileComponent extends React.Component {
     }
 
     render() {
-        var ownPage = this.state.curUser === this.state.pageId;
         if (this.state.logoutClick) {
             return <Redirect to='/login'/>
         }
@@ -396,13 +398,13 @@ export default class ProfileComponent extends React.Component {
                 }
                 {this.state.pageId !== null &&
                     <div>
-                        {ownPage && <h3 className="wbdv-profile-detail">Your Profile</h3>}
-                        {!ownPage && <h3 className="wbdv-profile-detail">{this.state.username}'s Profile</h3>}
+                        {this.state.ownPage && <h3 className="wbdv-profile-detail">Your Profile</h3>}
+                        {!this.state.ownPage && <h3 className="wbdv-profile-detail">{this.state.username}'s Profile</h3>}
                         <div className="container">
-                            {ownPage && this.renderMyPage()}
-                            {!ownPage && this.renderOtherPage()}
+                            {this.state.ownPage && this.renderMyPage()}
+                            {!this.state.ownPage && this.renderOtherPage()}
                         </div>
-                        {ownPage &&
+                        {this.state.ownPage &&
                             <button className="btn btn-danger"
                                     onClick={() => {
                                         this.props.logout();
@@ -410,13 +412,13 @@ export default class ProfileComponent extends React.Component {
                                 Logout
                             </button>
                         }
-                        {!ownPage && this.state.showFollowBtn &&
+                        {!this.state.ownPage && this.state.showFollowBtn &&
                             <button className="btn btn-warning"
                                     onClick={() => this.doFollow()}>
                                 Follow
                             </button>
                         }
-                        {!ownPage && !this.state.showFollowBtn &&
+                        {!this.state.ownPage && !this.state.showFollowBtn &&
                             <button className="btn btn-secondary"
                                     onClick={() => this.doUnfollow()}>
                                 Unfollow
