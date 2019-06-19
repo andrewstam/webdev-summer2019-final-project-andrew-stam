@@ -85,11 +85,11 @@ export default class RegisterComponent extends React.Component {
                            onChange={e => this.setState({username: e.target.value})}
                            placeholder="Username"/>
                     <label htmlFor="passf">Password</label>
-                    <input type="text" className="form-control wbdv-register-item" id="passf"
+                    <input type="password" className="form-control wbdv-register-item" id="passf"
                            onChange={e => this.setState({password: e.target.value})}
                            placeholder="Password"/>
                     <label htmlFor="cpassf">Confirm Password</label>
-                    <input type="text" className="form-control wbdv-register-item" id="cpassf"
+                    <input type="password" className="form-control wbdv-register-item" id="cpassf"
                            onChange={e => this.setState({cPassword: e.target.value})}
                            placeholder="Confirm Password"/>
                     <label htmlFor="rolef">Role</label>

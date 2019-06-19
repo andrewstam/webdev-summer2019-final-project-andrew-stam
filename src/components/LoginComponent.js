@@ -60,7 +60,7 @@ export default class LoginComponent extends React.Component {
                            onChange={e => this.setState({username: e.target.value})}
                            placeholder="Username"/>
                     <label htmlFor="pass">Password</label>
-                    <input type="text" className="form-control wbdv-login-item" id="pass"
+                    <input type="password" className="form-control wbdv-login-item" id="pass"
                            onChange={e => this.setState({password: e.target.value})}
                            placeholder="Password"/>
                     <div>
