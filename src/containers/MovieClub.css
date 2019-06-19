@@ -18,6 +18,10 @@
     text-decoration: none;
 }
 
+.wbdv-btn-shadow {
+    text-shadow: 1px 1px 2px black;
+}
+
 .wbdv-background-img {
     filter: blur(4px);
     /* Free stock photo from Unsplash */

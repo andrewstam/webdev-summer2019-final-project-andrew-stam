@@ -60,13 +60,13 @@ export default class MovieClub extends React.Component {
                         }
                         {this.state.userId !== null &&
                             <button className="btn btn-secondary float-right">
-                                <Link to="/profile" className="wbdv-profile-btn"
+                                <Link to="/profile" className="wbdv-profile-btn wbdv-btn-shadow"
                                       onClick={() => this.setState({page: 'profile'})}>Profile</Link>
                             </button>
                         }
                         {this.state.userId === null && this.state.page !== 'login' && this.state.page !== 'register' &&
                             <button className="btn btn-info float-right">
-                                <Link to="/login" className="wbdv-profile-btn"
+                                <Link to="/login" className="wbdv-profile-btn wbdv-btn-shadow"
                                       onClick={() => this.setState({page: 'login'})}>Login</Link>
                             </button>
                         }

@@ -272,7 +272,8 @@ export default class ProfileComponent extends React.Component {
                 {this.state.following.length > 0 &&
                     <ul>
                         {this.state.following.map((m, key) => <li key={key} className="wbdv-profile-list-item wbdv-related-user">
-                            <Link to={`/profile/${m.id}`} onClick={() => this.changePage(m.id)}>{m.username}</Link>
+                            <Link to={`/profile/${m.id}`} className="wbdv-related-link"
+                                  onClick={() => this.changePage(m.id)}>{m.username}</Link>
                         </li>)}
                     </ul>
                 }
@@ -281,7 +282,8 @@ export default class ProfileComponent extends React.Component {
                     <ul>
                         {this.state.followers.map((m, key) =>
                             <li key={key} className="wbdv-profile-list-item wbdv-related-user">
-                                <Link to={`/profile/${m.id}`} onClick={() => this.changePage(m.id)}>{m.username}</Link>
+                                <Link to={`/profile/${m.id}`} className="wbdv-related-link"
+                                      onClick={() => this.changePage(m.id)}>{m.username}</Link>
                             </li>
                         )}
                     </ul>
@@ -291,7 +293,8 @@ export default class ProfileComponent extends React.Component {
                     <div>
                         {this.state.favorites.map((title, key) =>
                             <div key={key} className="form-control wbdv-favorite">
-                                <Link to={`/details/${this.state.favIdMap[title]}`}>{title}</Link>
+                                <Link to={`/details/${this.state.favIdMap[title]}`}
+                                      className="wbdv-related-link">{title}</Link>
                                 <i className="fa fa-times float-right wbdv-delete-fav"
                                    onClick={() => this.doDeleteFavorite(title, this.state.favIdMap[title])}></i>
                             </div>)}
@@ -405,7 +408,7 @@ export default class ProfileComponent extends React.Component {
                             {!this.state.ownPage && this.renderOtherPage()}
                         </div>
                         {this.state.ownPage &&
-                            <button className="btn btn-danger"
+                            <button className="btn btn-danger wbdv-btn-shadow"
                                     onClick={() => {
                                         this.props.logout();
                                         this.setState({logoutClick: true})}}>
@@ -413,13 +416,13 @@ export default class ProfileComponent extends React.Component {
                             </button>
                         }
                         {!this.state.ownPage && this.state.showFollowBtn &&
-                            <button className="btn btn-warning"
+                            <button className="btn btn-warning wbdv-btn-shadow"
                                     onClick={() => this.doFollow()}>
                                 Follow
                             </button>
                         }
                         {!this.state.ownPage && !this.state.showFollowBtn &&
-                            <button className="btn btn-secondary"
+                            <button className="btn btn-secondary wbdv-btn-shadow"
                                     onClick={() => this.doUnfollow()}>
                                 Unfollow
                             </button>
