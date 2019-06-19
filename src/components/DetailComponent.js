@@ -43,7 +43,7 @@ export default class DetailComponent extends React.Component {
         if (this.state.loggedIn) {
             var cur = localStorage.getItem('curUser');
             service.findFavorites(cur, this.checkIfFavorite);
-            service.findStarAverage(cur, this.loadStars);
+            service.findStarsForMovie(cur, this.state.did, this.loadStars);
         }
     }
 

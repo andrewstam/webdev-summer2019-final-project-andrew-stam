@@ -195,7 +195,7 @@ export default class UserService {
 
     // Returns the review text for the given movie ID by the user with the given ID
     findReviewForMovie = (uid, mid, fn) => {
-        fetch(`http://localhost:8080/api/reviews/{mid}/{uid}/text`, {
+        fetch(`http://localhost:8080/api/reviews/${mid}/${uid}/text`, {
             method: 'GET'
         })
         .then(response => response.json())
@@ -206,7 +206,7 @@ export default class UserService {
 
     // Returns the review stars for the given movie ID by the user with the given ID
     findStarsForMovie = (uid, mid, fn) => {
-        fetch(`http://localhost:8080/api/reviews/{mid}/{uid}/star`, {
+        fetch(`http://localhost:8080/api/reviews/${mid}/${uid}/stars`, {
             method: 'GET'
         })
         .then(response => response.json())
