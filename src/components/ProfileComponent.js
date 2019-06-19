@@ -85,7 +85,7 @@ export default class ProfileComponent extends React.Component {
             ownPage: parseInt(this.state.pageId) === parseInt(this.state.curUser)
         });
         // Private data (only can see if own profile)
-        if (this.state.pageId === this.state.curUser) {
+        if (parseInt(this.state.pageId) === parseInt(this.state.curUser)) {
             this.setState({
                 dob: json.dob,
                 email: json.email
@@ -215,15 +215,15 @@ export default class ProfileComponent extends React.Component {
                 <label htmlFor="fname">First name</label>
                 <input type="text" className="form-control" id="fname"
                        onChange={e => this.changeFirstName(e.target.value)}
-                       defaultValue={this.state.firstname}/>
+                       value={this.state.firstname}/>
                 <label htmlFor="lname">Last name</label>
                 <input type="text" className="form-control" id="lname"
                        onChange={e => this.changeLastName(e.target.value)}
-                       defaultValue={this.state.lastname}/>
+                       value={this.state.lastname}/>
                 <label htmlFor="emailf">Email</label>
                 <input type="email" className="form-control" id="emailf"
                        onChange={e => this.changeEmail(e.target.value)}
-                       defaultValue={this.state.email}/>
+                       value={this.state.email}/>
                 <label htmlFor="rolef">Role</label>
                 <select className="form-control" id="rolef"
                        onChange={e => this.changeRole(e.target.value)}
@@ -234,7 +234,7 @@ export default class ProfileComponent extends React.Component {
                 <label htmlFor="dobf">Date of Birth</label>
                 <input type="date" className="form-control" id="dobf"
                        onChange={e => this.changeDob(e.target.value)}
-                       defaultValue={this.state.dob}/>
+                       value={this.state.dob}/>
             </div>
             {this.renderLinks()}
         </div>)
@@ -247,11 +247,11 @@ export default class ProfileComponent extends React.Component {
                 <label htmlFor="fname">First name</label>
                 <input type="text" className="form-control wbdv-disabled" id="fname" disabled
                        onChange={e => this.changeFirstName(e.target.value)}
-                       defaultValue={this.state.firstname}/>
+                       value={this.state.firstname}/>
                 <label htmlFor="lname">Last name</label>
                 <input type="text" className="form-control wbdv-disabled" id="lname" disabled
                        onChange={e => this.changeLastName(e.target.value)}
-                       defaultValue={this.state.lastname}/>
+                       value={this.state.lastname}/>
                 <label htmlFor="rolef">Role</label>
                 <select className="form-control wbdv-disabled" id="rolef" disabled
                        onChange={e => this.changeRole(e.target.value)}
