@@ -198,7 +198,7 @@ export default class UserService {
         fetch(`http://localhost:8080/api/reviews/${mid}/${uid}/text`, {
             method: 'GET'
         })
-        .then(response => response.json())
+        .then(response => response.text())
         .then(json => {
             fn(json);
         })

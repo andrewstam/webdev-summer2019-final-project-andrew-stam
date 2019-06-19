@@ -15,7 +15,7 @@ export default class DetailComponent extends React.Component {
             did: detailId,
             loggedIn: localStorage.getItem('curUser') !== null,
             inFavorites: false,
-            stars: "1", // todo load from DB
+            stars: "1",
             reviewText: ''
         };
     }
@@ -44,6 +44,7 @@ export default class DetailComponent extends React.Component {
             var cur = localStorage.getItem('curUser');
             service.findFavorites(cur, this.checkIfFavorite);
             service.findStarsForMovie(cur, this.state.did, this.loadStars);
+            service.findReviewForMovie(cur, this.state.did, this.loadReview);
         }
     }
 
@@ -67,7 +68,11 @@ export default class DetailComponent extends React.Component {
     // Get the star rating this user gave this movie
     loadStars = json => {
         this.setState({stars: json});
-        console.log(json)
+    }
+
+    // Load the logged in user's review text
+    loadReview = text => {
+        this.setState({reviewText: text});
     }
 
     // Change state to inFavorites true, send to backend
