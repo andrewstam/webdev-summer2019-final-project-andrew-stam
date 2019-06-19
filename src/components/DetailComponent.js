@@ -16,7 +16,8 @@ export default class DetailComponent extends React.Component {
             loggedIn: localStorage.getItem('curUser') !== null,
             inFavorites: false,
             stars: "1",
-            reviewText: ''
+            reviewText: '',
+            showReview: false
         };
     }
 
@@ -66,8 +67,8 @@ export default class DetailComponent extends React.Component {
     }
 
     // Get the star rating this user gave this movie
-    loadStars = json => {
-        this.setState({stars: json});
+    loadStars = val => {
+        this.setState({stars: val});
     }
 
     // Load the logged in user's review text
@@ -88,6 +89,7 @@ export default class DetailComponent extends React.Component {
     }
 
     render() {
+        var btnText = this.state.reviewText !== '' ? 'Edit Review' : 'Add Review';
         return (
             <div>
                 <img className="img-fluid img-thumbnail rounded float-right"
@@ -113,22 +115,32 @@ export default class DetailComponent extends React.Component {
                     <button className="btn btn-danger"
                             onClick={() => this.doRemoveFavorite(this.state.did)}>Remove Favorite</button>
                 }
-                {this.state.loggedIn &&
-                    <div className="col-sm-8">
-                        <label htmlFor="starf">Your Rating</label>
-                        <select className="form-control" id="starf"
-                               onChange={e => this.setState({stars: e.target.value})}
-                               value={this.state.stars}>
-                            <option value="1">1 star</option>
-                            <option value="2">2 stars</option>
-                            <option value="3">3 stars</option>
-                            <option value="4">4 stars</option>
-                            <option value="5">5 stars</option>
-                        </select>
-                        <label htmlFor="rtext">Review</label>
-                        <textarea type="text" className="form-control" id="rtext"
-                               onChange={e => this.setState({reviewText: e.target.value})}
-                               value={this.state.reviewText}/>
+                {this.state.loggedIn && !this.state.showReview &&
+                    <div>
+                        <button className="btn btn-info"
+                                onClick={() => this.setState({showReview: true})}>{btnText}</button>
+                    </div>
+                }
+                {this.state.loggedIn && this.state.showReview &&
+                    <div>
+                        <button className="btn btn-secondary"
+                                onClick={() => this.setState({showReview: false})}>Hide Review</button>
+                        <div className="col-sm-8">
+                            <label htmlFor="starf">Your Rating</label>
+                            <select className="form-control" id="starf"
+                                   onChange={e => this.setState({stars: e.target.value})}
+                                   value={this.state.stars}>
+                                <option value="1">1 star</option>
+                                <option value="2">2 stars</option>
+                                <option value="3">3 stars</option>
+                                <option value="4">4 stars</option>
+                                <option value="5">5 stars</option>
+                            </select>
+                            <label htmlFor="rtext">Review</label>
+                            <textarea type="text" className="form-control" id="rtext"
+                                   onChange={e => this.setState({reviewText: e.target.value})}
+                                   value={this.state.reviewText}/>
+                        </div>
                     </div>
                 }
             </div>
