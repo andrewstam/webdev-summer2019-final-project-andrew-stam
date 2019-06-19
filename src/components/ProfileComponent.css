@@ -25,6 +25,10 @@
     font-size: 18px;
 }
 
+.wbdv-star-text {
+    color: yellow;
+}
+
 .wbdv-related-link {
     text-decoration: none !important;
     color: #70CDEA;

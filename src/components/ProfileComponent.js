@@ -25,6 +25,7 @@ export default class ProfileComponent extends React.Component {
             service.findFollowers(id, this.followersCallback);
             service.findFollowing(id, this.followingCallback);
             service.findFavorites(id, this.favoritesCallback);
+            service.findStarAverage(id, this.loadStars);
         }
 
         this.state = {
@@ -42,6 +43,7 @@ export default class ProfileComponent extends React.Component {
             following: [],
             favorites: [],
             favIdMap: {},
+            stars: 0.0,
             showFollowBtn: true,
             ownPage: parseInt(id) === parseInt(localStorage.getItem('curUser'))
         };
@@ -71,6 +73,7 @@ export default class ProfileComponent extends React.Component {
             service.findFollowers(id, this.followersCallback);
             service.findFollowing(id, this.followingCallback);
             service.findFavorites(id, this.favoritesCallback);
+            service.findStarAverage(id, this.loadStars);
         }
     }
 
@@ -264,7 +267,11 @@ export default class ProfileComponent extends React.Component {
         </div>)
     }
 
-    // Renders following list, followers list, and favorites list, all as links
+    // Load user's average rating, one decimal place
+    loadStars = json =>
+        this.setState({stars: json.toFixed(1)})
+
+    // Renders following list, followers list, and favorites list, all as links, in addition to average rating
     renderLinks = () => {
         return (
             <div className="col-sm wbdv-profile-detail">
@@ -287,6 +294,12 @@ export default class ProfileComponent extends React.Component {
                             </li>
                         )}
                     </ul>
+                }
+                {this.state.stars > 0 &&
+                    <h6 className="wbdv-star-text">Average Star Rating: {this.state.stars}</h6>
+                }
+                {this.state.stars <= 0 &&
+                    <h6 className="wbdv-star-text"><i>No movie ratings yet.</i></h6>
                 }
                 <h6>Favorites:</h6>
                 {this.state.favorites.length > 0 &&

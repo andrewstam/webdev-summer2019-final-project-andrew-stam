@@ -181,4 +181,15 @@ export default class UserService {
             fn(json);
         })
     }
+
+    // Find a user's average rating
+    findStarAverage = (id, fn) => {
+        fetch(`http://localhost:8080/api/reviews/${id}/avg`, {
+            method: 'GET'
+        })
+        .then(response => response.json())
+        .then(json => {
+            fn(json);
+        })
+    }
 }
