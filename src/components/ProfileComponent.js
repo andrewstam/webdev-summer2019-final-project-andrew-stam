@@ -68,6 +68,8 @@ export default class ProfileComponent extends React.Component {
             following: [],
             favorites: [],
             favIdMap: {},
+            reviews: [],
+            revIdMap: {},
             ownPage: parseInt(id) === parseInt(localStorage.getItem('curUser'))
         });
         // profile to load
