@@ -396,8 +396,8 @@ export default class ProfileComponent extends React.Component {
                           className="wbdv-related-link">{title}</Link>
                 </div>)}
             {showLink &&
-                <div>More than 3
-                </div>
+                <Link to={`/reviews/${this.state.pageId}`} onClick={() => this.props.setPage('reviews')}
+                      className="wbdv-related-link">See more...</Link>
             }
         </div>)
     }
