@@ -1,6 +1,7 @@
 // Created by Andrew Stam
 import React from 'react';
 import {Redirect} from 'react-router-dom';
+import './RegisterComponent.css';
 import UserService from '../services/UserService';
 const service = UserService.getInstance();
 
@@ -74,27 +75,30 @@ export default class RegisterComponent extends React.Component {
         }
 
         return (
-            <div>
+            <div className="wbdv-register-container">
                 <h3>Register Page</h3>
                 <div>
-                    <input type="text" className="form-control"
+                    <label htmlFor="userf">Username</label>
+                    <input type="text" className="form-control wbdv-register-item" id="userf"
                            onChange={e => this.setState({username: e.target.value})}
                            placeholder="Username"/>
-                    <input type="text" className="form-control"
+                    <label htmlFor="passf">Password</label>
+                    <input type="text" className="form-control wbdv-register-item" id="passf"
                            onChange={e => this.setState({password: e.target.value})}
                            placeholder="Password"/>
-                    <input type="text" className="form-control"
+                    <label htmlFor="cpassf">Confirm Password</label>
+                    <input type="text" className="form-control wbdv-register-item" id="cpassf"
                            onChange={e => this.setState({cPassword: e.target.value})}
                            placeholder="Confirm Password"/>
                     <label htmlFor="rolef">Role</label>
-                    <select className="form-control" id="rolef"
+                    <select className="form-control wbdv-register-item" id="rolef"
                            onChange={e => this.pickRole(e.target.value)}
                            defaultValue="GroupMember">
                         <option value="GroupMember">Group Member</option>
                         <option value="GroupLeader">Group Leader</option>
                     </select>
-                    <div>
-                        <button className="btn btn-success" type="submit"
+                    <div className="wbdv-register-btn">
+                        <button className="btn btn-success btn-block" type="submit"
                                 onClick={() => this.doValidate()}>
                             Register
                         </button>
