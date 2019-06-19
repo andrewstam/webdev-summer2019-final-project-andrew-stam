@@ -381,15 +381,25 @@ export default class ProfileComponent extends React.Component {
 
     // Show up to 3 reviews, if more, link to reviews page
     renderReviews = () => {
-        for (let i = 0; i < 3 && i < this.state.reviews.length; i++) {
-            return (<div>
-                {this.state.reviews.map((title, key) =>
-                    <div key={key} className="form-control wbdv-favorite">
-                        <Link to={`/details/${this.state.revIdMap[title]}`} onClick={() => this.props.setPage('details')}
-                              className="wbdv-related-link">{title}</Link>
-                    </div>)}
-            </div>)
+        var first3;
+        var showLink = false;
+        if (this.state.reviews.length > 3) {
+            first3 = this.state.reviews.sort().slice(0, 3);
+            showLink = true;
+        } else {
+            first3 = this.state.reviews.sort();
         }
+        return (<div>
+            {first3.map((title, key) =>
+                <div key={key} className="form-control wbdv-favorite">
+                    <Link to={`/details/${this.state.revIdMap[title]}`} onClick={() => this.props.setPage('details')}
+                          className="wbdv-related-link">{title}</Link>
+                </div>)}
+            {showLink &&
+                <div>More than 3
+                </div>
+            }
+        </div>)
     }
 
     // If logged in, allow follow and add to list. Otherwise, prevent follow
