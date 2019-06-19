@@ -14,7 +14,9 @@ export default class DetailComponent extends React.Component {
         this.state = {
             did: detailId,
             loggedIn: localStorage.getItem('curUser') !== null,
-            inFavorites: false
+            inFavorites: false,
+            stars: "1", // todo load from DB
+            reviewText: ''
         };
     }
 
@@ -39,7 +41,9 @@ export default class DetailComponent extends React.Component {
             reviews: json.Ratings
         })});
         if (this.state.loggedIn) {
-            service.findFavorites(localStorage.getItem('curUser'), this.checkIfFavorite);
+            var cur = localStorage.getItem('curUser');
+            service.findFavorites(cur, this.checkIfFavorite);
+            service.findStarAverage(cur, this.loadStars);
         }
     }
 
@@ -58,6 +62,12 @@ export default class DetailComponent extends React.Component {
         }
         // Not in favorites list already
         this.setState({inFavorites: false});
+    }
+
+    // Get the star rating this user gave this movie
+    loadStars = json => {
+        this.setState({stars: json});
+        console.log(json)
     }
 
     // Change state to inFavorites true, send to backend
@@ -97,6 +107,24 @@ export default class DetailComponent extends React.Component {
                 {this.state.loggedIn && this.state.inFavorites &&
                     <button className="btn btn-danger"
                             onClick={() => this.doRemoveFavorite(this.state.did)}>Remove Favorite</button>
+                }
+                {this.state.loggedIn &&
+                    <div className="col-sm-8">
+                        <label htmlFor="starf">Your Rating</label>
+                        <select className="form-control" id="starf"
+                               onChange={e => this.setState({stars: e.target.value})}
+                               value={this.state.stars}>
+                            <option value="1">1 star</option>
+                            <option value="2">2 stars</option>
+                            <option value="3">3 stars</option>
+                            <option value="4">4 stars</option>
+                            <option value="5">5 stars</option>
+                        </select>
+                        <label htmlFor="rtext">Review</label>
+                        <textarea type="text" className="form-control" id="rtext"
+                               onChange={e => this.setState({reviewText: e.target.value})}
+                               value={this.state.reviewText}/>
+                    </div>
                 }
             </div>
         );
