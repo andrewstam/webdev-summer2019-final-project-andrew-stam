@@ -1,6 +1,6 @@
 // Created by Andrew Stam
 import React from 'react';
-import {Redirect, Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import './ReviewComponent.css';
 import UserService from '../services/UserService';
 const service = UserService.getInstance();
