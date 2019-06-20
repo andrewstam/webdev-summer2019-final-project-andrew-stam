@@ -121,22 +121,22 @@ export default class DetailComponent extends React.Component {
                     )}
                 </ul>
                 {this.state.loggedIn && !this.state.inFavorites &&
-                    <button className="btn btn-success"
+                    <button className="btn btn-success wbdv-btn-shadow wbdv-btn-spacing"
                             onClick={() => this.doAddFavorite(this.state.did)}>Add Favorite</button>
                 }
                 {this.state.loggedIn && this.state.inFavorites &&
-                    <button className="btn btn-danger"
+                    <button className="btn btn-danger wbdv-btn-shadow wbdv-btn-spacing"
                             onClick={() => this.doRemoveFavorite(this.state.did)}>Remove Favorite</button>
                 }
                 {this.state.loggedIn && !this.state.showReview &&
                     <div>
-                        <button className="btn btn-info"
+                        <button className="btn btn-info wbdv-btn-shadow wbdv-btn-spacing"
                                 onClick={() => this.setState({showReview: true})}>{btnText}</button>
                     </div>
                 }
                 {this.state.loggedIn && this.state.showReview &&
                     <div>
-                        <button className="btn btn-secondary"
+                        <button className="btn btn-secondary wbdv-btn-shadow wbdv-btn-spacing"
                                 onClick={() => this.setState({showReview: false})}>Hide Review</button>
                         <div className="col-sm-8">
                             <label htmlFor="starf">Your Rating</label>
