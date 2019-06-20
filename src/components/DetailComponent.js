@@ -1,6 +1,7 @@
 // Created by Andrew Stam
 import React from 'react';
 import UserService from '../services/UserService';
+import './DetailComponent.css';
 const service = UserService.getInstance();
 
 export default class DetailComponent extends React.Component {
@@ -103,10 +104,10 @@ export default class DetailComponent extends React.Component {
     render() {
         var btnText = this.state.reviewText !== '' ? 'Edit Review' : 'Add Review';
         return (
-            <div>
+            <div className="wbdv-detail col-sm-10">
                 <img className="img-fluid img-thumbnail rounded float-right"
                      src={this.state.img} alt={this.state.title}/>
-                <h2>{this.state.title}</h2>
+                <h2 className="wbdv-detail-header">{this.state.title}</h2>
                 <h4>Released: {this.state.release}</h4>
                 <h5>Rated {this.state.rating}</h5>
                 <h5>Length: {this.state.runtime}</h5>
