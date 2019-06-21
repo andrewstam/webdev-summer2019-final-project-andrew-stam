@@ -17,7 +17,7 @@ export default class MovieGroupComponent extends React.Component {
         var leader = this.props.userObj ? this.props.userObj.role === 'GroupLeader' : false;
 
         this.state = {
-            gid: groupId,
+            groupId: groupId,
             leaderView: leader,
             userObj: this.props.userObj,
             groups: [],
@@ -43,6 +43,11 @@ export default class MovieGroupComponent extends React.Component {
             var cur = localStorage.getItem('curUser');
             service.findUserGroups(cur, this.loadGroupIds);
         }
+    }
+
+    // Change which group is being shown, rendering changes
+    changePage = id => {
+        this.setState({groupId: id});
     }
 
     // Loads group ids from backend
@@ -95,9 +100,9 @@ export default class MovieGroupComponent extends React.Component {
         var leader = this.props.userObj ? this.props.userObj.role === 'GroupLeader' : false;
         return (
             <div>
-                <h1>Movie Group</h1>
+                <h1>Movie Groups</h1>
                 {leader && <h3>Group Leader</h3>}
-                {!leader &&
+                {!leader && this.state.groupId === null &&
                     <div>
                         <h3>Group Member</h3>
                         {this.state.groupIdToLeaderIdMap &&
@@ -124,13 +129,20 @@ export default class MovieGroupComponent extends React.Component {
                                             }
                                         </div>
                                         <div className="row wbdv-group-link">
-                                            <Link to={`/groups/${id}`}>See group details...</Link>
+                                            <Link to={`/groups/${id}`} onClick={() => this.changePage(id)}>See group details...</Link>
                                         </div>
                                     </div>
                                 </div>
                                 )
                             })
                         }
+                    </div>
+                }
+                {this.state.groupId !== null &&
+                    <div>
+                        <button className="btn btn-secondary wbdv-btn-shadow" onClick={() => this.changePage(null)}>
+                            <Link to={`/groups`} className="wbdv-group-btn-text">Back to groups</Link>
+                        </button>
                     </div>
                 }
             </div>
