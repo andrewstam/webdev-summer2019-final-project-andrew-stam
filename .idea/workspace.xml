@@ -4,6 +4,8 @@
     <list default="true" id="7313eeed-9cf6-463b-9588-c268b72091c6" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/src/components/DetailComponent.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DetailComponent.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/DetailComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DetailComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/MovieClub.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/MovieClub.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/UserService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/UserService.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,11 +18,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/containers/MovieClub.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="3" column="70" selection-start-line="3" selection-start-column="70" selection-end-line="3" selection-end-column="70" />
+            <state relative-caret-position="476">
+              <caret line="86" column="115" selection-start-line="86" selection-start-column="115" selection-end-line="86" selection-end-column="115" />
             </state>
           </provider>
         </entry>
@@ -28,8 +30,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/services/UserService.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="409">
-              <caret line="317" column="24" selection-start-line="317" selection-start-column="24" selection-end-line="317" selection-end-column="24" />
+            <state relative-caret-position="-183">
+              <caret line="208" column="62" selection-start-line="208" selection-start-column="62" selection-end-line="208" selection-end-column="62" />
             </state>
           </provider>
         </entry>
@@ -37,17 +39,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/DetailComponent.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="222">
-              <caret line="190" column="66" selection-start-line="190" selection-start-column="66" selection-end-line="190" selection-end-column="66" />
+            <state relative-caret-position="216">
+              <caret line="210" column="94" selection-start-line="210" selection-start-column="90" selection-end-line="210" selection-end-column="94" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/DetailComponent.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="561">
-              <caret line="33" column="36" selection-start-line="33" selection-start-column="36" selection-end-line="33" selection-end-column="36" />
+            <state relative-caret-position="545">
+              <caret line="37" column="19" selection-start-line="37" selection-start-column="19" selection-end-line="37" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -111,6 +113,8 @@
       <find>movie</find>
       <find>groupIdToWatchItemArrayMap</find>
       <find>hr</find>
+      <find>review</find>
+      <find>setP</find>
     </findStrings>
     <replaceStrings>
       <replace>lastname</replace>
@@ -141,13 +145,13 @@
         <option value="$PROJECT_DIR$/src/components/LoginComponent.js" />
         <option value="$PROJECT_DIR$/src/components/ReviewComponent.js" />
         <option value="$PROJECT_DIR$/src/components/GroupComponent.js" />
-        <option value="$PROJECT_DIR$/src/containers/MovieClub.js" />
         <option value="$PROJECT_DIR$/src/components/MovieGroupComponent.css" />
         <option value="$PROJECT_DIR$/src/components/MovieGroupComponent.js" />
         <option value="$PROJECT_DIR$/src/components/RegisterComponent.js" />
+        <option value="$PROJECT_DIR$/src/components/DetailComponent.css" />
         <option value="$PROJECT_DIR$/src/services/UserService.js" />
         <option value="$PROJECT_DIR$/src/components/DetailComponent.js" />
-        <option value="$PROJECT_DIR$/src/components/DetailComponent.css" />
+        <option value="$PROJECT_DIR$/src/containers/MovieClub.js" />
       </list>
     </option>
   </component>
@@ -386,20 +390,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/MovieClub.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="3" column="70" selection-start-line="3" selection-start-column="70" selection-end-line="3" selection-end-column="70" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/services/UserService.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="409">
-          <caret line="317" column="24" selection-start-line="317" selection-start-column="24" selection-end-line="317" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/ReviewComponent.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
@@ -424,17 +414,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/DetailComponent.js">
+    <entry file="file://$PROJECT_DIR$/src/components/DetailComponent.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="190" column="66" selection-start-line="190" selection-start-column="66" selection-end-line="190" selection-end-column="66" />
+        <state relative-caret-position="545">
+          <caret line="37" column="19" selection-start-line="37" selection-start-column="19" selection-end-line="37" selection-end-column="19" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/DetailComponent.css">
+    <entry file="file://$PROJECT_DIR$/src/services/UserService.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="33" column="36" selection-start-line="33" selection-start-column="36" selection-end-line="33" selection-end-column="36" />
+        <state relative-caret-position="-183">
+          <caret line="208" column="62" selection-start-line="208" selection-start-column="62" selection-end-line="208" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/DetailComponent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="210" column="94" selection-start-line="210" selection-start-column="90" selection-end-line="210" selection-end-column="94" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/MovieClub.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="86" column="115" selection-start-line="86" selection-start-column="115" selection-end-line="86" selection-end-column="115" />
         </state>
       </provider>
     </entry>

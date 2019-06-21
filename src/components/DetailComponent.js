@@ -120,16 +120,14 @@ export default class DetailComponent extends React.Component {
         this.props.removeFavorite(id);
     }
 
-    // Update state and send to backend
+    // Update state
     doTextChange = text => {
         this.setState({reviewText: text});
-        service.editReviewForMovie(localStorage.getItem('curUser'), this.state.did, text);
     }
 
-    // Update state and send to backend
+    // Update state
     doStarChange = star => {
         this.setState({stars: star});
-        service.editStarsForMovie(localStorage.getItem('curUser'), this.state.did, parseInt(star));
     }
 
     // Translate star value into font-awesome icons
@@ -150,6 +148,29 @@ export default class DetailComponent extends React.Component {
             case 5:
                 return <div className="wbdv-star">{fullStar} {fullStar} {fullStar} {fullStar} {fullStar}</div>
         }
+    }
+
+    // Delete from backend, hide edit review section, and refresh page
+    doDeleteReview = () => {
+        var cur = localStorage.getItem('curUser');
+        service.deleteReview(cur, this.state.did);
+        this.setState({showReview: false});
+        service.findAllReviews(this.state.did, this.loadAllReviews);
+        if (this.state.loggedIn) {
+            service.findReviewForMovie(cur, this.state.did, this.loadReview);
+        }
+    }
+
+    // Send to backend, refresh page
+    doSaveReview = () => {
+        var cur = localStorage.getItem('curUser');
+        this.setState({showReview: false});
+        if (this.state.loggedIn) {
+            service.findReviewForMovie(cur, this.state.did, this.loadReview);
+            service.editStarsForMovie(localStorage.getItem('curUser'), this.state.did, parseInt(this.state.stars));
+            service.editReviewForMovie(localStorage.getItem('curUser'), this.state.did, this.state.reviewText);
+        }
+        service.findAllReviews(this.state.did, this.loadAllReviews);
     }
 
     render() {
@@ -210,9 +231,13 @@ export default class DetailComponent extends React.Component {
                 }
                 {this.state.loggedIn && this.state.showReview &&
                     <div>
-                        <button className="btn btn-secondary wbdv-btn-shadow wbdv-btn-spacing"
-                                onClick={() => this.setState({showReview: false})}>Hide Review</button>
-                        <div className="col-sm-10 wbdv-movie-info">
+                        <button className="btn btn-success wbdv-btn-shadow wbdv-btn-spacing"
+                                onClick={() => this.doSaveReview()}>Save Review</button>
+                        <button className="btn btn-danger wbdv-delete-btn wbdv-btn-shadow wbdv-btn-spacing"
+                                onClick={() => this.doDeleteReview()}>
+                            Delete Review
+                        </button>
+                        <div className="wbdv-movie-info">
                             <label htmlFor="starf">Your Rating</label>
                             <select className="form-control" id="starf"
                                    onChange={e => this.doStarChange(e.target.value)}

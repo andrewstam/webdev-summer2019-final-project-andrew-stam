@@ -204,6 +204,13 @@ export default class UserService {
         })
     }
 
+    // Delete the user's review for the given movie ID
+    deleteReview = (uid, mid) => {
+        fetch(`http://localhost:8080/api/reviews/${mid}/${uid}`, {
+            method: 'DELETE'
+        })
+    }
+
     // Returns the review stars for the given movie ID by the user with the given ID
     findStarsForMovie = (uid, mid, fn) => {
         fetch(`http://localhost:8080/api/reviews/${mid}/${uid}/stars`, {

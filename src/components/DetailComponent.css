@@ -33,3 +33,7 @@
     text-shadow: 0px 0px 0px black;
     text-decoration: none !important;
 }
+
+.wbdv-delete-btn {
+    margin-left: 1rem;
+}

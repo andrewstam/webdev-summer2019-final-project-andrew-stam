@@ -84,7 +84,8 @@ export default class MovieClub extends React.Component {
                         <Route path="/search/:criteria?"
                                component={SearchComponent}/>
                         <Route path="/details/:did"
-                               render={() => <DetailComponent addFavorite={this.addFavorite} removeFavorite={this.removeFavorite}/>}/>
+                               render={() => <DetailComponent addFavorite={this.addFavorite} setPage={this.setPage}
+                                                              removeFavorite={this.removeFavorite}/>}/>
                         <Route path="/profile"
                                render={() => <ProfileComponent userId={this.state.userId} logout={this.logout} userObj={this.state.userObj}
                                                                setPage={this.setPage} removeFavorite={this.removeFavorite}
