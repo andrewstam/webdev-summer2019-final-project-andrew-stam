@@ -50,7 +50,7 @@ export default class SearchComponent extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="wbdv-search-container">
                 <h2 className="wbdv-search-label">Search Page</h2>
                 <div className="input-group wbdv-search-bar">
                     <input type="text" className="form-control" defaultValue={this.state.query}

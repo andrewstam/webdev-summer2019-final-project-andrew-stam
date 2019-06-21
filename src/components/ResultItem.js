@@ -6,7 +6,7 @@ import './ResultItem.css';
 const ResultItem = ({title, did}) =>
     <div>
         <div className="form-control wbdv-result-item">
-            <Link to={`/details/${did}`}><strong>{title}</strong></Link>
+            <Link to={`/details/${did}`} className="wbdv-result-text"><strong>{title}</strong></Link>
         </div>
     </div>
 

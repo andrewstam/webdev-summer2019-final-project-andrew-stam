@@ -1,17 +1,31 @@
+.wbdv-search-container {
+    background-color: rgba(255,255,255,0.8);
+    border-radius: 10px;
+    padding: 7px;
+    margin-left: 10%;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    height: fit-content;
+    width: 80%;
+    color: green;
+    text-shadow: 1px 1px 1px black;
+}
+
 .wbdv-search-bar {
     width: 80%;
     margin-left: 10%;
-    margin-top: 10%;
+    margin-top: 5%;
+    margin-bottom: 5%;
 }
 
 .wbdv-search-label {
     color: green;
-    text-shadow: 1px 1px 2px black;
+    text-shadow: 1px 1px 1px black;
 }
 
 .wbdv-results-label {
     color: green;
-    text-shadow: 1px 1px 2px black;
+    text-shadow: 1px 1px 1px black;
 }
 
 .wbdv-results-container {
