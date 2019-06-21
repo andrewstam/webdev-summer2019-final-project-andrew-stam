@@ -18,7 +18,8 @@ export default class RegisterComponent extends React.Component {
             role: 'GroupMember',
             loggedIn: this.props.user != null,
             mismatch: false,
-            badUser: false
+            badUser: false,
+            validUser: true
         };
 
         this.props.setPage('register');
@@ -70,6 +71,17 @@ export default class RegisterComponent extends React.Component {
         service.createUser(id, this.state.username, this.state.password, this.state.role, this.registerCallback);
     }
 
+    // Make sure username is <= 10 characters and alphanumeric
+    validateUsernameFormat = text => {
+        if (text.length > 10) {
+            this.setState({validUser: false});
+        } else if (!(/^[a-z0-9]+$/i.test(text)) && text.length > 0) {
+            this.setState({validUser: false});
+        } else {
+            this.setState({username: text, validUser: true});
+        }
+    }
+
     render() {
         // Load home page once logged in
         if (this.state.loggedIn) {
@@ -82,8 +94,14 @@ export default class RegisterComponent extends React.Component {
                 <div>
                     <label htmlFor="userf">Username</label>
                     <input type="text" className="form-control wbdv-register-item" id="userf"
-                           onChange={e => this.setState({username: e.target.value})}
+                           onChange={e => this.validateUsernameFormat(e.target.value)}
+                           value={this.state.username}
                            placeholder="Username"/>
+                    {!this.state.validUser &&
+                        <span className="wbdv-error-text">
+                            Username must be 10 characters or less and alphanumeric<br/>
+                        </span>
+                    }
                     <label htmlFor="passf">Password</label>
                     <input type="password" className="form-control wbdv-register-item" id="passf"
                            onChange={e => this.setState({password: e.target.value})}
