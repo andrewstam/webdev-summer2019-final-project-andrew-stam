@@ -1,15 +1,14 @@
 .wbdv-register-container {
-    background-color: rgba(0,0,0, 0.4);
+    background-color: rgba(255,255,255,0.8);
+    border-radius: 10px;
+    padding: 7px;
+    margin-left: 10%;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    height: fit-content;
+    width: 80%;
     color: green;
-    font-weight: bold;
-    border: 2px solid green;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 60%;
-    padding: 20px;
-    text-shadow: 1px 1px 2px #3B413A;
+    text-shadow: 1px 1px 1px black;
 }
 
 .wbdv-register-item {

@@ -117,6 +117,18 @@ export default class RegisterComponent extends React.Component {
                         <option value="GroupMember">Group Member</option>
                         <option value="GroupLeader">Group Leader</option>
                     </select>
+                    {this.state.role === 'GroupMember' &&
+                        <p>As a Group Member, you can review, rate, and add favorite movies. You can also
+                            be a part of groups (give a Group Leader your unique ID in person!) -
+                            Once you're in a group, you can add comments on
+                            watch items and tell others if you're attending!</p>
+                    }
+                    {this.state.role === 'GroupLeader' &&
+                        <p>As a Group Leader, you can create groups and add members
+                           by their ID (ask a Group Member for their ID in person!) -
+                           Once the group is made, you can create movie
+                           watch items, which includes what you're watching, where, and when!</p>
+                    }
                     <div className="wbdv-register-btn">
                         <button className="btn btn-success btn-block" type="submit"
                                 onClick={() => this.doValidate()}>
