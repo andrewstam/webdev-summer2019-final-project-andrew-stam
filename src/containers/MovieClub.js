@@ -87,7 +87,7 @@ export default class MovieClub extends React.Component {
                             </button>
                         }
                         <Route path="/(|home)"
-                               render={() => <HomeComponent userObj={this.state.userObj} nameText={nameText}
+                               render={() => <HomeComponent userObj={this.state.userObj} nameText={nameText} setPage={this.setPage}
                                                             renderRoleText={this.renderRoleText} newestUser={this.state.newestUser}/>}/>
                         <Route path="/search/:criteria?"
                                component={SearchComponent}/>
