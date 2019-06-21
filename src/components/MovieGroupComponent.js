@@ -27,7 +27,8 @@ export default class MovieGroupComponent extends React.Component {
             groupIdToWatchItemArrayMap: {},
             memberIdToUsernameMap: {},
             leaderIdToUsernameMap: {},
-            movieIdToTitleMap: {}
+            movieIdToTitleMap: {},
+            watchItemIdToCommentArrayMap: {}
         };
 
         /* groupIdToWatchItemArrayMap looks like:
@@ -153,6 +154,28 @@ export default class MovieGroupComponent extends React.Component {
                 movieMap[mov.imdbID] = mov.Title;
                 this.setState({movieIdToTitleMap: movieMap});
             });
+            // Load watch item comments
+            //watchItemIdToCommentArrayMap
+            service.findItemComments(obj.id, this.loadComments);
+        }
+    }
+
+    // Load comments for each watch item (user id and text)
+    loadComments = json => {
+        for (let idx in json) {
+            // idx=0 : commentId, idx=length-1 : watchItemId, idx=length-2: userId, middle : comment text
+            var tokens = json[idx].split(',');
+            var obj = {
+                id: tokens[0],
+                // If text had commas, rejoin the tokens and put the commas back
+                text: tokens.slice(1, tokens.length - 2).join(','),
+                userId: tokens[tokens.length - 2],
+                watchItemId: tokens[tokens.length - 1]
+            };
+            var map = this.state.watchItemIdToCommentArrayMap;
+            // Add comment to the array - if it doesn't exist yet, initialize the array with one element
+            map[obj.watchItemId] = map[obj.watchItemId] ? ([...map[obj.watchItemId], obj]) : [obj];
+            this.setState({watchItemIdToCommentArrayMap: map});
         }
     }
 
@@ -211,9 +234,30 @@ export default class MovieGroupComponent extends React.Component {
                             {this.state.groupIdToWatchItemArrayMap[this.state.groupId] &&
                                 this.state.groupIdToWatchItemArrayMap[this.state.groupId].map(watchItem => {
                                     return (
-                                        <div key={watchItem.id} className="row">
-                                            <div className="col-sm-2">Title: {this.state.movieIdToTitleMap[watchItem.movieId]}</div>
-                                            <div className="col-sm-2">Date: {watchItem.watchDate}</div>
+                                        <div key={watchItem.id} className="form-control wbdv-group">
+                                            <div className="row">
+                                                <div className="col-sm-4">
+                                                    Title: {this.state.movieIdToTitleMap[watchItem.movieId]}
+                                                </div>
+                                                <div className="col-sm-2">
+                                                    Date: {watchItem.watchDate}
+                                                </div>
+                                            </div>
+                                            <div className="row">
+                                                <h6 className="col-sm-1">Comments:</h6>
+                                            </div>
+                                            {this.state.watchItemIdToCommentArrayMap[watchItem.id] &&
+                                                this.state.watchItemIdToCommentArrayMap[watchItem.id].map(c =>
+                                                    <div className="row" key={c.id}>
+                                                        <div className="col-sm-8">
+                                                            <Link to={`/profile/${c.userId}`} onClick={() => this.props.setPage('profile')}>
+                                                                {this.state.memberIdToUsernameMap[c.userId]}
+                                                            </Link>
+                                                            : {c.text}
+                                                        </div>
+                                                        <hr/>
+                                                    </div>
+                                            )}
                                         </div>
                                     )
                             })}

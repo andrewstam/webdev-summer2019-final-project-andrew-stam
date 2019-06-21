@@ -291,4 +291,15 @@ export default class UserService {
             fn(json);
         })
     }
+
+    // Find comments associated with the given watch item ID
+    findItemComments = (wid, fn) => {
+        fetch(`http://localhost:8080/api/groups/${wid}/comments`, {
+            method: 'GET'
+        })
+        .then(response => response.json())
+        .then(json => {
+            fn(json);
+        })
+    }
 }
