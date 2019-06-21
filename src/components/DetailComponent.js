@@ -156,21 +156,23 @@ export default class DetailComponent extends React.Component {
         var btnText = this.state.reviewText !== '' ? 'Edit Review' : 'Add Review';
         return (
             <div className="wbdv-detail col-sm-10">
-                <img className="img-fluid img-thumbnail rounded float-right"
+                <div className="wbdv-movie-info">
+                    <h2 className="wbdv-detail-header">{this.state.title}</h2>
+                    <h4>Released: {this.state.release}</h4>
+                    <h5>Rated {this.state.rating}</h5>
+                    <h5>Length: {this.state.runtime}</h5>
+                    <h6>Directed by {this.state.director}</h6>
+                    <h6>Genres include {this.state.genres}</h6>
+                    <p>{this.state.plot}</p>
+                    Ratings:
+                    <ul>
+                        {this.state.reviews && this.state.reviews.map((r, key) =>
+                            <li key={key}>{r.Source} gave this movie {r.Value}</li>
+                        )}
+                    </ul>
+                </div>
+                <img className="img-fluid img-thumbnail rounded float-right wbdv-poster"
                      src={this.state.img} alt={this.state.title}/>
-                <h2 className="wbdv-detail-header">{this.state.title}</h2>
-                <h4>Released: {this.state.release}</h4>
-                <h5>Rated {this.state.rating}</h5>
-                <h5>Length: {this.state.runtime}</h5>
-                <h6>Directed by {this.state.director}</h6>
-                <h6>Genres include {this.state.genres}</h6>
-                <p>{this.state.plot}</p>
-                Ratings:
-                <ul>
-                    {this.state.reviews && this.state.reviews.map((r, key) =>
-                        <li key={key}>{r.Source} gave this movie {r.Value}</li>
-                    )}
-                </ul>
                 {this.state.loggedIn && !this.state.inFavorites &&
                     <button className="btn btn-success wbdv-btn-shadow wbdv-btn-spacing"
                             onClick={() => this.doAddFavorite(this.state.did)}>Add Favorite</button>
@@ -180,12 +182,13 @@ export default class DetailComponent extends React.Component {
                             onClick={() => this.doRemoveFavorite(this.state.did)}>Remove Favorite</button>
                 }
                 {this.state.userIdToReviewMap &&
-                    <div className>
+                    <div className="wbdv-movie-info">
                         <h4>Reviews</h4>
                         {Object.keys(this.state.userIdToReviewMap).map(id =>
                             <div className="row" key={id}>
                                 <div className="col-sm-1">
-                                    <Link to={`/profile/${id}`} onClick={() => this.props.setPage('profile')}>
+                                    <Link to={`/profile/${id}`} onClick={() => this.props.setPage('profile')}
+                                          className="wbdv-username">
                                         <b>{this.state.userIdToUsernameMap[id]}</b>
                                     </Link>
                                     :
@@ -209,7 +212,7 @@ export default class DetailComponent extends React.Component {
                     <div>
                         <button className="btn btn-secondary wbdv-btn-shadow wbdv-btn-spacing"
                                 onClick={() => this.setState({showReview: false})}>Hide Review</button>
-                        <div className="col-sm-8">
+                        <div className="col-sm-10 wbdv-movie-info">
                             <label htmlFor="starf">Your Rating</label>
                             <select className="form-control" id="starf"
                                    onChange={e => this.doStarChange(e.target.value)}
