@@ -302,4 +302,15 @@ export default class UserService {
             fn(json);
         })
     }
+
+    // Find the list of members attending a watch item
+    findAttendingMembers = (wid, fn) => {
+        fetch(`http://localhost:8080/api/groups/${wid}/attending`, {
+            method: 'GET'
+        })
+        .then(response => response.json())
+        .then(json => {
+            fn(json, wid);
+        })
+    }
 }

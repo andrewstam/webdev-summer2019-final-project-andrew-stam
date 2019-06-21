@@ -28,7 +28,8 @@ export default class MovieGroupComponent extends React.Component {
             memberIdToUsernameMap: {},
             leaderIdToUsernameMap: {},
             movieIdToTitleMap: {},
-            watchItemIdToCommentArrayMap: {}
+            watchItemIdToCommentArrayMap: {},
+            watchItemIdToAttendingMap: {}
         };
 
         /* groupIdToWatchItemArrayMap looks like:
@@ -155,9 +156,17 @@ export default class MovieGroupComponent extends React.Component {
                 this.setState({movieIdToTitleMap: movieMap});
             });
             // Load watch item comments
-            //watchItemIdToCommentArrayMap
             service.findItemComments(obj.id, this.loadComments);
+            // Load watch item attending list
+            service.findAttendingMembers(obj.id, this.loadAttending);
         }
+    }
+
+    // Load the ids of the users who are attending
+    loadAttending = (json, wid) => {
+        var map = this.state.watchItemIdToAttendingMap;
+        map[wid] = json;
+        this.setState({watchItemIdToAttendingMap: map});
     }
 
     // Load comments for each watch item (user id and text)
@@ -243,13 +252,25 @@ export default class MovieGroupComponent extends React.Component {
                                         <div key={watchItem.id} className="form-control wbdv-watch-item">
                                             <div className="row">
                                                 <div className="col-sm-4">
-                                                    Title: <Link to={`/details/${watchItem.movieId}`}>
+                                                    <h4>Title: <Link to={`/details/${watchItem.movieId}`}>
                                                         {this.state.movieIdToTitleMap[watchItem.movieId]}
-                                                    </Link>
+                                                    </Link></h4>
                                                 </div>
                                                 <div className="col-sm-2">
                                                     Date: {watchItem.watchDate}
                                                 </div>
+                                            </div>
+                                            <div className="row wbdv-row">
+                                                <h6 className="col-sm-1">Attending:</h6>
+                                                {this.state.watchItemIdToAttendingMap[watchItem.id] &&
+                                                    this.state.watchItemIdToAttendingMap[watchItem.id].map(m =>
+                                                        <div className="col-sm-1" key={m}>
+                                                            <Link to={`/profile/${m}`}>
+                                                                {this.state.memberIdToUsernameMap[m]}
+                                                            </Link>
+                                                        </div>
+                                                    )
+                                                }
                                             </div>
                                             <div className="row">
                                                 <h6 className="col-sm-1">Comments:</h6>
