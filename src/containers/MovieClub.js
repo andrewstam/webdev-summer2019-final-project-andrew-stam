@@ -110,7 +110,7 @@ export default class MovieClub extends React.Component {
                         {this.state.page === 'home' && this.state.userId !== null && this.state.soonestItem &&
                             <div className="wbdv-home-container">
                                 <h3>Your next upcoming movie:</h3>
-                                <div className="col-sm-4">
+                                <div className="col-sm-10">
                                     <h4>Title: <Link to={`/details/${this.state.soonestItem.movieId}`}
                                                      onClick={() => this.setPage('details')}>
                                         {this.state.movieIdToTitleMap[this.state.soonestItem.movieId]}
@@ -172,8 +172,9 @@ export default class MovieClub extends React.Component {
                 watchDate: tokens[3],
                 groupName: ''
             };
-            // Find soonest watch item
-            if (this.state.soonestItem === null || this.state.soonestItem.watchDate > tokens[3]) {
+            // Find soonest watch item, not before today
+            if (this.state.soonestItem === null || this.state.soonestItem.watchDate > tokens[3]
+                    && this.state.today <= tokens[3]) {
                 this.setState({soonestItem: obj});
                 // Load movie title from its id by calling omdb API
                 var url = 'https://www.omdbapi.com';
