@@ -28,6 +28,14 @@ export default class MovieClub extends React.Component {
             service.findUserGroups(id, this.loadGroups);
         }
 
+        // Build today's date as string (ex: 2019-06-21)
+        var todayStr = '';
+        var today = new Date();
+        todayStr += today.getFullYear() + '-';
+        var month = today.getMonth() + 1;
+        todayStr += (month < 10) ? '0' + month + '-' : month + '-';
+        todayStr += (today.getDate() < 10) ? '0' + today.getDate() : today.getDate();
+
         // Pages: /home, /login, /search, /search/{criteria}, /details/{did}, /profile/{uid},
         //   /register
         this.state = {
@@ -35,14 +43,13 @@ export default class MovieClub extends React.Component {
             userObj: null,
             newestUser: null,
             page: 'home',
-            profileId: id
+            profileId: id,
+            today: todayStr,
+            soonestItem: null,
+            movieIdToTitleMap: {}
         };
 
         service.findNewestUser(this.loadNewestUser);
-
-        // TODO load list of groups, each can be clicked on
-        // If leader: edit view shown, can see movies to watch, date for each
-        //   can add/edit items, can add/edit members (search by username or id)
     }
 
     render() {
@@ -100,10 +107,21 @@ export default class MovieClub extends React.Component {
                                render={() => <ReviewComponent setPage={this.setPage}/>}/>
                         <Route path="/groups"
                                render={() => <MovieGroupComponent userObj={this.state.userObj} setPage={this.setPage}/>}/>
-                        {this.state.page === 'home' && this.state.userId !== null &&
+                        {this.state.page === 'home' && this.state.userId !== null && this.state.soonestItem &&
                             <div className="wbdv-home-container">
-                                <h4>Your next upcoming movie:</h4>
-
+                                <h3>Your next upcoming movie:</h3>
+                                <div className="col-sm-4">
+                                    <h4>Title: <Link to={`/details/${this.state.soonestItem.movieId}`}
+                                                     onClick={() => this.setPage('details')}>
+                                        {this.state.movieIdToTitleMap[this.state.soonestItem.movieId]}
+                                    </Link></h4>
+                                </div>
+                                <div className="col-sm-6">
+                                    Group: {this.state.soonestItem.groupName}
+                                </div>
+                                <div className="col-sm-2">
+                                    Date: {this.state.soonestItem.watchDate}
+                                </div>
                             </div>
                         }
                     </Router>
@@ -137,7 +155,49 @@ export default class MovieClub extends React.Component {
 
     // Load groups for the logged in user
     loadGroups = json => {
-        console.log(json)
+        for (var idx in json) {
+            // Find all watch items
+            service.findGroupWatchItems(json[idx], this.loadWatchItems);
+        }
+    }
+
+    // Find all watch items for each of the logged in user's groups
+    loadWatchItems = json => {
+        for (var idx in json) {
+            var tokens = json[idx].split(',');
+            var obj = {
+                id: tokens[0],
+                groupId: tokens[1],
+                movieId: tokens[2],
+                watchDate: tokens[3],
+                groupName: ''
+            };
+            // Find soonest watch item
+            if (this.state.soonestItem === null || this.state.soonestItem.watchDate > tokens[3]) {
+                this.setState({soonestItem: obj});
+                // Load movie title from its id by calling omdb API
+                var url = 'https://www.omdbapi.com';
+                // My personal API key, do not duplicate or reuse without permission
+                url += '?apikey=abfe6d09';
+                url += '&i=' + obj.movieId;
+                fetch(url)
+                .then(res => res.json())
+                .then(mov => {
+                    var movieMap = this.state.movieIdToTitleMap;
+                    movieMap[mov.imdbID] = mov.Title;
+                    this.setState({movieIdToTitleMap: movieMap});
+                });
+                // Load group name by id
+                service.findGroupById(obj.groupId, this.loadGroupName);
+            }
+        }
+    }
+
+    // Load group name that has soonest watch item
+    loadGroupName = json => {
+        var soon = this.state.soonestItem;
+        soon.groupName = json.name;
+        this.setState({soonestItem: soon});
     }
 
     // Set the current user by the given object and ID
