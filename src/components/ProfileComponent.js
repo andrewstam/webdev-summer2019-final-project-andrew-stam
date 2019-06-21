@@ -227,7 +227,7 @@ export default class ProfileComponent extends React.Component {
             service.findUserById(this.props.newUser, this.loadUserData);
         }
         return (<div className="row">
-            <div className="wbdv-profile-detail col-sm-8">
+            <div className="wbdv-profile-detail col-sm-8 wbdv-profile-container">
                 <label htmlFor="fname">First name</label>
                 <input type="text" className="form-control" id="fname"
                        onChange={e => this.changeFirstName(e.target.value)}
@@ -251,6 +251,12 @@ export default class ProfileComponent extends React.Component {
                 <input type="date" className="form-control" id="dobf"
                        onChange={e => this.changeDob(e.target.value)}
                        value={this.state.dob}/>
+                <button className="btn btn-danger btn-block wbdv-btn-shadow wbdv-block-btn"
+                        onClick={() => {
+                            this.props.logout();
+                            this.setState({logoutClick: true})}}>
+                    Logout
+                </button>
             </div>
             {this.renderLinks()}
         </div>)
@@ -259,7 +265,7 @@ export default class ProfileComponent extends React.Component {
     // Disable input fields, hide private info
     renderOtherPage = () => {
         return (<div className="row">
-            <div className="wbdv-profile-detail col-sm-8">
+            <div className="wbdv-profile-detail col-sm-8 wbdv-profile-container">
                 <label htmlFor="fname">First name</label>
                 <input type="text" className="form-control wbdv-disabled" id="fname" disabled
                        onChange={e => this.changeFirstName(e.target.value)}
@@ -287,7 +293,7 @@ export default class ProfileComponent extends React.Component {
     // Renders following list, followers list, and favorites list, all as links, in addition to average rating
     renderLinks = () => {
         return (
-            <div className="col-sm wbdv-profile-detail">
+            <div className="col-sm wbdv-profile-detail wbdv-profile-container">
                 {this.state.following.length === 0 &&
                     <h6><i>Not following users yet</i></h6>
                 }
@@ -490,14 +496,6 @@ export default class ProfileComponent extends React.Component {
                             {this.state.ownPage && this.renderMyPage()}
                             {!this.state.ownPage && this.renderOtherPage()}
                         </div>
-                        {this.state.ownPage &&
-                            <button className="btn btn-danger wbdv-btn-shadow"
-                                    onClick={() => {
-                                        this.props.logout();
-                                        this.setState({logoutClick: true})}}>
-                                Logout
-                            </button>
-                        }
                         {!this.state.ownPage && this.state.showFollowBtn &&
                             <button className="btn btn-warning wbdv-btn-shadow"
                                     onClick={() => this.doFollow()}>
