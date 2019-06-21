@@ -269,4 +269,15 @@ export default class UserService {
             fn(json);
         })
     }
+
+    // Find the member ids of a group
+    findGroupMemberIds = (id, fn) => {
+        fetch(`http://localhost:8080/api/groups/${id}/members`, {
+            method: 'GET'
+        })
+        .then(response => response.json())
+        .then(json => {
+            fn(json, id);
+        })
+    }
 }

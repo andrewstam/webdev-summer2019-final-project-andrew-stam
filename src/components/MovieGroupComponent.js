@@ -21,6 +21,8 @@ export default class MovieGroupComponent extends React.Component {
             userObj: this.props.userObj,
             groups: [],
             groupIdToLeaderIdMap: {},
+            groupIdToMemberIdArrayMap: {},
+            memberIdToUsernameMap: {},
             leaderIdToUsernameMap: {}
         };
 
@@ -45,7 +47,8 @@ export default class MovieGroupComponent extends React.Component {
     loadGroupIds = json => {
         if (json) {
             json.forEach(id => {
-                service.findGroupById(id, this.getGroupLeader)
+                service.findGroupById(id, this.getGroupLeader);
+                service.findGroupMemberIds(id, this.getGroupMemberIds);
                 this.setState({groups: [...this.state.groups, id]});
             })
         }
@@ -66,6 +69,21 @@ export default class MovieGroupComponent extends React.Component {
         this.setState({leaderIdToUsernameMap: map});
     }
 
+    // Get the IDs of all members per group, then call backend to find all usernames
+    getGroupMemberIds = (json, gid) => {
+        var map = this.state.groupIdToMemberIdArrayMap;
+        map[gid] = json;
+        this.setState({groupIdToMemberIdArrayMap: map});
+        json.forEach(id => service.findUserById(id, this.loadGroupMembers));
+    }
+
+    // Load member usernames into state
+    loadGroupMembers = json => {
+        var map = this.state.memberIdToUsernameMap;
+        map[json.id] = json.username;
+        this.setState({memberIdToUsernameMap: map});
+    }
+
     render() {
         // default is GroupMember
         var leader = this.props.userObj ? this.props.userObj.role === 'GroupLeader' : false;
@@ -83,6 +101,18 @@ export default class MovieGroupComponent extends React.Component {
                                     <h5>Leader: <Link to={`/profile/${this.state.groupIdToLeaderIdMap[id]}`}>
                                         {this.state.leaderIdToUsernameMap[this.state.groupIdToLeaderIdMap[id]]}</Link>
                                     </h5>
+                                    <h6>Members:</h6>
+                                    {this.state.groupIdToMemberIdArrayMap[id] &&
+                                        this.state.groupIdToMemberIdArrayMap[id].map(mid => {
+                                            return (
+                                                <div className="col-sm-2" key={mid}>
+                                                    <Link to={`/profile/${mid}`}>
+                                                        {this.state.memberIdToUsernameMap[mid]}
+                                                    </Link>
+                                                </div>
+                                            )
+                                        })
+                                    }
                                 </div>
                                 )
                             })
