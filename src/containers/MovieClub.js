@@ -173,8 +173,8 @@ export default class MovieClub extends React.Component {
                 groupName: ''
             };
             // Find soonest watch item, not before today
-            if (this.state.soonestItem === null || this.state.soonestItem.watchDate > tokens[3]
-                    && this.state.today <= tokens[3]) {
+            if (this.state.soonestItem === null || (this.state.soonestItem.watchDate > tokens[3]
+                    && this.state.today <= tokens[3])) {
                 this.setState({soonestItem: obj});
                 // Load movie title from its id by calling omdb API
                 var url = 'https://www.omdbapi.com';

@@ -123,7 +123,7 @@ export default class ReviewComponent extends React.Component {
             {this.state.reviews.sort().map((title, key) =>
                 <div key={key} className="form-control wbdv-review">
                     <Link to={`/details/${this.state.revIdMap[title]}`} onClick={() => this.props.setPage('details')}
-                          className="wbdv-related-link">{title}</Link>
+                          className="wbdv-link"><b>{title}</b></Link>
                     <div>
                         <span className="wbdv-rating-label">Rating: {this.renderAsStars(this.state.idToStarMap[this.state.revIdMap[title]])}</span>
                         <p className="wbdv-review-text"><i>{this.state.idToTextMap[this.state.revIdMap[title]]}</i></p>
@@ -135,7 +135,10 @@ export default class ReviewComponent extends React.Component {
     render() {
         return (
             <div>
-                <h3 className="wbdv-profile-detail">{this.state.username}'s Reviews</h3>
+                <h3 className="wbdv-profile-detail">
+                    <Link to={`/profile/${this.state.pageId}`} className="wbdv-related-link"
+                          onClick={() => this.props.setPage('profile')}>{this.state.username}
+                    </Link>'s Reviews</h3>
                 <h5 className="wbdv-avg-text">{this.state.stars} star average rating</h5>
                 <div>
                     {this.renderReviews()}

@@ -428,10 +428,8 @@ export default class ProfileComponent extends React.Component {
     // Show up to 3 reviews, if more, link to reviews page
     renderReviews = () => {
         var first3;
-        var showLink = false;
         if (this.state.reviews.length > 3) {
             first3 = this.state.reviews.sort().slice(0, 3);
-            showLink = true;
         } else {
             first3 = this.state.reviews.sort();
         }
@@ -441,10 +439,8 @@ export default class ProfileComponent extends React.Component {
                     <Link to={`/details/${this.state.revIdMap[title]}`} onClick={() => this.props.setPage('details')}
                           className="wbdv-related-link">{title}</Link>
                 </div>)}
-            {showLink &&
-                <Link to={`/reviews/${this.state.pageId}`} onClick={() => this.props.setPage('reviews')}
+            <Link to={`/reviews/${this.state.pageId}`} onClick={() => this.props.setPage('reviews')}
                       className="wbdv-related-link">See more...</Link>
-            }
         </div>)
     }
 

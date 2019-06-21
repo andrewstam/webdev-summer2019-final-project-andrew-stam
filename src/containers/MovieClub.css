@@ -14,8 +14,13 @@
     text-shadow: 0px 0px 2px black;
 }
 
+.wbdv-link {
+    color: green;
+}
+
 .wbdv-link:hover {
     text-decoration: none;
+    color: darkgreen;
 }
 
 .wbdv-btn-shadow {
