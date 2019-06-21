@@ -185,10 +185,15 @@ export default class MovieGroupComponent extends React.Component {
 
         return (
             <div>
-                <h1>Movie Groups</h1>
-                {leader && <h3>Group Leader</h3>}
+                {leader &&
+                    <div>
+                        <h1>Movie Groups</h1>
+                        <h3>Group Leader</h3>
+                    </div>
+                }
                 {!leader && this.state.groupId === null &&
                     <div>
+                        <h1>Movie Groups</h1>
                         <h3>Group Member</h3>
                         {this.state.groupIdToLeaderIdMap &&
                             Object.keys(this.state.groupIdToLeaderIdMap).map(id => {
@@ -225,6 +230,7 @@ export default class MovieGroupComponent extends React.Component {
                 }
                 {this.state.groupId !== null &&
                     <div>
+                        <h1>{this.state.groupIdToNameMap[this.state.groupId]}</h1>
                         <button className="btn btn-secondary wbdv-btn-shadow" onClick={() => this.changePage(null)}>
                             <Link to={`/groups`} className="wbdv-group-btn-text">Back to groups</Link>
                         </button>
