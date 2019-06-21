@@ -22,6 +22,7 @@ export default class MovieGroupComponent extends React.Component {
             userObj: this.props.userObj,
             groups: [],
             groupIdToLeaderIdMap: {},
+            groupIdToNameMap: {},
             groupIdToMemberIdArrayMap: {},
             memberIdToUsernameMap: {},
             leaderIdToUsernameMap: {}
@@ -48,19 +49,23 @@ export default class MovieGroupComponent extends React.Component {
     loadGroupIds = json => {
         if (json) {
             json.forEach(id => {
-                service.findGroupById(id, this.getGroupLeader);
+                service.findGroupById(id, this.getGroupInfo);
                 service.findGroupMemberIds(id, this.getGroupMemberIds);
                 this.setState({groups: [...this.state.groups, id]});
             })
         }
     }
 
-    // From group id, get group leader id from database and then load details
-    getGroupLeader = json => {
+    // From group id, get group leader id and group name from database and then load details
+    getGroupInfo = json => {
         service.findUserById(json.leaderId, this.loadGroupLeader);
         var map = this.state.groupIdToLeaderIdMap;
         map[json.groupId] = json.leaderId;
         this.setState({groupIdToLeaderIdMap: map});
+
+        var nameMap = this.state.groupIdToNameMap;
+        nameMap[json.groupId] = json.name;
+        this.setState({groupIdToNameMap: nameMap});
     }
 
     // Have details about leader, load into state
@@ -99,6 +104,7 @@ export default class MovieGroupComponent extends React.Component {
                             Object.keys(this.state.groupIdToLeaderIdMap).map(id => {
                                 return (
                                 <div className="form-control wbdv-group" key={id}>
+                                    <h4>{this.state.groupIdToNameMap[id]}</h4>
                                     <h5>Leader: <Link to={`/profile/${this.state.groupIdToLeaderIdMap[id]}`}>
                                         {this.state.leaderIdToUsernameMap[this.state.groupIdToLeaderIdMap[id]]}</Link>
                                     </h5>
