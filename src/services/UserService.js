@@ -280,4 +280,15 @@ export default class UserService {
             fn(json, id);
         })
     }
+
+    // Find the watch items associated with the group with the given ID
+    findGroupWatchItems = (id, fn) => {
+        fetch(`http://localhost:8080/api/groups/${id}/watch`, {
+            method: 'GET'
+        })
+        .then(response => response.json())
+        .then(json => {
+            fn(json);
+        })
+    }
 }

@@ -24,9 +24,38 @@ export default class MovieGroupComponent extends React.Component {
             groupIdToLeaderIdMap: {},
             groupIdToNameMap: {},
             groupIdToMemberIdArrayMap: {},
+            groupIdToWatchItemArrayMap: {},
             memberIdToUsernameMap: {},
-            leaderIdToUsernameMap: {}
+            leaderIdToUsernameMap: {},
+            movieIdToTitleMap: {}
         };
+
+        /* groupIdToWatchItemArrayMap looks like:
+            {
+                1: [    //groupId=1
+                    {
+                        itemId: 1,
+                        groupId: 1,
+                        movieId: tt000,
+                        watchDate: 2019-06-22
+                    },
+                    {
+                        itemId: 2,
+                        groupId: 1,
+                        movieId: tt001,
+                        watchDate: 2019-06-29
+                    }
+                ],
+                2: [    //groupId=2
+                    {
+                        itemId: 3,
+                        groupId: 2,
+                        movieId: tt005,
+                        watchDate: 2019-06-25
+                    }
+                ]
+            }
+        */
 
         this.props.setPage('groups');
     }
@@ -56,6 +85,7 @@ export default class MovieGroupComponent extends React.Component {
             json.forEach(id => {
                 service.findGroupById(id, this.getGroupInfo);
                 service.findGroupMemberIds(id, this.getGroupMemberIds);
+                service.findGroupWatchItems(id, this.getWatchItems);
                 this.setState({groups: [...this.state.groups, id]});
             })
         }
@@ -95,9 +125,41 @@ export default class MovieGroupComponent extends React.Component {
         this.setState({memberIdToUsernameMap: map});
     }
 
+    // Get the watch items associated with each group from the database
+    getWatchItems = json => {
+        // JSON looks like: ["3,2,tt0093779,2019-06-25"]
+        // Items are: id, groupId, movieId, watchDate
+        for (let idx in json) {
+            var watchItemTokens = json[idx].split(',');
+            var obj = {
+                id: watchItemTokens[0],
+                groupId: watchItemTokens[1],
+                movieId: watchItemTokens[2],
+                watchDate: watchItemTokens[3]
+            };
+            var map = this.state.groupIdToWatchItemArrayMap;
+            // Add watch item to the array - if it doesn't exist yet, initialize the array with one element
+            map[obj.groupId] = map[obj.groupId] ? ([...map[obj.groupId], obj]) : [obj];
+            this.setState({groupIdToWatchItemArrayMap: map})
+            // Load movie title from its id by calling omdb API
+            var url = 'https://www.omdbapi.com';
+            // My personal API key, do not duplicate or reuse without permission
+            url += '?apikey=abfe6d09';
+            url += '&i=' + obj.movieId;
+            fetch(url)
+            .then(res => res.json())
+            .then(mov => {
+                var movieMap = this.state.movieIdToTitleMap;
+                movieMap[mov.imdbID] = mov.Title;
+                this.setState({movieIdToTitleMap: movieMap});
+            });
+        }
+    }
+
     render() {
         // default is GroupMember
         var leader = this.props.userObj ? this.props.userObj.role === 'GroupLeader' : false;
+
         return (
             <div>
                 <h1>Movie Groups</h1>
@@ -143,6 +205,20 @@ export default class MovieGroupComponent extends React.Component {
                         <button className="btn btn-secondary wbdv-btn-shadow" onClick={() => this.changePage(null)}>
                             <Link to={`/groups`} className="wbdv-group-btn-text">Back to groups</Link>
                         </button>
+                    {!leader &&
+                        <div className="form-control wbdv-group">
+                            <h5>Watch Items</h5>
+                            {this.state.groupIdToWatchItemArrayMap[this.state.groupId] &&
+                                this.state.groupIdToWatchItemArrayMap[this.state.groupId].map(watchItem => {
+                                    return (
+                                        <div key={watchItem.id} className="row">
+                                            <div className="col-sm-2">Title: {this.state.movieIdToTitleMap[watchItem.movieId]}</div>
+                                            <div className="col-sm-2">Date: {watchItem.watchDate}</div>
+                                        </div>
+                                    )
+                            })}
+                        </div>
+                    }
                     </div>
                 }
             </div>
