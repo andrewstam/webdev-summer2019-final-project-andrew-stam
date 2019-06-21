@@ -313,4 +313,15 @@ export default class UserService {
             fn(json, wid);
         })
     }
+
+    // Find all reviews for the movie with the given ID
+    findAllReviews = (mid, fn) => {
+        fetch(`http://localhost:8080/api/reviews/${mid}/movie`, {
+            method: 'GET'
+        })
+        .then(response => response.json())
+        .then(json => {
+            fn(json);
+        })
+    }
 }

@@ -1,5 +1,6 @@
 // Created by Andrew Stam
 import React from 'react';
+import {Link} from 'react-router-dom';
 import UserService from '../services/UserService';
 import './DetailComponent.css';
 const service = UserService.getInstance();
@@ -18,7 +19,9 @@ export default class DetailComponent extends React.Component {
             inFavorites: false,
             stars: "1",
             reviewText: '',
-            showReview: false
+            showReview: false,
+            userIdToReviewMap: {},
+            userIdToUsernameMap: {}
         };
     }
 
@@ -48,6 +51,8 @@ export default class DetailComponent extends React.Component {
             service.findStarsForMovie(cur, this.state.did, this.loadStars);
             service.findReviewForMovie(cur, this.state.did, this.loadReview);
         }
+        // Load reviews regardless if logged in
+        service.findAllReviews(this.state.did, this.loadAllReviews);
     }
 
     // See if this movie is already in the current user's favorites list
@@ -77,6 +82,32 @@ export default class DetailComponent extends React.Component {
         this.setState({reviewText: text});
     }
 
+    // Load all reviews from backend
+    loadAllReviews = json => {
+        for (let idx in json) {
+            // First 2 tokens are review ID and movie id -> ignore
+            // Last token is userId, one before is star rating, rest is review text
+            var tokens = json[idx].split(',');
+            var obj = {
+                // If text had commas, rejoin the tokens and put the commas back
+                text: tokens.slice(2, tokens.length - 2).join(','),
+                star: tokens[tokens.length - 2],
+                userId: tokens[tokens.length - 1]
+            };
+            var map = this.state.userIdToReviewMap;
+            map[obj.userId] = obj;
+            this.setState({userIdToReviewMap: map});
+            service.findUserById(obj.userId, this.loadUsers);
+        }
+    }
+
+    // Load users into state who have written a review for this movie
+    loadUsers = json => {
+        var map = this.state.userIdToUsernameMap;
+        map[json.id] = json.username;
+        this.setState({userIdToUsernameMap: map});
+    }
+
     // Change state to inFavorites true, send to backend
     doAddFavorite = id => {
         this.setState({inFavorites: true});
@@ -99,6 +130,26 @@ export default class DetailComponent extends React.Component {
     doStarChange = star => {
         this.setState({stars: star});
         service.editStarsForMovie(localStorage.getItem('curUser'), this.state.did, parseInt(star));
+    }
+
+    // Translate star value into font-awesome icons
+    renderAsStars = num => {
+        var fullStar = <i className="fa fa-star"/>;
+        var emptyStar = <i className="fa fa-star-o"/>;
+        switch (num) {
+            default:
+                return <span>none</span>
+            case 1:
+                return <div className="wbdv-star">{fullStar} {emptyStar} {emptyStar} {emptyStar} {emptyStar}</div>
+            case 2:
+                return <div className="wbdv-star">{fullStar} {fullStar} {emptyStar} {emptyStar} {emptyStar}</div>
+            case 3:
+                return <div className="wbdv-star">{fullStar} {fullStar} {fullStar} {emptyStar} {emptyStar}</div>
+            case 4:
+                return <div className="wbdv-star">{fullStar} {fullStar} {fullStar} {fullStar} {emptyStar}</div>
+            case 5:
+                return <div className="wbdv-star">{fullStar} {fullStar} {fullStar} {fullStar} {fullStar}</div>
+        }
     }
 
     render() {
@@ -127,6 +178,26 @@ export default class DetailComponent extends React.Component {
                 {this.state.loggedIn && this.state.inFavorites &&
                     <button className="btn btn-danger wbdv-btn-shadow wbdv-btn-spacing"
                             onClick={() => this.doRemoveFavorite(this.state.did)}>Remove Favorite</button>
+                }
+                {this.state.userIdToReviewMap &&
+                    <div className>
+                        <h4>Reviews</h4>
+                        {Object.keys(this.state.userIdToReviewMap).map(id =>
+                            <div className="row" key={id}>
+                                <div className="col-sm-1">
+                                    <Link to={`/profile/${id}`} onClick={() => this.props.setPage('profile')}>
+                                        <b>{this.state.userIdToUsernameMap[id]}</b>
+                                    </Link>
+                                    :
+                                </div>
+                                <div className="col-sm-8">
+                                    {this.renderAsStars(parseInt(this.state.userIdToReviewMap[id].star))}
+                                    {this.state.userIdToReviewMap[id].text}
+                                </div>
+                                <hr className="wbdv-separator"/>
+                            </div>
+                        )}
+                    </div>
                 }
                 {this.state.loggedIn && !this.state.showReview &&
                     <div>
