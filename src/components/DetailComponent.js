@@ -205,6 +205,9 @@ export default class DetailComponent extends React.Component {
                 {this.state.userIdToReviewMap &&
                     <div className="wbdv-movie-info">
                         <h4>Reviews</h4>
+                        {Object.keys(this.state.userIdToReviewMap).length === 0 &&
+                            <h6><i>No reviews yet.</i></h6>
+                        }
                         {Object.keys(this.state.userIdToReviewMap).map(id =>
                             <div className="row" key={id}>
                                 <div className="col-sm-1">
