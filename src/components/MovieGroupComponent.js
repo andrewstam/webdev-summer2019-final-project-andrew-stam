@@ -102,18 +102,22 @@ export default class MovieGroupComponent extends React.Component {
                                     <h5>Leader: <Link to={`/profile/${this.state.groupIdToLeaderIdMap[id]}`}>
                                         {this.state.leaderIdToUsernameMap[this.state.groupIdToLeaderIdMap[id]]}</Link>
                                     </h5>
-                                    <h6>Members:</h6>
-                                    {this.state.groupIdToMemberIdArrayMap[id] &&
-                                        this.state.groupIdToMemberIdArrayMap[id].map(mid => {
-                                            return (
-                                                <div className="col-sm-2" key={mid}>
-                                                    <Link to={`/profile/${mid}`}>
-                                                        {this.state.memberIdToUsernameMap[mid]}
-                                                    </Link>
-                                                </div>
-                                            )
-                                        })
-                                    }
+                                    <div className="container">
+                                        <div className="row">
+                                            <h6 className="wbdv-row col-sm-1">Members:</h6>
+                                            {this.state.groupIdToMemberIdArrayMap[id] &&
+                                                this.state.groupIdToMemberIdArrayMap[id].map(mid => {
+                                                    return (
+                                                        <div className="col-sm-1" key={mid}>
+                                                            <Link to={`/profile/${mid}`}>
+                                                                {this.state.memberIdToUsernameMap[mid]}
+                                                            </Link>
+                                                        </div>
+                                                    )
+                                                })
+                                            }
+                                        </div>
+                                    </div>
                                 </div>
                                 )
                             })
