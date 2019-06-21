@@ -66,6 +66,12 @@ export default class MovieClub extends React.Component {
                                       onClick={() => this.setState({page: 'profile'})}>Profile</Link>
                             </button>
                         }
+                        {this.state.userId !== null && this.state.page !== 'groups' &&
+                            <button className="btn btn-secondary float-right">
+                                <Link to="/groups" className="wbdv-profile-btn wbdv-btn-shadow"
+                                      onClick={() => this.setState({page: 'groups'})}>Groups</Link>
+                            </button>
+                        }
                         {this.state.userId === null && this.state.page !== 'login' && this.state.page !== 'register' &&
                             <button className="btn btn-info float-right">
                                 <Link to="/login" className="wbdv-profile-btn wbdv-btn-shadow"
@@ -88,10 +94,10 @@ export default class MovieClub extends React.Component {
                         <Route path="/register"
                                render={() => <RegisterComponent user={this.state.userId} setUser={this.setUser} setPage={this.setPage}
                                                                 loadNewestUser={this.loadNewestUser}/>}/>
-                        <Route path="/group/:groupId"
-                               render={() => <MovieGroupComponent userObj={this.state.userObj} setPage={this.setPage}/>}/>
                         <Route path="/reviews"
                                render={() => <ReviewComponent setPage={this.setPage}/>}/>
+                        <Route path="/groups"
+                               render={() => <MovieGroupComponent userObj={this.state.userObj} setPage={this.setPage}/>}/>
                     </Router>
                 </div>
                 <div className="wbdv-creator-text">Created by Andrew Stam, June 2019</div>
@@ -107,7 +113,7 @@ export default class MovieClub extends React.Component {
             )
         }
         return (
-            <h5 className="wbdv-role-text">Group Member</h5>
+            <h5 className="wbdv-role-text"><i>Group Member</i></h5>
         )
     }
 
@@ -142,7 +148,7 @@ export default class MovieClub extends React.Component {
         service.addFavorite(this.state.userId, movieId);
     }
 
-    // Add a movie to a user's favorites list
+    // Remove a movie from a user's favorites list
     removeFavorite = movieId => {
         service.removeFavorite(this.state.userId, movieId);
     }

@@ -247,4 +247,26 @@ export default class UserService {
             fn(json);
         })
     }
+
+    // Finds the user's groups
+    findUserGroups = (uid, fn) => {
+        fetch(`http://localhost:8080/api/users/${uid}/groups`, {
+            method: 'GET'
+        })
+        .then(response => response.json())
+        .then(json => {
+            fn(json);
+        })
+    }
+
+    // Finds a group by id
+    findGroupById = (id, fn) => {
+        fetch(`http://localhost:8080/api/groups/${id}`, {
+            method: 'GET'
+        })
+        .then(response => response.json())
+        .then(json => {
+            fn(json);
+        })
+    }
 }
