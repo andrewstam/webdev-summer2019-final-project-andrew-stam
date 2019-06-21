@@ -123,6 +123,9 @@ export default class MovieGroupComponent extends React.Component {
                                                 })
                                             }
                                         </div>
+                                        <div className="row wbdv-group-link">
+                                            <Link to={`/groups/${id}`}>See group details...</Link>
+                                        </div>
                                     </div>
                                 </div>
                                 )

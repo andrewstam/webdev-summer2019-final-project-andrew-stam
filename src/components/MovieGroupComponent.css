@@ -6,5 +6,10 @@
 }
 
 .wbdv-row {
-    /*margin-left: -5rem;*/
+    text-align: center;
+}
+
+.wbdv-group-link {
+    margin-left: 85%;
+    text-align: left;
 }
