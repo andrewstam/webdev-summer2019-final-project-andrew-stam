@@ -25,6 +25,7 @@ export default class MovieClub extends React.Component {
         if (curUser !== null) {
             id = curUser;
             service.findUserById(id, this.loadUser);
+            service.findUserGroups(id, this.loadGroups);
         }
 
         // Pages: /home, /login, /search, /search/{criteria}, /details/{did}, /profile/{uid},
@@ -99,6 +100,12 @@ export default class MovieClub extends React.Component {
                                render={() => <ReviewComponent setPage={this.setPage}/>}/>
                         <Route path="/groups"
                                render={() => <MovieGroupComponent userObj={this.state.userObj} setPage={this.setPage}/>}/>
+                        {this.state.userId !== null &&
+                            <div className="wbdv-home-container">
+                                <h4>Your next upcoming movie:</h4>
+
+                            </div>
+                        }
                     </Router>
                 </div>
                 <div className="wbdv-creator-text">Created by Andrew Stam, June 2019</div>
@@ -110,12 +117,27 @@ export default class MovieClub extends React.Component {
     renderRoleText = () => {
         if (this.state.userObj.role === 'GroupLeader') {
             return (
-                <h5 className="wbdv-role-text"><i>Group Leader</i></h5>
+                <div className="col-sm-4">
+                    <h5 className="wbdv-role-text"><i>Group Leader</i></h5>
+                    <div className="wbdv-role-text">As a Group Leader, you can create groups and add members
+                    by their ID (ask a Group Member for their ID in person!) - Once the group is made, you can create movie
+                    watch items, which includes what you're watching, where, and when!</div>
+                </div>
             )
         }
         return (
-            <h5 className="wbdv-role-text"><i>Group Member</i></h5>
+            <div className="col-sm-4">
+                <h5 className="wbdv-role-text"><i>Group Member</i></h5>
+                <div className="wbdv-role-text">As a Group Member, you can review, rate, and add favorite movies. You can also
+                be a part of groups (give a Group Leader your unique ID in person!) - Once you're in a group, you can add comments on
+                watch items and tell others if you're attending!</div>
+            </div>
         )
+    }
+
+    // Load groups for the logged in user
+    loadGroups = json => {
+        console.log(json)
     }
 
     // Set the current user by the given object and ID
