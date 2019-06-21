@@ -1,6 +1,7 @@
 // Created by Andrew Stam
 import React from 'react';
 import {Link} from 'react-router-dom';
+import './MovieGroupComponent.css';
 import UserService from '../services/UserService';
 const service = UserService.getInstance();
 
@@ -97,7 +98,7 @@ export default class MovieGroupComponent extends React.Component {
                         {this.state.groupIdToLeaderIdMap &&
                             Object.keys(this.state.groupIdToLeaderIdMap).map(id => {
                                 return (
-                                <div className="form-control" key={id}>
+                                <div className="form-control wbdv-group" key={id}>
                                     <h5>Leader: <Link to={`/profile/${this.state.groupIdToLeaderIdMap[id]}`}>
                                         {this.state.leaderIdToUsernameMap[this.state.groupIdToLeaderIdMap[id]]}</Link>
                                     </h5>
