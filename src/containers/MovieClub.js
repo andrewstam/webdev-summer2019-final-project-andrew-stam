@@ -100,7 +100,7 @@ export default class MovieClub extends React.Component {
                                render={() => <ReviewComponent setPage={this.setPage}/>}/>
                         <Route path="/groups"
                                render={() => <MovieGroupComponent userObj={this.state.userObj} setPage={this.setPage}/>}/>
-                        {this.state.userId !== null &&
+                        {this.state.page === 'home' && this.state.userId !== null &&
                             <div className="wbdv-home-container">
                                 <h4>Your next upcoming movie:</h4>
 

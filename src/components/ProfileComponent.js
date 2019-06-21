@@ -48,6 +48,7 @@ export default class ProfileComponent extends React.Component {
             showFollowBtn: true,
             reviews: [],
             revIdMap: {},
+            showLoginText: false,
             ownPage: parseInt(id) === parseInt(localStorage.getItem('curUser'))
         };
 
@@ -70,6 +71,7 @@ export default class ProfileComponent extends React.Component {
             favIdMap: {},
             reviews: [],
             revIdMap: {},
+            showLoginText: false,
             ownPage: parseInt(id) === parseInt(localStorage.getItem('curUser'))
         });
         // profile to load
@@ -228,6 +230,7 @@ export default class ProfileComponent extends React.Component {
         }
         return (<div className="row">
             <div className="wbdv-profile-detail col-sm-8 wbdv-profile-container">
+                <h3 className="wbdv-profile-detail">Your Profile</h3>
                 <label htmlFor="fname">First name</label>
                 <input type="text" className="form-control" id="fname"
                        onChange={e => this.changeFirstName(e.target.value)}
@@ -266,6 +269,7 @@ export default class ProfileComponent extends React.Component {
     renderOtherPage = () => {
         return (<div className="row">
             <div className="wbdv-profile-detail col-sm-8 wbdv-profile-container">
+                <h3 className="wbdv-profile-detail">{this.state.username}'s Profile</h3>
                 <label htmlFor="fname">First name</label>
                 <input type="text" className="form-control wbdv-disabled" id="fname" disabled
                        onChange={e => this.changeFirstName(e.target.value)}
@@ -281,6 +285,21 @@ export default class ProfileComponent extends React.Component {
                     <option value="GroupMember">Group Member</option>
                     <option value="GroupLeader">Group Leader</option>
                 </select>
+                {this.state.showFollowBtn &&
+                    <button className="btn btn-warning btn-block wbdv-btn-shadow wbdv-follow-btn"
+                            onClick={() => this.doFollow()}>
+                        Follow
+                    </button>
+                }
+                {!this.state.showFollowBtn &&
+                    <button className="btn btn-danger btn-block wbdv-btn-shadow wbdv-follow-btn"
+                            onClick={() => this.doUnfollow()}>
+                        Unfollow
+                    </button>
+                }
+                {this.state.showLoginText &&
+                    <span><i>Please login before trying to follow users</i></span>
+                }
             </div>
             {this.renderLinks()}
         </div>)
@@ -433,7 +452,7 @@ export default class ProfileComponent extends React.Component {
     doFollow = () => {
         // Block follow if not logged in
         if (this.state.curUser === null) {
-            alert('Please login before trying to follow users.');
+            this.setState({showLoginText: true})
             return;
         }
         // If not already following (backend handles duplicates)
@@ -448,7 +467,7 @@ export default class ProfileComponent extends React.Component {
     doUnfollow = () => {
         // Block follow if not logged in (should never reach here, but here just in case)
         if (this.state.curUser === null) {
-            alert('Please login before trying to unfollow users.');
+            this.setState({showLoginText: true});
             return;
         }
         // Remove data pair in database
@@ -489,25 +508,9 @@ export default class ProfileComponent extends React.Component {
                     <span className="wbdv-profile-detail">Please login to view your profile.</span>
                 }
                 {this.state.pageId !== null &&
-                    <div>
-                        {this.state.ownPage && <h3 className="wbdv-profile-detail">Your Profile</h3>}
-                        {!this.state.ownPage && <h3 className="wbdv-profile-detail">{this.state.username}'s Profile</h3>}
-                        <div className="container">
-                            {this.state.ownPage && this.renderMyPage()}
-                            {!this.state.ownPage && this.renderOtherPage()}
-                        </div>
-                        {!this.state.ownPage && this.state.showFollowBtn &&
-                            <button className="btn btn-warning wbdv-btn-shadow"
-                                    onClick={() => this.doFollow()}>
-                                Follow
-                            </button>
-                        }
-                        {!this.state.ownPage && !this.state.showFollowBtn &&
-                            <button className="btn btn-secondary wbdv-btn-shadow"
-                                    onClick={() => this.doUnfollow()}>
-                                Unfollow
-                            </button>
-                        }
+                    <div className="container">
+                        {this.state.ownPage && this.renderMyPage()}
+                        {!this.state.ownPage && this.renderOtherPage()}
                     </div>
                 }
             </div>
