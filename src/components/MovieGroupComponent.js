@@ -234,10 +234,12 @@ export default class MovieGroupComponent extends React.Component {
                             {this.state.groupIdToWatchItemArrayMap[this.state.groupId] &&
                                 this.state.groupIdToWatchItemArrayMap[this.state.groupId].map(watchItem => {
                                     return (
-                                        <div key={watchItem.id} className="form-control wbdv-group">
+                                        <div key={watchItem.id} className="form-control wbdv-watch-item">
                                             <div className="row">
                                                 <div className="col-sm-4">
-                                                    Title: {this.state.movieIdToTitleMap[watchItem.movieId]}
+                                                    Title: <Link to={`/details/${watchItem.movieId}`}>
+                                                        {this.state.movieIdToTitleMap[watchItem.movieId]}
+                                                    </Link>
                                                 </div>
                                                 <div className="col-sm-2">
                                                     Date: {watchItem.watchDate}
@@ -249,11 +251,14 @@ export default class MovieGroupComponent extends React.Component {
                                             {this.state.watchItemIdToCommentArrayMap[watchItem.id] &&
                                                 this.state.watchItemIdToCommentArrayMap[watchItem.id].map(c =>
                                                     <div className="row" key={c.id}>
-                                                        <div className="col-sm-8">
+                                                        <div className="col-sm-1">
                                                             <Link to={`/profile/${c.userId}`} onClick={() => this.props.setPage('profile')}>
-                                                                {this.state.memberIdToUsernameMap[c.userId]}
+                                                                <b>{this.state.memberIdToUsernameMap[c.userId]}</b>
                                                             </Link>
-                                                            : {c.text}
+                                                            :
+                                                        </div>
+                                                        <div className="col-sm-8">
+                                                            {c.text}
                                                         </div>
                                                         <hr/>
                                                     </div>

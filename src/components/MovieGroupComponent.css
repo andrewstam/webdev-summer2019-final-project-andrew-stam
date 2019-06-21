@@ -5,6 +5,13 @@
     width: 90%;
 }
 
+.wbdv-watch-item {
+    height: fit-content;
+    opacity: 1;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
 .wbdv-row {
     text-align: center;
 }
