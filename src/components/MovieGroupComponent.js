@@ -26,7 +26,9 @@ export default class MovieGroupComponent extends React.Component {
             movieIdToTitleMap: {},
             watchItemIdToCommentArrayMap: {},
             watchItemIdToAttendingMap: {},
-            watchItemToCommentTextMap: {}
+            watchItemToCommentTextMap: {},
+            showAddGroupBtn: true,
+            groupName: ''
         };
 
         this.props.setPage('groups');
@@ -244,6 +246,15 @@ export default class MovieGroupComponent extends React.Component {
         }
     }
 
+    // As a leader, create a group
+    createGroup = () => {
+        var cur = localStorage.getItem('curUser');
+        // Create a group with the given name and the logged in user as the leader
+        service.createGroup(cur, this.state.groupName);
+        // Reload list of groups
+        service.findUserGroups(cur, this.loadGroupIds);
+    }
+
     render() {
         // default is GroupMember
         var leader = this.props.userObj ? this.props.userObj.role === 'GroupLeader' : false;
@@ -372,7 +383,7 @@ export default class MovieGroupComponent extends React.Component {
                                                     <textarea type="text" className="form-control" id="rtext"
                                                               onChange={e => this.doTextChange(e.target.value, watchItem.id)}
                                                               value={this.state.watchItemToCommentTextMap[watchItem.id]}/>
-                                                    <button className="btn btn-success wbdv-add-comment-btn"
+                                                    <button className="btn btn-success wbdv-btn-shadow wbdv-add-comment-btn"
                                                             onClick={() => this.doCommentSubmit(watchItem.id)}>Add</button>
                                                 </div>
                                             }
@@ -382,6 +393,23 @@ export default class MovieGroupComponent extends React.Component {
                         </div>
                     </div>
                     }
+                {leader && this.state.showAddGroupBtn &&
+                    <button className="btn btn-success wbdv-btn-shadow wbdv-add-comment-btn"
+                            onClick={() => this.setState({showAddGroupBtn: false})}>Add Group</button>
+                }
+                {leader && !this.state.showAddGroupBtn &&
+                    <div>
+                        <button className="btn btn-danger wbdv-btn-shadow wbdv-add-comment-btn"
+                                onClick={() => this.setState({showAddGroupBtn: true})}>Cancel</button>
+                        <div className="wbdv-group-container">
+                            <label htmlFor="gname">Group Name</label>
+                            <input type="text" className="form-control" id="gname"
+                                   onChange={e => this.setState({groupName: e.target.value})}/>
+                            <button className="btn btn-success btn-block wbdv-btn-shadow wbdv-add-comment-btn"
+                                    onClick={() => this.createGroup()}>Create Group</button>
+                        </div>
+                    </div>
+                }
             </div>
         );
     }
