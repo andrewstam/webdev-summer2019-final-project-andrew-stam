@@ -29,7 +29,7 @@ export default class UserService {
     // Send new user data to backend to save as valid login, then do the callback function
     createUser = (id, user, pass, role, fn) => {
         fetch("http://localhost:8080/api/users", {
-            method: 'PUT',
+            method: 'POST',
             body: JSON.stringify([id, user, pass, role]),
             headers: {
                 'content-type': 'application/json'
@@ -74,7 +74,7 @@ export default class UserService {
     // Update the given user
     updateUser = (user, id) => {
         fetch(`http://localhost:8080/api/users/${id}`, {
-            method: 'POST',
+            method: 'PUT',
             body: JSON.stringify(user),
             headers: {
                 'content-type': 'application/json'
@@ -86,7 +86,7 @@ export default class UserService {
     // Add given user id to following list of user with ID in path
     addFollow = (userId, id) => {
         fetch(`http://localhost:8080/api/users/${id}/following`, {
-            method: 'POST',
+            method: 'PUT',
             body: JSON.stringify(userId),
             headers: {
                 'content-type': 'application/json'
@@ -108,7 +108,7 @@ export default class UserService {
     // Add given user id to follower list of user with ID in path
     addFollower = (userId, id) => {
         fetch(`http://localhost:8080/api/users/${id}/followers`, {
-            method: 'POST',
+            method: 'PUT',
             body: JSON.stringify(userId),
             headers: {
                 'content-type': 'application/json'
@@ -130,7 +130,7 @@ export default class UserService {
     // Add given move id to favorites list of user with ID in path
     addFavorite = (userId, movieId) => {
         fetch(`http://localhost:8080/api/users/${userId}/favorites`, {
-            method: 'POST',
+            method: 'PUT',
             body: JSON.stringify(movieId),
             headers: {
                 'content-type': 'application/json'
