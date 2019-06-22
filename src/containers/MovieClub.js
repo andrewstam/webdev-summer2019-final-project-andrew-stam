@@ -135,7 +135,7 @@ export default class MovieClub extends React.Component {
     renderRoleText = () => {
         if (this.state.userObj.role === 'GroupLeader') {
             return (
-                <div className="col-sm-4">
+                <div className="col-sm-8">
                     <h5 className="wbdv-role-text"><i>Group Leader</i></h5>
                     <div className="wbdv-role-text">As a Group Leader, you can create groups and add members
                     by their ID (ask a Group Member for their ID in person!) - Once the group is made, you can create movie
@@ -144,7 +144,7 @@ export default class MovieClub extends React.Component {
             )
         }
         return (
-            <div className="col-sm-4">
+            <div className="col-sm-8">
                 <h5 className="wbdv-role-text"><i>Group Member</i></h5>
                 <div className="wbdv-role-text">As a Group Member, you can review, rate, and add favorite movies. You can also
                 be a part of groups (give a Group Leader your unique ID in person!) - Once you're in a group, you can add comments on

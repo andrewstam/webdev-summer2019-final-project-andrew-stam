@@ -5,26 +5,31 @@ import './HomeComponent.css';
 
 const HomeComponent = ({userObj, nameText, renderRoleText, newestUser, setPage}) =>
     <div>
-        <h3 className="wbdv-desc-text">Decide what movies to watch and when, with friends!</h3>
-        {userObj !== null &&
-            <div>
-                <h2 className="wbdv-name-text">Welcome {nameText}</h2>
-                {renderRoleText()}
-            </div>
-        }
-        {newestUser !== null &&
-            <div>
-                <h5 className="wbdv-new-user-text"><i>Check out our newest user, <Link to={`/profile/${newestUser.id}`}>
-                        {newestUser.username}</Link>!</i>
-                </h5>
-            </div>
-        }
+        <div className="wbdv-home-detail-container">
+            <h3 className="wbdv-desc-text">Decide what movies to watch and when, with friends!</h3>
+            {userObj !== null &&
+                <div>
+                    <div>
+                        <h2 className="wbdv-name-text">Welcome {nameText}</h2>
+                        {renderRoleText()}
+                    </div>
+                    {newestUser !== null &&
+                        <div>
+                            <h5 className="wbdv-new-user-text"><i>Check out our newest user, <Link to={`/profile/${newestUser.id}`}>
+                                    {newestUser.username}</Link>!</i>
+                            </h5>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
         {userObj === null &&
-            <Link to="/search" className="wbdv-link"
-                  onClick={() => setPage('search')}><h2 className="wbdv-search-link">Start today by searching for a movie</h2></Link>
+            <Link to="/search" className="wbdv-link wbdv-home-detail-container"
+                  onClick={() => setPage('search')}><h2 className="wbdv-home-detail-container wbdv-search-link">Start today by searching for a movie</h2></Link>
         }
         {userObj !== null &&
-            <Link to="/search" className="wbdv-link" onClick={() => setPage('search')}><h2 className="wbdv-search-link">
+            <Link to="/search" className="wbdv-link"
+                  onClick={() => setPage('search')}><h2 className="wbdv-home-detail-container wbdv-search-link">
                 <i className="fa fa-long-arrow-right"/> Search for a movie <i className="fa fa-long-arrow-left"/></h2></Link>
         }
     </div>
