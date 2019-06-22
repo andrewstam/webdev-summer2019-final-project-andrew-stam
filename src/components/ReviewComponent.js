@@ -58,8 +58,8 @@ export default class ReviewComponent extends React.Component {
     loadReviews = json => {
         for (let idx in json) {
             this.loadTitleFromAPI(json[idx], false);
-            service.findStarsForMovie(this.state.curUser, json[idx], this.loadStars);
-            service.findReviewForMovie(this.state.curUser, json[idx], this.loadText);
+            service.findStarsForMovie(this.state.pageId, json[idx], this.loadStars);
+            service.findReviewForMovie(this.state.pageId, json[idx], this.loadText);
         }
     }
 
