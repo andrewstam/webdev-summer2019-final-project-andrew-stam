@@ -403,7 +403,7 @@ export default class UserService {
         })
         .then(resp => resp.json())
         .then(json => {
-            fn(uid, json);
+            fn(uid, gid, json);
         })
     }
 

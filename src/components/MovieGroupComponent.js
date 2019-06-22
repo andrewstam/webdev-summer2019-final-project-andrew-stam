@@ -29,7 +29,7 @@ export default class MovieGroupComponent extends React.Component {
             watchItemToCommentTextMap: {},
             showAddGroupBtn: true,
             groupName: '',
-            memberId: '',
+            memberId: {},
             errorAdding: false
         };
 
@@ -264,17 +264,19 @@ export default class MovieGroupComponent extends React.Component {
 
     // Add a member to a group by member ID and group ID
     addMember = gid => {
-        if (this.state.memberId !== '' && this.state.memberId !== null) {
-            service.addMember(parseInt(this.state.memberId), gid, this.reloadMembers);
+        if (this.state.memberId[gid] !== '' && this.state.memberId[gid] !== null) {
+            service.addMember(parseInt(this.state.memberId[gid]), gid, this.reloadMembers);
         }
     }
 
     // Callback for adding a member
-    reloadMembers = (uid, success) => {
+    reloadMembers = (uid, gid, success) => {
         if (success) {
             // Reload groups
             service.findUserGroups(localStorage.getItem('curUser'), this.loadGroupIds);
-            this.setState({memberId: '', errorAdding: false});
+            var map = this.state.memberId;
+            map[gid] = '';
+            this.setState({memberId: map, errorAdding: false});
         } else {
             this.setState({errorAdding: true});
         }
@@ -288,6 +290,13 @@ export default class MovieGroupComponent extends React.Component {
     // Reload list of members
     removeMemberCallback = () => {
         service.findUserGroups(localStorage.getItem('curUser'), this.loadGroupIds);
+    }
+
+    // Different member id input for each group
+    changeMemberId = (memberId, gid) => {
+        var map = this.state.memberId;
+        map[gid] = memberId;
+        this.setState({memberId: map, errorAdding: false})
     }
 
     render() {
@@ -343,8 +352,8 @@ export default class MovieGroupComponent extends React.Component {
                                                 <div className="row">
                                                     <label htmlFor="addMember" className="col-sm-2"><h6>Add Member by ID:</h6></label>
                                                     <input className="form-control col-sm-2" id="addMember"
-                                                           onChange={e => this.setState({memberId: e.target.value, errorAdding: false})}
-                                                           placeholder="Member ID" value={this.state.memberId}/>
+                                                           onChange={e => this.changeMemberId(e.target.value, id)}
+                                                           placeholder="Member ID" value={this.state.memberId[id] || ''}/>
                                                     <button className="btn btn-success wbdv-add-member-btn wbdv-btn-shadow"
                                                             onClick={() => this.addMember(id)}>Add</button>
                                                 </div>
