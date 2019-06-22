@@ -244,7 +244,7 @@ export default class ProfileComponent extends React.Component {
                        onChange={e => this.changeEmail(e.target.value)}
                        value={this.state.email}/>
                 <label htmlFor="rolef">Role</label>
-                <select className="form-control" id="rolef"
+                <select className="form-control" id="rolef" disabled
                        onChange={e => this.changeRole(e.target.value)}
                        value={this.state.role}>
                     <option value="GroupMember">Group Member</option>
