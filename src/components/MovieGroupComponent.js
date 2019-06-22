@@ -280,6 +280,16 @@ export default class MovieGroupComponent extends React.Component {
         }
     }
 
+    // Remove given member from given group
+    removeMember = (gid, mid) => {
+        service.removeMember(mid, gid, this.removeMemberCallback);
+    }
+
+    // Reload list of members
+    removeMemberCallback = () => {
+        service.findUserGroups(localStorage.getItem('curUser'), this.loadGroupIds);
+    }
+
     render() {
         // default is GroupMember
         var leader = this.props.userObj ? this.props.userObj.role === 'GroupLeader' : false;
@@ -314,10 +324,14 @@ export default class MovieGroupComponent extends React.Component {
                                                         return;
                                                     }
                                                     return (
-                                                        <div className="col-sm-1" key={mid}>
+                                                        <div className="col-sm-1 wbdv-member" key={mid}>
                                                             <Link to={`/profile/${mid}`}>
                                                                 {this.state.memberIdToUsernameMap[mid]}
                                                             </Link>
+                                                            {leader &&
+                                                                <i className="fa fa-times wbdv-member wbdv-delete-fav"
+                                                                   onClick={() => this.removeMember(id, mid)} />
+                                                            }
                                                         </div>
                                                     )
                                                 })

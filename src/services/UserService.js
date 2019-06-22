@@ -406,4 +406,16 @@ export default class UserService {
             fn(uid, json);
         })
     }
+
+    // Remove a member with the given ID from the given group
+    removeMember = (uid, gid, fn) => {
+        fetch(`http://localhost:8080/api/groups/${gid}`, {
+            method: 'DELETE',
+            body: JSON.stringify(uid),
+            headers: {
+                'content-type': 'application/json'
+            }
+        })
+        .then(() => fn())
+    }
 }
