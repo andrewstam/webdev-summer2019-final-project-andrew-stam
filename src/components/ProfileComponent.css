@@ -1,3 +1,7 @@
+.wbdv-delete-fav {
+    color: grey;
+}
+
 .wbdv-delete-fav:hover {
     cursor: pointer;
     color: red;

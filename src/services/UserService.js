@@ -353,4 +353,30 @@ export default class UserService {
             }
         })
     }
+
+    // Add a comment for the given watch item by the given user
+    addComment = (text, uid, wid, fn) => {
+        fetch(`http://localhost:8080/api/groups/${wid}/comment/${uid}`, {
+            method: 'PUT',
+            body: JSON.stringify(text),
+            headers: {
+                'content-type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(json => {
+            fn(json, wid);
+        })
+    }
+
+    // Remove a comment from the given watch item by the given user
+    removeComment = (uid, wid, cid) => {
+        fetch(`http://localhost:8080/api/groups/${wid}/comment/${uid}`, {
+            method: 'DELETE',
+            body: JSON.stringify(cid),
+            headers: {
+                'content-type': 'application/json'
+            }
+        })
+    }
 }

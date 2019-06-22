@@ -29,7 +29,8 @@ export default class MovieGroupComponent extends React.Component {
             leaderIdToUsernameMap: {},
             movieIdToTitleMap: {},
             watchItemIdToCommentArrayMap: {},
-            watchItemIdToAttendingMap: {}
+            watchItemIdToAttendingMap: {},
+            watchItemToCommentTextMap: {}
         };
 
         this.props.setPage('groups');
@@ -47,6 +48,53 @@ export default class MovieGroupComponent extends React.Component {
             var cur = localStorage.getItem('curUser');
             service.findUserGroups(cur, this.loadGroupIds);
         }
+    }
+
+    // Change the text for a watch item comment
+    doTextChange = (text, wid) => {
+        var map = this.state.watchItemToCommentTextMap;
+        map[wid] = text;
+        this.setState({watchItemToCommentTextMap: map});
+    }
+
+    // Submit comment and clear text field to rerender page
+    doCommentSubmit = wid => {
+        this.setState({watchItemToCommentTextMap: map});
+        service.addComment(this.state.watchItemToCommentTextMap[wid], localStorage.getItem('curUser'), wid, this.loadNewComments);
+        var map = this.state.watchItemToCommentTextMap;
+        map[wid] = '';
+    }
+
+    // Delete comment
+    doCommentDelete = (wid, cid) => {
+        service.removeComment(localStorage.getItem('curUser'), wid, cid);
+        var map = this.state.watchItemIdToCommentArrayMap;
+        var arr = map[wid].filter(elt => elt.id !== cid);
+        map[wid] = arr;
+        this.setState({watchItemIdToCommentArrayMap: map});
+    }
+
+    // Changed comments for given watch item
+    loadNewComments = (json, wid) => {
+        var map = this.state.watchItemIdToCommentArrayMap;
+        // Clear out array
+        map[wid] = [];
+        for (let idx in json) {
+            // idx=0 : commentId, idx=length-1 : watchItemId, idx=length-2: userId, middle : comment text
+            var tokens = json[idx].split(',');
+            var obj = {
+                id: tokens[0],
+                // If text had commas, rejoin the tokens and put the commas back
+                text: tokens.slice(1, tokens.length - 2).join(','),
+                userId: tokens[tokens.length - 2],
+                watchItemId: tokens[tokens.length - 1]
+            };
+            // If array doesn't exist yet, initialize the array with one element, otherwise add to array
+            map[wid] = map[wid] ? ([...map[wid], obj]) : [obj];
+            this.setState({watchItemIdToCommentArrayMap: map});
+        }
+        var rMap = this.state.watchItemToCommentTextMap ? this.state.watchItemToCommentTextMap : {};
+        this.setState({watchItemToCommentTextMap: rMap});
     }
 
     // Change which group is being shown, rendering changes
@@ -283,19 +331,33 @@ export default class MovieGroupComponent extends React.Component {
                                             </div>
                                             {this.state.watchItemIdToCommentArrayMap[watchItem.id] &&
                                                 this.state.watchItemIdToCommentArrayMap[watchItem.id].map(c =>
-                                                    <div className="row wbdv-group" key={c.id}>
-                                                        <div className="col-sm-1">
-                                                            <Link to={`/profile/${c.userId}`} onClick={() => this.props.setPage('profile')}>
-                                                                <b>{this.state.memberIdToUsernameMap[c.userId]}</b>
-                                                            </Link>
-                                                            :
-                                                        </div>
-                                                        <div className="col-sm-8">
-                                                            {c.text}
-                                                        </div>
-                                                        <hr/>
+                                                <div className="row wbdv-group" key={c.id}>
+                                                    <div className="col-sm-1">
+                                                        <Link to={`/profile/${c.userId}`} onClick={() => this.props.setPage('profile')}>
+                                                            <b>{this.state.memberIdToUsernameMap[c.userId]}</b>
+                                                        </Link>
+                                                        :
                                                     </div>
+                                                    <div className="col-sm-8">
+                                                        {c.text}
+                                                    </div>
+                                                    {c.userId === cur &&
+                                                        <i className="fa fa-times float-right wbdv-delete-fav"
+                                                                onClick={() => this.doCommentDelete(watchItem.id, c.id)} />
+                                                    }
+                                                    <hr/>
+                                                </div>
                                             )}
+                                            {this.state.watchItemToCommentTextMap &&
+                                                <div className="row wbdv-group container-fluid">
+                                                    <h6 className="col-sm-2">Add comment:</h6>
+                                                    <textarea type="text" className="form-control" id="rtext"
+                                                              onChange={e => this.doTextChange(e.target.value, watchItem.id)}
+                                                              value={this.state.watchItemToCommentTextMap[watchItem.id]}/>
+                                                    <button className="btn btn-success wbdv-add-comment-btn"
+                                                            onClick={() => this.doCommentSubmit(watchItem.id)}>Add</button>
+                                                </div>
+                                            }
                                         </div>
                                     )
                             })}
