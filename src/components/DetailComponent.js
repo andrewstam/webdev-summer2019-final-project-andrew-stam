@@ -199,7 +199,6 @@ export default class DetailComponent extends React.Component {
     // Update backend and rerender
     saveWatchItem = () => {
         this.setState({showWatchDetails: false});
-        console.log(this.state.group);
         service.addWatchItem(this.state.group, this.state.did, this.state.date);
     }
 

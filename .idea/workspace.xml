@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7313eeed-9cf6-463b-9588-c268b72091c6" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/DetailComponent.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DetailComponent.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/DetailComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DetailComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/MovieClub.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/MovieClub.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/UserService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/UserService.js" afterDir="false" />
-    </list>
+    <list default="true" id="7313eeed-9cf6-463b-9588-c268b72091c6" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,8 +52,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/DetailComponent.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="254" column="104" selection-start-line="254" selection-start-column="104" selection-end-line="254" selection-end-column="104" />
+            <state relative-caret-position="199">
+              <caret line="200" column="49" selection-start-line="200" selection-start-column="49" selection-end-line="200" selection-end-column="49" />
             </state>
           </provider>
         </entry>
@@ -434,8 +428,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/DetailComponent.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="254" column="104" selection-start-line="254" selection-start-column="104" selection-end-line="254" selection-end-column="104" />
+        <state relative-caret-position="199">
+          <caret line="200" column="49" selection-start-line="200" selection-start-column="49" selection-end-line="200" selection-end-column="49" />
         </state>
       </provider>
     </entry>
