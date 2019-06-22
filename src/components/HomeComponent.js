@@ -13,18 +13,18 @@ const HomeComponent = ({userObj, nameText, renderRoleText, newestUser, setPage})
                         <h2 className="wbdv-name-text">Welcome {nameText}</h2>
                         {renderRoleText()}
                     </div>
-                    {newestUser !== null &&
-                        <div>
-                            <h5 className="wbdv-new-user-text"><i>Check out our newest user, <Link to={`/profile/${newestUser.id}`}>
-                                    {newestUser.username}</Link>!</i>
-                            </h5>
-                        </div>
-                    }
+                </div>
+            }
+            {newestUser !== null &&
+                <div>
+                    <h5 className="wbdv-new-user-text"><i>Check out our newest user, <Link to={`/profile/${newestUser.id}`}>
+                            {newestUser.username}</Link>!</i>
+                    </h5>
                 </div>
             }
         </div>
         {userObj === null &&
-            <Link to="/search" className="wbdv-link wbdv-home-detail-container"
+            <Link to="/search" className="wbdv-link"
                   onClick={() => setPage('search')}><h2 className="wbdv-home-detail-container wbdv-search-link">Start today by searching for a movie</h2></Link>
         }
         {userObj !== null &&
