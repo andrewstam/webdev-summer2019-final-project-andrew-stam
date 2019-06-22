@@ -231,7 +231,7 @@ export default class MovieGroupComponent extends React.Component {
         // Own comment and are leader
         if (c.userId === localStorage.getItem('curUser') && leader) {
             return (
-                <div className="wbdv-leader-comment">
+                <div className="wbdv-leader">
                     {c.text}
                 </div>
             )
@@ -335,6 +335,7 @@ export default class MovieGroupComponent extends React.Component {
                                                         <div className="col-sm-1" key={m}>
                                                             <Link to={`/profile/${m}`}>
                                                                 {this.state.memberIdToUsernameMap[m]}
+                                                                <b className="wbdv-leader">{this.state.leaderIdToUsernameMap[m]}</b>
                                                             </Link>
                                                         </div>
                                                     )
@@ -349,7 +350,7 @@ export default class MovieGroupComponent extends React.Component {
                                                     <div className="col-sm-1">
                                                         <Link to={`/profile/${c.userId}`} onClick={() => this.props.setPage('profile')}>
                                                             <b>{this.state.memberIdToUsernameMap[c.userId]}</b>
-                                                            <b className="wbdv-leader-comment">
+                                                            <b className="wbdv-leader">
                                                                 {this.state.leaderIdToUsernameMap[c.userId]}
                                                             </b>
                                                         </Link>
