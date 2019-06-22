@@ -28,7 +28,9 @@ export default class MovieGroupComponent extends React.Component {
             watchItemIdToAttendingMap: {},
             watchItemToCommentTextMap: {},
             showAddGroupBtn: true,
-            groupName: ''
+            groupName: '',
+            memberId: '',
+            errorAdding: false
         };
 
         this.props.setPage('groups');
@@ -253,10 +255,29 @@ export default class MovieGroupComponent extends React.Component {
         service.createGroup(cur, this.state.groupName, this.loadNewGroup);
     }
 
+    // Added new group, so render again
     loadNewGroup = () => {
         this.setState({showAddGroupBtn: true});
         var cur = localStorage.getItem('curUser');
         service.findUserGroups(cur, this.loadGroupIds);
+    }
+
+    // Add a member to a group by member ID and group ID
+    addMember = gid => {
+        if (this.state.memberId !== '' && this.state.memberId !== null) {
+            service.addMember(parseInt(this.state.memberId), gid, this.reloadMembers);
+        }
+    }
+
+    // Callback for adding a member
+    reloadMembers = (uid, success) => {
+        if (success) {
+            // Reload groups
+            service.findUserGroups(localStorage.getItem('curUser'), this.loadGroupIds);
+            this.setState({memberId: '', errorAdding: false});
+        } else {
+            this.setState({errorAdding: true});
+        }
     }
 
     render() {
@@ -298,6 +319,30 @@ export default class MovieGroupComponent extends React.Component {
                                                 })
                                             }
                                         </div>
+                                        {leader &&
+                                            <div>
+                                                <hr className="wbdv-separator"/>
+                                                <div className="row">
+                                                    <label htmlFor="addMember" className="col-sm-2"><h6>Add Member by ID:</h6></label>
+                                                    <input className="form-control col-sm-2" id="addMember"
+                                                           onChange={e => this.setState({memberId: e.target.value, errorAdding: false})}
+                                                           placeholder="Member ID" value={this.state.memberId}/>
+                                                    <button className="btn btn-success wbdv-add-member-btn wbdv-btn-shadow"
+                                                            onClick={() => this.addMember(id)}>Add</button>
+                                                </div>
+                                                {this.state.errorAdding &&
+                                                    <div className="wbdv-error-text">
+                                                        <div className="row">
+                                                            <h6>Error adding user with ID: {this.state.memberId}</h6>
+                                                        </div>
+                                                        <div className="row">
+                                                            <div><i>Please ensure the ID is correct, the user has role Group Member,
+                                                            and the user isn't already a member of this group.</i></div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                        }
                                         <div className="row wbdv-group-link">
                                             <Link to={`/groups/${id}`} onClick={() => this.changePage(id)}>See group details...</Link>
                                         </div>

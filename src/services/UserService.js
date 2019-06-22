@@ -391,4 +391,19 @@ export default class UserService {
         })
         .then(() => fn())
     }
+
+    // Add a member with the given ID to the given group - backend validates the ID and that it's a member role
+    addMember = (uid, gid, fn) => {
+        fetch(`http://localhost:8080/api/groups/${gid}/add`, {
+            method: 'POST',
+            body: JSON.stringify(uid),
+            headers: {
+                'content-type': 'application/json'
+            }
+        })
+        .then(resp => resp.json())
+        .then(json => {
+            fn(uid, json);
+        })
+    }
 }
