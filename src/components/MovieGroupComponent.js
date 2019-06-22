@@ -250,8 +250,12 @@ export default class MovieGroupComponent extends React.Component {
     createGroup = () => {
         var cur = localStorage.getItem('curUser');
         // Create a group with the given name and the logged in user as the leader
-        service.createGroup(cur, this.state.groupName);
-        // Reload list of groups
+        service.createGroup(cur, this.state.groupName, this.loadNewGroup);
+    }
+
+    loadNewGroup = () => {
+        this.setState({showAddGroupBtn: true});
+        var cur = localStorage.getItem('curUser');
         service.findUserGroups(cur, this.loadGroupIds);
     }
 

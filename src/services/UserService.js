@@ -380,8 +380,8 @@ export default class UserService {
         })
     }
 
-    // Create a new group with the given name and leader
-    createGroup = (uid, name) => {
+    // Create a new group with the given name and leader, run the callback
+    createGroup = (uid, name, fn) => {
         fetch(`http://localhost:8080/api/groups/${uid}`, {
             method: 'PUT',
             body: JSON.stringify(name),
@@ -389,5 +389,6 @@ export default class UserService {
                 'content-type': 'application/json'
             }
         })
+        .then(() => fn())
     }
 }

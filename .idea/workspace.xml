@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7313eeed-9cf6-463b-9588-c268b72091c6" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/MovieGroupComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MovieGroupComponent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/services/UserService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/UserService.js" afterDir="false" />
     </list>
@@ -41,8 +40,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/MovieGroupComponent.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="310">
-              <caret line="254" column="55" lean-forward="true" selection-start-line="254" selection-start-column="55" selection-end-line="254" selection-end-column="55" />
+            <state relative-caret-position="361">
+              <caret line="258" column="55" selection-start-line="258" selection-start-column="55" selection-end-line="258" selection-end-column="55" />
               <folding>
                 <element signature="e#0#18786#0" />
                 <element signature="e#0#18786#0" />
@@ -58,8 +57,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/services/UserService.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="497">
-              <caret line="390" column="10" selection-start-line="390" selection-start-column="10" selection-end-line="390" selection-end-column="10" />
+            <state relative-caret-position="429">
+              <caret line="382" column="74" selection-start-line="382" selection-start-column="74" selection-end-line="382" selection-end-column="74" />
             </state>
           </provider>
         </entry>
@@ -423,15 +422,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/services/UserService.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="497">
-          <caret line="390" column="10" selection-start-line="390" selection-start-column="10" selection-end-line="390" selection-end-column="10" />
+        <state relative-caret-position="429">
+          <caret line="382" column="74" selection-start-line="382" selection-start-column="74" selection-end-line="382" selection-end-column="74" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/MovieGroupComponent.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="254" column="55" lean-forward="true" selection-start-line="254" selection-start-column="55" selection-end-line="254" selection-end-column="55" />
+        <state relative-caret-position="361">
+          <caret line="258" column="55" selection-start-line="258" selection-start-column="55" selection-end-line="258" selection-end-column="55" />
           <folding>
             <element signature="e#0#18786#0" />
             <element signature="e#0#18786#0" />
