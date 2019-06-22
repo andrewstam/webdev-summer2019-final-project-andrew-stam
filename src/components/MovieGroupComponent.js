@@ -309,6 +309,10 @@ export default class MovieGroupComponent extends React.Component {
                                             <h6 className="wbdv-row col-sm-1">Members:</h6>
                                             {this.state.groupIdToMemberIdArrayMap[id] &&
                                                 this.state.groupIdToMemberIdArrayMap[id].map(mid => {
+                                                    // Don't include spacing for leader
+                                                    if (Object.keys(this.state.leaderIdToUsernameMap).includes(mid.toString())) {
+                                                        return;
+                                                    }
                                                     return (
                                                         <div className="col-sm-1" key={mid}>
                                                             <Link to={`/profile/${mid}`}>
