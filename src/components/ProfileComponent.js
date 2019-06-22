@@ -360,8 +360,10 @@ export default class ProfileComponent extends React.Component {
                             <div key={key} className="form-control wbdv-favorite">
                                 <Link to={`/details/${this.state.favIdMap[title]}`} onClick={() => this.props.setPage('details')}
                                       className="wbdv-related-link">{title}</Link>
-                                <i className="fa fa-times float-right wbdv-delete-fav"
-                                   onClick={() => this.doDeleteFavorite(title, this.state.favIdMap[title])}></i>
+                                {this.state.ownPage &&
+                                    <i className="fa fa-times float-right wbdv-delete-fav"
+                                        onClick={() => this.doDeleteFavorite(title, this.state.favIdMap[title])}></i>
+                                }
                             </div>)}
                     </div>
                 }
