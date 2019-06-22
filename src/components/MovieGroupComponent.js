@@ -13,12 +13,8 @@ export default class MovieGroupComponent extends React.Component {
         const paths = pathname.split('/');
         const groupId = paths.length > 2 ? paths[2] : null;
 
-        // default is GroupMember
-        var leader = this.props.userObj ? this.props.userObj.role === 'GroupLeader' : false;
-
         this.state = {
             groupId: groupId,
-            leaderView: leader,
             userObj: this.props.userObj,
             groups: [],
             groupIdToLeaderIdMap: {},
@@ -144,7 +140,10 @@ export default class MovieGroupComponent extends React.Component {
     // Load member usernames into state
     loadGroupMembers = json => {
         var map = this.state.memberIdToUsernameMap;
-        map[json.id] = json.username;
+        // Don't add leaders
+        if (json.role !== 'GroupLeader') {
+            map[json.id] = json.username;
+        }
         this.setState({memberIdToUsernameMap: map});
     }
 
@@ -227,6 +226,24 @@ export default class MovieGroupComponent extends React.Component {
         }
     }
 
+    // Render the comment depending on if leader or not
+    renderComment = (c, leader) => {
+        // Own comment and are leader
+        if (c.userId === localStorage.getItem('curUser') && leader) {
+            return (
+                <div className="wbdv-leader-comment">
+                    {c.text}
+                </div>
+            )
+        } else {
+            return (
+                <div>
+                    {c.text}
+                </div>
+            )
+        }
+    }
+
     render() {
         // default is GroupMember
         var leader = this.props.userObj ? this.props.userObj.role === 'GroupLeader' : false;
@@ -234,16 +251,15 @@ export default class MovieGroupComponent extends React.Component {
 
         return (
             <div className="wbdv-group-container">
-                {leader &&
+                <h1>Movie Groups</h1>
+                {this.state.groupId === null &&
                     <div>
-                        <h1>Movie Groups</h1>
-                        <h3>Group Leader</h3>
-                    </div>
-                }
-                {!leader && this.state.groupId === null &&
-                    <div>
-                        <h1>Movie Groups</h1>
-                        <h3>Group Member</h3>
+                        {leader &&
+                            <h3>Group Leader</h3>
+                        }
+                        {!leader &&
+                            <h3>Group Member</h3>
+                        }
                         {this.state.groupIdToLeaderIdMap &&
                             Object.keys(this.state.groupIdToLeaderIdMap).map(id => {
                                 return (
@@ -283,7 +299,6 @@ export default class MovieGroupComponent extends React.Component {
                         <button className="btn btn-secondary wbdv-btn-shadow wbdv-group-btn" onClick={() => this.changePage(null)}>
                             <Link to={`/groups`} className="wbdv-group-btn-text">Back to groups</Link>
                         </button>
-                    {!leader &&
                         <div className="form-control wbdv-group">
                             <h5>Watch Items</h5>
                             {this.state.groupIdToWatchItemArrayMap[this.state.groupId] &&
@@ -334,11 +349,14 @@ export default class MovieGroupComponent extends React.Component {
                                                     <div className="col-sm-1">
                                                         <Link to={`/profile/${c.userId}`} onClick={() => this.props.setPage('profile')}>
                                                             <b>{this.state.memberIdToUsernameMap[c.userId]}</b>
+                                                            <b className="wbdv-leader-comment">
+                                                                {this.state.leaderIdToUsernameMap[c.userId]}
+                                                            </b>
                                                         </Link>
                                                         :
                                                     </div>
                                                     <div className="col-sm-8">
-                                                        {c.text}
+                                                        {this.renderComment(c, leader)}
                                                     </div>
                                                     {c.userId === cur &&
                                                         <i className="fa fa-times float-right wbdv-delete-fav"
@@ -361,9 +379,8 @@ export default class MovieGroupComponent extends React.Component {
                                     )
                             })}
                         </div>
-                    }
                     </div>
-                }
+                    }
             </div>
         );
     }
