@@ -418,4 +418,15 @@ export default class UserService {
         })
         .then(() => fn())
     }
+
+    // Add a watch item to the given group
+    addWatchItem = (gid, mid, date) => {
+        fetch(`http://localhost:8080/api/groups/${gid}/watch/${mid}`, {
+            method: 'PUT',
+            body: JSON.stringify(date),
+            headers: {
+                'content-type': 'application/json'
+            }
+        })
+    }
 }

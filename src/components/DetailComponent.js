@@ -21,8 +21,14 @@ export default class DetailComponent extends React.Component {
             reviewText: '',
             showReview: false,
             userIdToReviewMap: {},
-            userIdToUsernameMap: {}
+            userIdToUsernameMap: {},
+            showWatchDetails: false,
+            date: '',
+            group: null,
+            groupIdToNameMap: {}
         };
+
+        this.props.setPage('details');
     }
 
     // Load details about the item with the given ID
@@ -50,9 +56,26 @@ export default class DetailComponent extends React.Component {
             service.findFavorites(cur, this.checkIfFavorite);
             service.findStarsForMovie(cur, this.state.did, this.loadStars);
             service.findReviewForMovie(cur, this.state.did, this.loadReview);
+            service.findUserGroups(cur, this.loadGroupIds);
         }
         // Load reviews regardless if logged in
         service.findAllReviews(this.state.did, this.loadAllReviews);
+    }
+
+    // Load's the logged in user's groups, only used if Leader role
+    loadGroupIds = json => {
+        for (var idx in json) {
+            var id = json[idx];
+            service.findGroupById(id, this.loadGroup);
+        }
+    }
+
+    // Load each group's info
+    loadGroup = json => {
+        var map = this.state.groupIdToNameMap;
+        map[json.groupId] = json.name;
+        // Set default group
+        this.setState({groupIdToNameMap: map, group: map[json.groupId]});
     }
 
     // See if this movie is already in the current user's favorites list
@@ -173,8 +196,17 @@ export default class DetailComponent extends React.Component {
         service.findAllReviews(this.state.did, this.loadAllReviews);
     }
 
+    // Update backend and rerender
+    saveWatchItem = () => {
+        this.setState({showWatchDetails: false});
+        console.log(this.state.group);
+        service.addWatchItem(this.state.group, this.state.did, this.state.date);
+    }
+
     render() {
         var btnText = this.state.reviewText !== '' ? 'Edit Review' : 'Add Review';
+        var leader = this.props.userObj ? this.props.userObj.role === 'GroupLeader' : false;
+
         return (
             <div className="wbdv-detail col-sm-10">
                 <div className="wbdv-movie-info">
@@ -194,13 +226,46 @@ export default class DetailComponent extends React.Component {
                 </div>
                 <img className="img-fluid img-thumbnail rounded float-right wbdv-poster"
                      src={this.state.img} alt={this.state.title}/>
-                {this.state.loggedIn && !this.state.inFavorites &&
+                {this.state.loggedIn && !this.state.inFavorites && !leader &&
                     <button className="btn btn-success wbdv-btn-shadow wbdv-btn-spacing"
                             onClick={() => this.doAddFavorite(this.state.did)}>Add Favorite</button>
                 }
-                {this.state.loggedIn && this.state.inFavorites &&
+                {this.state.loggedIn && this.state.inFavorites && !leader &&
                     <button className="btn btn-danger wbdv-btn-shadow wbdv-btn-spacing"
                             onClick={() => this.doRemoveFavorite(this.state.did)}>Remove Favorite</button>
+                }
+                {this.state.loggedIn && leader &&
+                    <div>
+                        {!this.state.showWatchDetails &&
+                            <button className="btn btn-success wbdv-btn-shadow wbdv-btn-spacing"
+                                    onClick={() => this.setState({showWatchDetails: true})}>Add Watch Item</button>
+                        }
+                        {this.state.showWatchDetails &&
+                            <div>
+                                <button className="btn btn-danger wbdv-btn-shadow wbdv-btn-spacing"
+                                        onClick={() => this.setState({showWatchDetails: false})}>Cancel</button>
+                                <div className="wbdv-movie-info">
+                                    <label htmlFor="datef">Watch Date</label>
+                                    <input id="datef" value={this.state.date} type="date" className="form-control"
+                                           onChange={e => this.setState({date: e.target.value})}/>
+                                    {this.state.groupIdToNameMap &&
+                                        <div>
+                                            <label htmlFor="groupf">Group</label>
+                                            <select className="form-control" id="groupf"
+                                                    onChange={e => this.setState({group: e.target.value})}
+                                                    value={this.state.group}>
+                                                {Object.keys(this.state.groupIdToNameMap).map(id =>
+                                                    <option value={id} key={id}>{this.state.groupIdToNameMap[id]}</option>
+                                                )}
+                                            </select>
+                                            <button className="btn btn-success btn-block wbdv-btn-shadow wbdv-save-btn"
+                                                    onClick={() => this.saveWatchItem()}>Save</button>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
                 }
                 {this.state.userIdToReviewMap &&
                     <div className="wbdv-movie-info">
@@ -226,13 +291,13 @@ export default class DetailComponent extends React.Component {
                         )}
                     </div>
                 }
-                {this.state.loggedIn && !this.state.showReview &&
+                {this.state.loggedIn && !this.state.showReview && !leader &&
                     <div>
                         <button className="btn btn-info wbdv-btn-shadow wbdv-btn-spacing"
                                 onClick={() => this.setState({showReview: true})}>{btnText}</button>
                     </div>
                 }
-                {this.state.loggedIn && this.state.showReview &&
+                {this.state.loggedIn && this.state.showReview && !leader &&
                     <div>
                         <button className="btn btn-success wbdv-btn-shadow wbdv-btn-spacing"
                                 onClick={() => this.doSaveReview()}>Save Review</button>
