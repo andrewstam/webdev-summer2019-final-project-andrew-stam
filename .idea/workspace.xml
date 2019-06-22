@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7313eeed-9cf6-463b-9588-c268b72091c6" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/components/MovieGroupComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MovieGroupComponent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/ProfileComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProfileComponent.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -37,19 +36,19 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/ProfileComponent.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="293">
-              <caret line="279" column="72" selection-start-line="279" selection-start-column="72" selection-end-line="279" selection-end-column="72" />
+            <state relative-caret-position="225">
+              <caret line="358" column="36" selection-start-line="358" selection-start-column="36" selection-end-line="358" selection-end-column="36" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/MovieGroupComponent.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="223">
+            <state relative-caret-position="87">
               <caret line="221" column="52" selection-start-line="221" selection-start-column="52" selection-end-line="221" selection-end-column="52" />
             </state>
           </provider>
@@ -105,8 +104,8 @@
       <find>watchItemIdToDateMap</find>
       <find>loadComments</find>
       <find>api/users</find>
-      <find>watchItemToReviewTextMap</find>
       <find>times</find>
+      <find>watchItemToReviewTextMap</find>
     </findStrings>
     <replaceStrings>
       <replace>lastname</replace>
@@ -143,8 +142,8 @@
         <option value="$PROJECT_DIR$/src/components/ProfileComponent.css" />
         <option value="$PROJECT_DIR$/src/components/MovieGroupComponent.css" />
         <option value="$PROJECT_DIR$/src/services/UserService.js" />
-        <option value="$PROJECT_DIR$/src/components/ProfileComponent.js" />
         <option value="$PROJECT_DIR$/src/components/MovieGroupComponent.js" />
+        <option value="$PROJECT_DIR$/src/components/ProfileComponent.js" />
       </list>
     </option>
   </component>
@@ -421,17 +420,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/ProfileComponent.js">
+    <entry file="file://$PROJECT_DIR$/src/components/MovieGroupComponent.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
-          <caret line="279" column="72" selection-start-line="279" selection-start-column="72" selection-end-line="279" selection-end-column="72" />
+        <state relative-caret-position="87">
+          <caret line="221" column="52" selection-start-line="221" selection-start-column="52" selection-end-line="221" selection-end-column="52" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/MovieGroupComponent.js">
+    <entry file="file://$PROJECT_DIR$/src/components/ProfileComponent.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="223">
-          <caret line="221" column="52" selection-start-line="221" selection-start-column="52" selection-end-line="221" selection-end-column="52" />
+        <state relative-caret-position="225">
+          <caret line="358" column="36" selection-start-line="358" selection-start-column="36" selection-end-line="358" selection-end-column="36" />
         </state>
       </provider>
     </entry>

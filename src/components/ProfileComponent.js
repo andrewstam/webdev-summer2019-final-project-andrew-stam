@@ -246,9 +246,13 @@ export default class ProfileComponent extends React.Component {
                 <input type="email" className="form-control" id="emailf"
                        onChange={e => this.changeEmail(e.target.value)}
                        value={this.state.email}/>
-                <label htmlFor="idf">Unique Member ID (share with Leaders to join groups)</label>
-                <input type="text" className="form-control" id="idf" disabled
-                       value={this.state.curUser}/>
+                {this.state.role !== 'GroupLeader' &&
+                    <div>
+                        <label htmlFor="idf">Unique Member ID (share with Leaders to join groups)</label>
+                        <input type="text" className="form-control" id="idf" disabled
+                               value={this.state.curUser}/>
+                    </div>
+                }
                 <label htmlFor="rolef">Role</label>
                 <select className="form-control" id="rolef" disabled
                        onChange={e => this.changeRole(e.target.value)}
@@ -353,37 +357,46 @@ export default class ProfileComponent extends React.Component {
                     </div>
                 }
                 <hr className="wbdv-separator"/>
-                {this.state.stars > 0 &&
-                    <h6 className="wbdv-stat-text">Average Star Rating: {this.state.stars}</h6>
-                }
-                {this.state.stars <= 0 &&
-                    <h6 className="wbdv-stat-text"><i>No movie ratings yet.</i></h6>
-                }
-                {this.state.favorites.length === 0 &&
-                    <h6 className="wbdv-stat-text"><i>No favorite movies yet</i></h6>
-                }
-                {this.state.favorites.length > 0 &&
+                {this.state.role !== 'GroupLeader' &&
                     <div>
-                        <h6 className="wbdv-stat-text">Favorites:</h6>
-                        {this.state.favorites.map((title, key) =>
-                            <div key={key} className="form-control wbdv-favorite">
-                                <Link to={`/details/${this.state.favIdMap[title]}`} onClick={() => this.props.setPage('details')}
-                                      className="wbdv-related-link">{title}</Link>
-                                {this.state.ownPage &&
-                                    <i className="fa fa-times float-right wbdv-delete-fav"
-                                        onClick={() => this.doDeleteFavorite(title, this.state.favIdMap[title])}></i>
-                                }
-                            </div>)}
+                        {this.state.stars > 0 &&
+                            <h6 className="wbdv-stat-text">Average Star Rating: {this.state.stars}</h6>
+                        }
+                        {this.state.stars <= 0 &&
+                            <h6 className="wbdv-stat-text"><i>No movie ratings yet.</i></h6>
+                        }
+                        {this.state.favorites.length === 0 &&
+                            <h6 className="wbdv-stat-text"><i>No favorite movies yet</i></h6>
+                        }
+                        {this.state.favorites.length > 0 &&
+                            <div>
+                                <h6 className="wbdv-stat-text">Favorites:</h6>
+                                {this.state.favorites.map((title, key) =>
+                                    <div key={key} className="form-control wbdv-favorite">
+                                        <Link to={`/details/${this.state.favIdMap[title]}`} onClick={() => this.props.setPage('details')}
+                                              className="wbdv-related-link">{title}</Link>
+                                        {this.state.ownPage &&
+                                            <i className="fa fa-times float-right wbdv-delete-fav"
+                                                onClick={() => this.doDeleteFavorite(title, this.state.favIdMap[title])}></i>
+                                        }
+                                    </div>)}
+                            </div>
+                        }
+                        {this.state.reviews.length > 0 &&
+                            <div>
+                                <h6 className="wbdv-stat-text">Reviews:</h6>
+                                {this.renderReviews()}
+                            </div>
+                        }
+                        {this.state.reviews.length === 0 &&
+                            <h6 className="wbdv-stat-text"><i>No reviews yet</i></h6>
+                        }
                     </div>
                 }
-                {this.state.reviews.length > 0 &&
+                {this.state.role === 'GroupLeader' &&
                     <div>
-                        <h6 className="wbdv-stat-text">Reviews:</h6>
-                        {this.renderReviews()}
+                        <h6 className="wbdv-stat-text"><i>Leaders can't favorite, rate, or review.</i></h6>
                     </div>
-                }
-                {this.state.reviews.length === 0 &&
-                    <h6 className="wbdv-stat-text"><i>No reviews yet</i></h6>
                 }
             </div>
         )
