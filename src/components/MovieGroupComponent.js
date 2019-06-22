@@ -161,9 +161,29 @@ export default class MovieGroupComponent extends React.Component {
         }
     }
 
+    // Toggle if the logged in user is attending the given watch item
+    toggleAttending = wid => {
+        var cur = localStorage.getItem('curUser');
+        if (!this.state.watchItemIdToAttendingMap[wid].includes(parseInt(cur))) {
+            service.addAttendingMember(wid, cur);
+            var map = this.state.watchItemIdToAttendingMap;
+            // Add to state array
+            map[wid] = map[wid] ? [...map[wid], parseInt(cur)] : [parseInt(cur)];
+            this.setState({watchItemIdToAttendingMap: map});
+        } else {
+            service.removeAttendingMember(wid, cur);
+            var map = this.state.watchItemIdToAttendingMap;
+            // Remove from state array
+            var arr = map[wid].filter(item => item !== parseInt(cur));
+            map[wid] = arr;
+            this.setState({watchItemIdToAttendingMap: map});
+        }
+    }
+
     render() {
         // default is GroupMember
         var leader = this.props.userObj ? this.props.userObj.role === 'GroupLeader' : false;
+        var cur = localStorage.getItem('curUser');
 
         return (
             <div className="wbdv-group-container">
@@ -224,14 +244,27 @@ export default class MovieGroupComponent extends React.Component {
                                     return (
                                         <div key={watchItem.id} className="form-control wbdv-watch-item">
                                             <div className="row wbdv-group">
-                                                <div className="col-sm-4">
+                                                <div className="col-sm-6">
                                                     <h4>Title: <Link to={`/details/${watchItem.movieId}`}>
                                                         {this.state.movieIdToTitleMap[watchItem.movieId]}
                                                     </Link></h4>
                                                 </div>
-                                                <div className="col-sm-2">
+                                                <div className="col-sm-4">
                                                     Date: {watchItem.watchDate}
                                                 </div>
+                                                {this.state.watchItemIdToAttendingMap[watchItem.id] &&
+                                                    <div className="col-sm-2">
+                                                        {this.state.watchItemIdToAttendingMap[watchItem.id].includes(parseInt(cur)) &&
+                                                            <input type="checkbox" checked id="attend"
+                                                                   onChange={() => this.toggleAttending(watchItem.id)}/>
+                                                        }
+                                                        {!this.state.watchItemIdToAttendingMap[watchItem.id].includes(parseInt(cur)) &&
+                                                            <input type="checkbox" id="attend"
+                                                                   onChange={() => this.toggleAttending(watchItem.id)}/>
+                                                        }
+                                                        <label htmlFor="attend">Attending?</label>
+                                                    </div>
+                                                }
                                             </div>
                                             <div className="row wbdv-row wbdv-group">
                                                 <h6 className="col-sm-1">Attending:</h6>

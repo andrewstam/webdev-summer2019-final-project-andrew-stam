@@ -331,4 +331,26 @@ export default class UserService {
             fn(json);
         })
     }
+
+    // Add a member to the attending list of the given watch item
+    addAttendingMember = (wid, uid) => {
+        fetch(`http://localhost:8080/api/groups/${wid}/attending`, {
+            method: 'PUT',
+            body: JSON.stringify(uid),
+            headers: {
+                'content-type': 'application/json'
+            }
+        })
+    }
+
+    // Remove a member from the attending list of the given watch item
+    removeAttendingMember = (wid, uid) => {
+        fetch(`http://localhost:8080/api/groups/${wid}/attending`, {
+            method: 'DELETE',
+            body: JSON.stringify(uid),
+            headers: {
+                'content-type': 'application/json'
+            }
+        })
+    }
 }
