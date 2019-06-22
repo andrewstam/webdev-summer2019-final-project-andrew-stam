@@ -231,6 +231,9 @@ export default class ProfileComponent extends React.Component {
         return (<div className="row">
             <div className="wbdv-profile-detail col-sm-8 wbdv-profile-container">
                 <h3 className="wbdv-profile-detail">Your Profile</h3>
+                <label htmlFor="unamef">Username</label>
+                <input type="text" className="form-control" id="unamef" disabled
+                       value={this.state.username}/>
                 <label htmlFor="fname">First name</label>
                 <input type="text" className="form-control" id="fname"
                        onChange={e => this.changeFirstName(e.target.value)}
@@ -243,6 +246,9 @@ export default class ProfileComponent extends React.Component {
                 <input type="email" className="form-control" id="emailf"
                        onChange={e => this.changeEmail(e.target.value)}
                        value={this.state.email}/>
+                <label htmlFor="idf">Unique Member ID (share with Leaders to join groups)</label>
+                <input type="text" className="form-control" id="idf" disabled
+                       value={this.state.curUser}/>
                 <label htmlFor="rolef">Role</label>
                 <select className="form-control" id="rolef" disabled
                        onChange={e => this.changeRole(e.target.value)}
@@ -270,6 +276,9 @@ export default class ProfileComponent extends React.Component {
         return (<div className="row">
             <div className="wbdv-profile-detail col-sm-8 wbdv-profile-container">
                 <h3 className="wbdv-profile-detail">{this.state.username}'s Profile</h3>
+                <label htmlFor="unamef">Username</label>
+                <input type="text" className="form-control wbdv-disabled" id="unamef" disabled
+                       value={this.state.username}/>
                 <label htmlFor="fname">First name</label>
                 <input type="text" className="form-control wbdv-disabled" id="fname" disabled
                        onChange={e => this.changeFirstName(e.target.value)}

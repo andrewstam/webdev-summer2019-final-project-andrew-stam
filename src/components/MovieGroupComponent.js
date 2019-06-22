@@ -59,10 +59,10 @@ export default class MovieGroupComponent extends React.Component {
 
     // Submit comment and clear text field to rerender page
     doCommentSubmit = wid => {
-        this.setState({watchItemToCommentTextMap: map});
         service.addComment(this.state.watchItemToCommentTextMap[wid], localStorage.getItem('curUser'), wid, this.loadNewComments);
         var map = this.state.watchItemToCommentTextMap;
         map[wid] = '';
+        this.setState({watchItemToCommentTextMap: map});
     }
 
     // Delete comment
@@ -212,15 +212,14 @@ export default class MovieGroupComponent extends React.Component {
     // Toggle if the logged in user is attending the given watch item
     toggleAttending = wid => {
         var cur = localStorage.getItem('curUser');
+        var map = this.state.watchItemIdToAttendingMap;
         if (!this.state.watchItemIdToAttendingMap[wid].includes(parseInt(cur))) {
             service.addAttendingMember(wid, cur);
-            var map = this.state.watchItemIdToAttendingMap;
             // Add to state array
             map[wid] = map[wid] ? [...map[wid], parseInt(cur)] : [parseInt(cur)];
             this.setState({watchItemIdToAttendingMap: map});
         } else {
             service.removeAttendingMember(wid, cur);
-            var map = this.state.watchItemIdToAttendingMap;
             // Remove from state array
             var arr = map[wid].filter(item => item !== parseInt(cur));
             map[wid] = arr;
