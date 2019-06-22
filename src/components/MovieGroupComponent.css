@@ -3,6 +3,7 @@
     opacity: 0.8;
     margin-bottom: 10px;
     width: 90%;
+    color: green;
 }
 
 .wbdv-watch-item {
@@ -24,4 +25,20 @@
 .wbdv-group-btn-text {
     color: white !important;
     text-decoration: none !important;
+}
+
+.wbdv-group-container {
+     background-color: rgba(255,255,255,0.8);
+     color: green;
+     text-shadow: 1px 1px 1px black;
+     border-radius: 10px;
+     padding: 7px;
+     margin-top: 2rem;
+     height: fit-content;
+     width: 90%;
+     margin-bottom: 2rem;
+}
+
+.wbdv-group-btn {
+    margin-bottom: 1rem;
 }

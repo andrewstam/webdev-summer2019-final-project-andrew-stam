@@ -32,33 +32,6 @@ export default class MovieGroupComponent extends React.Component {
             watchItemIdToAttendingMap: {}
         };
 
-        /* groupIdToWatchItemArrayMap looks like:
-            {
-                1: [    //groupId=1
-                    {
-                        itemId: 1,
-                        groupId: 1,
-                        movieId: tt000,
-                        watchDate: 2019-06-22
-                    },
-                    {
-                        itemId: 2,
-                        groupId: 1,
-                        movieId: tt001,
-                        watchDate: 2019-06-29
-                    }
-                ],
-                2: [    //groupId=2
-                    {
-                        itemId: 3,
-                        groupId: 2,
-                        movieId: tt005,
-                        watchDate: 2019-06-25
-                    }
-                ]
-            }
-        */
-
         this.props.setPage('groups');
     }
 
@@ -193,7 +166,7 @@ export default class MovieGroupComponent extends React.Component {
         var leader = this.props.userObj ? this.props.userObj.role === 'GroupLeader' : false;
 
         return (
-            <div>
+            <div className="wbdv-group-container">
                 {leader &&
                     <div>
                         <h1>Movie Groups</h1>
@@ -240,7 +213,7 @@ export default class MovieGroupComponent extends React.Component {
                 {this.state.groupId !== null &&
                     <div>
                         <h1>{this.state.groupIdToNameMap[this.state.groupId]}</h1>
-                        <button className="btn btn-secondary wbdv-btn-shadow" onClick={() => this.changePage(null)}>
+                        <button className="btn btn-secondary wbdv-btn-shadow wbdv-group-btn" onClick={() => this.changePage(null)}>
                             <Link to={`/groups`} className="wbdv-group-btn-text">Back to groups</Link>
                         </button>
                     {!leader &&
@@ -250,7 +223,7 @@ export default class MovieGroupComponent extends React.Component {
                                 this.state.groupIdToWatchItemArrayMap[this.state.groupId].map(watchItem => {
                                     return (
                                         <div key={watchItem.id} className="form-control wbdv-watch-item">
-                                            <div className="row">
+                                            <div className="row wbdv-group">
                                                 <div className="col-sm-4">
                                                     <h4>Title: <Link to={`/details/${watchItem.movieId}`}>
                                                         {this.state.movieIdToTitleMap[watchItem.movieId]}
@@ -260,7 +233,7 @@ export default class MovieGroupComponent extends React.Component {
                                                     Date: {watchItem.watchDate}
                                                 </div>
                                             </div>
-                                            <div className="row wbdv-row">
+                                            <div className="row wbdv-row wbdv-group">
                                                 <h6 className="col-sm-1">Attending:</h6>
                                                 {this.state.watchItemIdToAttendingMap[watchItem.id] &&
                                                     this.state.watchItemIdToAttendingMap[watchItem.id].map(m =>
@@ -272,12 +245,12 @@ export default class MovieGroupComponent extends React.Component {
                                                     )
                                                 }
                                             </div>
-                                            <div className="row">
+                                            <div className="row wbdv-group">
                                                 <h6 className="col-sm-1">Comments:</h6>
                                             </div>
                                             {this.state.watchItemIdToCommentArrayMap[watchItem.id] &&
                                                 this.state.watchItemIdToCommentArrayMap[watchItem.id].map(c =>
-                                                    <div className="row" key={c.id}>
+                                                    <div className="row wbdv-group" key={c.id}>
                                                         <div className="col-sm-1">
                                                             <Link to={`/profile/${c.userId}`} onClick={() => this.props.setPage('profile')}>
                                                                 <b>{this.state.memberIdToUsernameMap[c.userId]}</b>
