@@ -189,9 +189,9 @@ export default class DetailComponent extends React.Component {
         var cur = localStorage.getItem('curUser');
         this.setState({showReview: false});
         if (this.state.loggedIn) {
-            service.findReviewForMovie(cur, this.state.did, this.loadReview);
-            service.editStarsForMovie(localStorage.getItem('curUser'), this.state.did, parseInt(this.state.stars));
-            service.editReviewForMovie(localStorage.getItem('curUser'), this.state.did, this.state.reviewText);
+            service.createReview(cur, this.state.did, parseInt(this.state.stars), this.state.reviewText, this.loadReview);
+            service.editStarsForMovie(cur, this.state.did, parseInt(this.state.stars));
+            service.editReviewForMovie(cur, this.state.did, this.state.reviewText);
         }
         service.findAllReviews(this.state.did, this.loadAllReviews);
     }

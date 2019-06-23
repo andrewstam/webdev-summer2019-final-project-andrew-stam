@@ -207,6 +207,21 @@ export default class UserService {
         })
     }
 
+    // Create a new review
+    createReview = (uid, mid, stars, text, fn) => {
+        fetch(`${BACKEND_URL}/api/reviews/${mid}/${uid}/${stars}`, {
+            method: 'POST',
+            body: JSON.stringify(text),
+            headers: {
+                'content-type': 'application/json'
+            }
+        })
+        .then(response => response.text())
+        .then(json => {
+            fn(json, mid);
+        })
+    }
+
     // Delete the user's review for the given movie ID
     deleteReview = (uid, mid) => {
         fetch(`${BACKEND_URL}/api/reviews/${mid}/${uid}`, {
