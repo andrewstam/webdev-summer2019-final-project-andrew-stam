@@ -16,7 +16,7 @@ export default class UserService {
 
     // Send login info to backend and see if valid, then do the callback function
     validateLogin = (user, pass, fn) => {
-        fetch("${BACKEND_URL}/api/validate", {
+        fetch(`${BACKEND_URL}/api/validate`, {
             method: 'POST',
             body: JSON.stringify([user, pass]),
             headers: {
@@ -31,7 +31,7 @@ export default class UserService {
 
     // Send new user data to backend to save as valid login, then do the callback function
     createUser = (id, user, pass, role, fn) => {
-        fetch("${BACKEND_URL}/api/users", {
+        fetch(`${BACKEND_URL}/api/users`, {
             method: 'POST',
             body: JSON.stringify([id, user, pass, role]),
             headers: {
