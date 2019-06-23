@@ -232,8 +232,8 @@ export default class MovieGroupComponent extends React.Component {
 
     // Render the comment depending on if leader or not
     renderComment = (c, leader) => {
-        // Own comment and are leader
-        if (c.userId === localStorage.getItem('curUser') && leader) {
+        // If leader's comment
+        if (this.state.leaderIdToUsernameMap[c.userId] !== null && this.state.memberIdToUsernameMap[c.userId] === undefined) {
             return (
                 <div className="wbdv-leader">
                     {c.text}
@@ -357,7 +357,7 @@ export default class MovieGroupComponent extends React.Component {
                                                     <button className="btn btn-success wbdv-add-member-btn wbdv-btn-shadow"
                                                             onClick={() => this.addMember(id)}>Add</button>
                                                 </div>
-                                                {this.state.errorAdding &&
+                                                {this.state.errorAdding && this.state.memberId &&
                                                     <div className="wbdv-error-text">
                                                         <div className="row">
                                                             <h6>Error adding user with ID: {this.state.memberId}</h6>
