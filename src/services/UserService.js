@@ -1,4 +1,7 @@
 // Created by Andrew Stam
+const BACKEND_URL = 'https://andrew-stam-final-project-java.herokuapp.com';
+// http://localhost:8080 for local testing
+// https://andrew-stam-final-project-java.herokuapp.com for deployed version
 
 export default class UserService {
     static instance = null;
@@ -13,7 +16,7 @@ export default class UserService {
 
     // Send login info to backend and see if valid, then do the callback function
     validateLogin = (user, pass, fn) => {
-        fetch("http://localhost:8080/api/validate", {
+        fetch("${BACKEND_URL}/api/validate", {
             method: 'POST',
             body: JSON.stringify([user, pass]),
             headers: {
@@ -28,7 +31,7 @@ export default class UserService {
 
     // Send new user data to backend to save as valid login, then do the callback function
     createUser = (id, user, pass, role, fn) => {
-        fetch("http://localhost:8080/api/users", {
+        fetch("${BACKEND_URL}/api/users", {
             method: 'POST',
             body: JSON.stringify([id, user, pass, role]),
             headers: {
@@ -43,7 +46,7 @@ export default class UserService {
 
     // Get the session attribute
     getSessionAttr = (attr, fn) => {
-        fetch(`http://localhost:8080/api/session/get/${attr}`, {
+        fetch(`${BACKEND_URL}/api/session/get/${attr}`, {
             method: 'GET'
         })
         .then(response => fn(response))
@@ -51,7 +54,7 @@ export default class UserService {
 
     // Find user by id, then call the callback
     findUserById = (id, fn) => {
-        fetch(`http://localhost:8080/api/users/${id}`, {
+        fetch(`${BACKEND_URL}/api/users/${id}`, {
             method: 'GET'
         })
         .then(response => response.json())
@@ -62,7 +65,7 @@ export default class UserService {
 
     // Find newest user, then run callback fn
     findNewestUser = fn => {
-        fetch(`http://localhost:8080/api/users/new`, {
+        fetch(`${BACKEND_URL}/api/users/new`, {
             method: 'GET'
         })
         .then(response => response.json())
@@ -73,7 +76,7 @@ export default class UserService {
 
     // Update the given user
     updateUser = (user, id) => {
-        fetch(`http://localhost:8080/api/users/${id}`, {
+        fetch(`${BACKEND_URL}/api/users/${id}`, {
             method: 'PUT',
             body: JSON.stringify(user),
             headers: {
@@ -85,7 +88,7 @@ export default class UserService {
 
     // Add given user id to following list of user with ID in path
     addFollow = (userId, id) => {
-        fetch(`http://localhost:8080/api/users/${id}/following`, {
+        fetch(`${BACKEND_URL}/api/users/${id}/following`, {
             method: 'PUT',
             body: JSON.stringify(userId),
             headers: {
@@ -96,7 +99,7 @@ export default class UserService {
 
     // Remove given user id from following list of user with ID in path
     removeFollow = (userId, id) => {
-        fetch(`http://localhost:8080/api/users/${id}/following`, {
+        fetch(`${BACKEND_URL}/api/users/${id}/following`, {
             method: 'DELETE',
             body: JSON.stringify(userId),
             headers: {
@@ -107,7 +110,7 @@ export default class UserService {
 
     // Add given user id to follower list of user with ID in path
     addFollower = (userId, id) => {
-        fetch(`http://localhost:8080/api/users/${id}/followers`, {
+        fetch(`${BACKEND_URL}/api/users/${id}/followers`, {
             method: 'PUT',
             body: JSON.stringify(userId),
             headers: {
@@ -118,7 +121,7 @@ export default class UserService {
 
     // Remove given user id from follower list of user with ID in path
     removeFollower = (userId, id) => {
-        fetch(`http://localhost:8080/api/users/${id}/followers`, {
+        fetch(`${BACKEND_URL}/api/users/${id}/followers`, {
             method: 'DELETE',
             body: JSON.stringify(userId),
             headers: {
@@ -129,7 +132,7 @@ export default class UserService {
 
     // Add given move id to favorites list of user with ID in path
     addFavorite = (userId, movieId) => {
-        fetch(`http://localhost:8080/api/users/${userId}/favorites`, {
+        fetch(`${BACKEND_URL}/api/users/${userId}/favorites`, {
             method: 'PUT',
             body: JSON.stringify(movieId),
             headers: {
@@ -140,7 +143,7 @@ export default class UserService {
 
     // Remove given movie id from favorites list of user with ID in path
     removeFavorite = (userId, movieId) => {
-        fetch(`http://localhost:8080/api/users/${userId}/favorites`, {
+        fetch(`${BACKEND_URL}/api/users/${userId}/favorites`, {
             method: 'DELETE',
             body: JSON.stringify(movieId),
             headers: {
@@ -151,7 +154,7 @@ export default class UserService {
 
     // Find a user's following based on their id
     findFollowing = (id, fn) => {
-        fetch(`http://localhost:8080/api/users/${id}/following`, {
+        fetch(`${BACKEND_URL}/api/users/${id}/following`, {
             method: 'GET'
         })
         .then(response => response.json())
@@ -162,7 +165,7 @@ export default class UserService {
 
     // Find a user's followers based on their id
     findFollowers = (id, fn) => {
-        fetch(`http://localhost:8080/api/users/${id}/followers`, {
+        fetch(`${BACKEND_URL}/api/users/${id}/followers`, {
             method: 'GET'
         })
         .then(response => response.json())
@@ -173,7 +176,7 @@ export default class UserService {
 
     // Find a user's favorites based on their id
     findFavorites = (id, fn) => {
-        fetch(`http://localhost:8080/api/users/${id}/favorites`, {
+        fetch(`${BACKEND_URL}/api/users/${id}/favorites`, {
             method: 'GET'
         })
         .then(response => response.json())
@@ -184,7 +187,7 @@ export default class UserService {
 
     // Find a user's average rating
     findStarAverage = (id, fn) => {
-        fetch(`http://localhost:8080/api/reviews/${id}/avg`, {
+        fetch(`${BACKEND_URL}/api/reviews/${id}/avg`, {
             method: 'GET'
         })
         .then(response => response.json())
@@ -195,7 +198,7 @@ export default class UserService {
 
     // Returns the review text for the given movie ID by the user with the given ID
     findReviewForMovie = (uid, mid, fn) => {
-        fetch(`http://localhost:8080/api/reviews/${mid}/${uid}/text`, {
+        fetch(`${BACKEND_URL}/api/reviews/${mid}/${uid}/text`, {
             method: 'GET'
         })
         .then(response => response.text())
@@ -206,14 +209,14 @@ export default class UserService {
 
     // Delete the user's review for the given movie ID
     deleteReview = (uid, mid) => {
-        fetch(`http://localhost:8080/api/reviews/${mid}/${uid}`, {
+        fetch(`${BACKEND_URL}/api/reviews/${mid}/${uid}`, {
             method: 'DELETE'
         })
     }
 
     // Returns the review stars for the given movie ID by the user with the given ID
     findStarsForMovie = (uid, mid, fn) => {
-        fetch(`http://localhost:8080/api/reviews/${mid}/${uid}/stars`, {
+        fetch(`${BACKEND_URL}/api/reviews/${mid}/${uid}/stars`, {
             method: 'GET'
         })
         .then(response => response.json())
@@ -224,7 +227,7 @@ export default class UserService {
 
     // Edit the review text for the given movie ID by the user with the given ID
     editReviewForMovie = (uid, mid, text) => {
-        fetch(`http://localhost:8080/api/reviews/${mid}/${uid}/text`, {
+        fetch(`${BACKEND_URL}/api/reviews/${mid}/${uid}/text`, {
             method: 'PUT',
             body: JSON.stringify(text),
             headers: {
@@ -235,7 +238,7 @@ export default class UserService {
 
     // Edit the review stars for the given movie ID by the user with the given ID
     editStarsForMovie = (uid, mid, stars) => {
-        fetch(`http://localhost:8080/api/reviews/${mid}/${uid}/stars`, {
+        fetch(`${BACKEND_URL}/api/reviews/${mid}/${uid}/stars`, {
             method: 'PUT',
             body: JSON.stringify(stars),
             headers: {
@@ -246,7 +249,7 @@ export default class UserService {
 
     // Returns the movie ids with reviews for the user with the given ID
     findReviewedMovies = (uid, fn) => {
-        fetch(`http://localhost:8080/api/reviews/${uid}/movies`, {
+        fetch(`${BACKEND_URL}/api/reviews/${uid}/movies`, {
             method: 'GET'
         })
         .then(response => response.json())
@@ -257,7 +260,7 @@ export default class UserService {
 
     // Finds the user's groups
     findUserGroups = (uid, fn) => {
-        fetch(`http://localhost:8080/api/users/${uid}/groups`, {
+        fetch(`${BACKEND_URL}/api/users/${uid}/groups`, {
             method: 'GET'
         })
         .then(response => response.json())
@@ -268,7 +271,7 @@ export default class UserService {
 
     // Finds a group by id
     findGroupById = (id, fn) => {
-        fetch(`http://localhost:8080/api/groups/${id}`, {
+        fetch(`${BACKEND_URL}/api/groups/${id}`, {
             method: 'GET'
         })
         .then(response => response.json())
@@ -279,7 +282,7 @@ export default class UserService {
 
     // Find the member ids of a group
     findGroupMemberIds = (id, fn) => {
-        fetch(`http://localhost:8080/api/groups/${id}/members`, {
+        fetch(`${BACKEND_URL}/api/groups/${id}/members`, {
             method: 'GET'
         })
         .then(response => response.json())
@@ -290,7 +293,7 @@ export default class UserService {
 
     // Find the watch items associated with the group with the given ID
     findGroupWatchItems = (id, fn) => {
-        fetch(`http://localhost:8080/api/groups/${id}/watch`, {
+        fetch(`${BACKEND_URL}/api/groups/${id}/watch`, {
             method: 'GET'
         })
         .then(response => response.json())
@@ -301,7 +304,7 @@ export default class UserService {
 
     // Find comments associated with the given watch item ID
     findItemComments = (wid, fn) => {
-        fetch(`http://localhost:8080/api/groups/${wid}/comments`, {
+        fetch(`${BACKEND_URL}/api/groups/${wid}/comments`, {
             method: 'GET'
         })
         .then(response => response.json())
@@ -312,7 +315,7 @@ export default class UserService {
 
     // Find the list of members attending a watch item
     findAttendingMembers = (wid, fn) => {
-        fetch(`http://localhost:8080/api/groups/${wid}/attending`, {
+        fetch(`${BACKEND_URL}/api/groups/${wid}/attending`, {
             method: 'GET'
         })
         .then(response => response.json())
@@ -323,7 +326,7 @@ export default class UserService {
 
     // Find all reviews for the movie with the given ID
     findAllReviews = (mid, fn) => {
-        fetch(`http://localhost:8080/api/reviews/${mid}/movie`, {
+        fetch(`${BACKEND_URL}/api/reviews/${mid}/movie`, {
             method: 'GET'
         })
         .then(response => response.json())
@@ -334,7 +337,7 @@ export default class UserService {
 
     // Add a member to the attending list of the given watch item
     addAttendingMember = (wid, uid) => {
-        fetch(`http://localhost:8080/api/groups/${wid}/attending`, {
+        fetch(`${BACKEND_URL}/api/groups/${wid}/attending`, {
             method: 'PUT',
             body: JSON.stringify(uid),
             headers: {
@@ -345,7 +348,7 @@ export default class UserService {
 
     // Remove a member from the attending list of the given watch item
     removeAttendingMember = (wid, uid) => {
-        fetch(`http://localhost:8080/api/groups/${wid}/attending`, {
+        fetch(`${BACKEND_URL}/api/groups/${wid}/attending`, {
             method: 'DELETE',
             body: JSON.stringify(uid),
             headers: {
@@ -356,7 +359,7 @@ export default class UserService {
 
     // Add a comment for the given watch item by the given user
     addComment = (text, uid, wid, fn) => {
-        fetch(`http://localhost:8080/api/groups/${wid}/comment/${uid}`, {
+        fetch(`${BACKEND_URL}/api/groups/${wid}/comment/${uid}`, {
             method: 'PUT',
             body: JSON.stringify(text),
             headers: {
@@ -371,7 +374,7 @@ export default class UserService {
 
     // Remove a comment from the given watch item by the given user
     removeComment = (uid, wid, cid) => {
-        fetch(`http://localhost:8080/api/groups/${wid}/comment/${uid}`, {
+        fetch(`${BACKEND_URL}/api/groups/${wid}/comment/${uid}`, {
             method: 'DELETE',
             body: JSON.stringify(cid),
             headers: {
@@ -382,7 +385,7 @@ export default class UserService {
 
     // Create a new group with the given name and leader, run the callback
     createGroup = (uid, name, fn) => {
-        fetch(`http://localhost:8080/api/groups/${uid}`, {
+        fetch(`${BACKEND_URL}/api/groups/${uid}`, {
             method: 'PUT',
             body: JSON.stringify(name),
             headers: {
@@ -394,7 +397,7 @@ export default class UserService {
 
     // Add a member with the given ID to the given group - backend validates the ID and that it's a member role
     addMember = (uid, gid, fn) => {
-        fetch(`http://localhost:8080/api/groups/${gid}/add`, {
+        fetch(`${BACKEND_URL}/api/groups/${gid}/add`, {
             method: 'POST',
             body: JSON.stringify(uid),
             headers: {
@@ -409,7 +412,7 @@ export default class UserService {
 
     // Remove a member with the given ID from the given group
     removeMember = (uid, gid, fn) => {
-        fetch(`http://localhost:8080/api/groups/${gid}`, {
+        fetch(`${BACKEND_URL}/api/groups/${gid}`, {
             method: 'DELETE',
             body: JSON.stringify(uid),
             headers: {
@@ -421,7 +424,7 @@ export default class UserService {
 
     // Add a watch item to the given group
     addWatchItem = (gid, mid, date) => {
-        fetch(`http://localhost:8080/api/groups/${gid}/watch/${mid}`, {
+        fetch(`${BACKEND_URL}/api/groups/${gid}/watch/${mid}`, {
             method: 'PUT',
             body: JSON.stringify(date),
             headers: {
