@@ -360,7 +360,7 @@ export default class MovieGroupComponent extends React.Component {
                                                 {this.state.errorAdding && this.state.memberId &&
                                                     <div className="wbdv-error-text">
                                                         <div className="row">
-                                                            <h6>Error adding user with ID: {this.state.memberId}</h6>
+                                                            <h6>Error adding user with ID: {this.state.memberId[id]}</h6>
                                                         </div>
                                                         <div className="row">
                                                             <div><i>Please ensure the ID is correct, the user has role Group Member,
