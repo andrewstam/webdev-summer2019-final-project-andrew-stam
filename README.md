@@ -24,7 +24,11 @@ Database tables were created through use of JPA (Java Persistence API) and can b
 
 ## Links
 This GitHub repository hosts the frontend React code, and the Java middle tier can be found here: https://github.com/andrewstam/webdev-summer2019-final-project-java-andrew-stam
+
 A README Google Doc can be found here: https://docs.google.com/document/d/1u5cWiC8513Hb1OdUI-gJhkRk_JsMhpYZiMmHmNmuWFk/edit?usp=sharing
+
 Heroku instance (this repository, frontend code): https://andrew-stam-final-project.herokuapp.com/
+
 Heroku instance (other repository, java backend code): https://andrew-stam-final-project-java.herokuapp.com/
+
 Project requirements, outlined by our professor, can be found here: https://docs.google.com/document/d/1De-UdZ8LpJt6tftlCsYcZz-BCyh8Nljz7KYO5DY00_8/edit
