@@ -3,6 +3,7 @@
 ### Created by Andrew Stam, Summer 1 2019.
 
 Final Project for CS 4550: Web Development at Northeastern University.
+
 Heroku instance (this repository, frontend code): https://andrew-stam-final-project.herokuapp.com/
 
 For my final project, I worked alone to develop a website called Stam Movie Club. This site is meant to be used between friends to help plan what movies to watch and when. This project primarily uses React for the frontend, a Java Spring Boot server for the middle tier, and JPA to communicate with a mySQL database. The project is hosted on two different Heroku instances, both linked below in the Links section.
